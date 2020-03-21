@@ -15,10 +15,10 @@ namespace Presentacion.Views
     public partial class VerInfo_ClienteView : Form
     {
         private VerInfo_ClienteController VI_ClienteController;
-        public VerInfo_ClienteView(PersonaModel modelPersona)
+        public VerInfo_ClienteView(ClienteModel modelCliente)
         {
             InitializeComponent();
-            VI_ClienteController = new VerInfo_ClienteController(this,modelPersona);
+            VI_ClienteController = new VerInfo_ClienteController(this, modelCliente);
         }
 
 

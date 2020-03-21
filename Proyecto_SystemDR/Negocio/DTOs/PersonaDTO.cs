@@ -16,7 +16,7 @@ namespace Negocio.DTOs
         public string Nacionalidad { get; set; }
         public string Tipo { get; set; }
 
-        public virtual ICollection<TelefonoDTO> Telefono { get; set; }
+        public virtual IEnumerable<TelefonoDTO> Telefono { get; set; }
 
         public int Edad
         {

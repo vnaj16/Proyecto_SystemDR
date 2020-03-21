@@ -12,7 +12,7 @@ namespace Negocio.Business_Objects
 {
     public static class PersonaBO
     {
-        public static PersonaRepository dbPersona;
+        public static PersonaRepository dbPersona;  
 
         static PersonaBO()
         {
@@ -30,6 +30,7 @@ namespace Negocio.Business_Objects
                 MyMapper.Map(x, obj);
                 listaDTO.Add(obj);
             }
+            //Here link Persona with Telefonos
 
             return listaDTO.AsEnumerable();
 

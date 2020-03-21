@@ -41,10 +41,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Business Objects\ClienteBO.cs" />
     <Compile Include="Business Objects\PersonaBO.cs" />
+    <Compile Include="DTOs\ClienteDTO.cs" />
     <Compile Include="DTOs\PersonaDTO.cs" />
     <Compile Include="DTOs\TelefonoDTO.cs" />
     <Compile Include="Helpers\AgeCalculator.cs" />
+    <Compile Include="Helpers\Linker.cs" />
     <Compile Include="Helpers\MyMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

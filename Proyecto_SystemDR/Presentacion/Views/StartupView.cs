@@ -13,10 +13,10 @@ namespace Presentacion.Views
 {
     public partial class StartupView : Form
     {
-        private PersonaModel modelPersona;
+        private ClienteModel modelCliente;
         public StartupView()
         {
-            modelPersona = new PersonaModel();
+            modelCliente = new ClienteModel();
             InitializeComponent();
             this.MaximumSize = this.Size;
             this.MinimumSize = this.Size;
@@ -27,7 +27,7 @@ namespace Presentacion.Views
         {
             if (VI_ClienteView == null)
             {
-                VI_ClienteView = new VerInfo_ClienteView(modelPersona);
+                VI_ClienteView = new VerInfo_ClienteView(modelCliente);
                 VI_ClienteView.MdiParent = this;
                 VI_ClienteView.FormClosed += VI_ClienteView_FormClosed;
                 VI_ClienteView.Show();

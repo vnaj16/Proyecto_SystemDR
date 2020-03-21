@@ -42,5 +42,23 @@ namespace Negocio.Helpers
             destination.DNI = source.DNI;
         }
 
+        public static void Map(Cliente source, ClienteDTO destination)
+        {
+            destination.RUC = source.RUC;
+            destination.Razon_Social = source.Razon_Social;
+            destination.DNI = source.DNI;
+            destination.Direccion = source.Direccion;
+            destination.Tipo = source.Tipo;
+        }
+
+        public static void Map(ClienteDTO source, Cliente destination)
+        {
+            destination.RUC = source.RUC;
+            destination.Razon_Social = source.Razon_Social;
+            destination.DNI = source.DNI;
+            destination.Direccion = source.Direccion;
+            destination.Tipo = source.Tipo;
+        }
+
     }
 }
