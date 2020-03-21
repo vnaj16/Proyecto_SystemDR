@@ -12,17 +12,37 @@ using System.Windows.Forms;
 namespace Presentacion.Views
 {
     public partial class StartupView : Form
-    {   //https://www.youtube.com/watch?v=-4EYhC9xDHo
+    {
         private PersonaModel modelPersona;
         public StartupView()
         {
             modelPersona = new PersonaModel();
             InitializeComponent();
+            this.MaximumSize = this.Size;
+            this.MinimumSize = this.Size;
         }
 
-        private void StartupView_Load(object sender, EventArgs e)
+        VerInfo_ClienteView VI_ClienteView;
+        private void clientesToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            DGV_Persona.DataSource = modelPersona.Personas;
+            if (VI_ClienteView == null)
+            {
+                VI_ClienteView = new VerInfo_ClienteView(modelPersona);
+                VI_ClienteView.MdiParent = this;
+                VI_ClienteView.FormClosed += VI_ClienteView_FormClosed;
+                VI_ClienteView.Show();
+            }
+            else
+            {
+                VI_ClienteView.Activate();
+            }
         }
+
+        private void VI_ClienteView_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            VI_ClienteView = null;
+            //throw new NotImplementedException();
+        }
+
     }
 }

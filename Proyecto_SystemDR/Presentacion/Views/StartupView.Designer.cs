@@ -28,35 +28,69 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.DGV_Persona = new System.Windows.Forms.DataGridView();
-            ((System.ComponentModel.ISupportInitialize)(this.DGV_Persona)).BeginInit();
+            this.mainMenuStrip = new System.Windows.Forms.MenuStrip();
+            this.verInformaciónToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clientesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.registrarToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mainMenuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
-            // DGV_Persona
+            // mainMenuStrip
             // 
-            this.DGV_Persona.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.DGV_Persona.Location = new System.Drawing.Point(38, 26);
-            this.DGV_Persona.Name = "DGV_Persona";
-            this.DGV_Persona.Size = new System.Drawing.Size(702, 224);
-            this.DGV_Persona.TabIndex = 0;
+            this.mainMenuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.verInformaciónToolStripMenuItem,
+            this.registrarToolStripMenuItem});
+            this.mainMenuStrip.Location = new System.Drawing.Point(0, 0);
+            this.mainMenuStrip.Name = "mainMenuStrip";
+            this.mainMenuStrip.Size = new System.Drawing.Size(1064, 24);
+            this.mainMenuStrip.TabIndex = 2;
+            this.mainMenuStrip.Text = "menuStrip1";
+            // 
+            // verInformaciónToolStripMenuItem
+            // 
+            this.verInformaciónToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.clientesToolStripMenuItem});
+            this.verInformaciónToolStripMenuItem.Name = "verInformaciónToolStripMenuItem";
+            this.verInformaciónToolStripMenuItem.Size = new System.Drawing.Size(103, 20);
+            this.verInformaciónToolStripMenuItem.Text = "Ver Información";
+            // 
+            // clientesToolStripMenuItem
+            // 
+            this.clientesToolStripMenuItem.Name = "clientesToolStripMenuItem";
+            this.clientesToolStripMenuItem.Size = new System.Drawing.Size(116, 22);
+            this.clientesToolStripMenuItem.Text = "Clientes";
+            this.clientesToolStripMenuItem.Click += new System.EventHandler(this.clientesToolStripMenuItem_Click);
+            // 
+            // registrarToolStripMenuItem
+            // 
+            this.registrarToolStripMenuItem.Name = "registrarToolStripMenuItem";
+            this.registrarToolStripMenuItem.Size = new System.Drawing.Size(65, 20);
+            this.registrarToolStripMenuItem.Text = "Registrar";
             // 
             // StartupView
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.DGV_Persona);
+            this.BackColor = System.Drawing.SystemColors.Control;
+            this.ClientSize = new System.Drawing.Size(1064, 681);
+            this.Controls.Add(this.mainMenuStrip);
+            this.IsMdiContainer = true;
+            this.MainMenuStrip = this.mainMenuStrip;
+            this.MaximizeBox = false;
             this.Name = "StartupView";
             this.Text = "Form1";
-            this.Load += new System.EventHandler(this.StartupView_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.DGV_Persona)).EndInit();
+            this.mainMenuStrip.ResumeLayout(false);
+            this.mainMenuStrip.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.DataGridView DGV_Persona;
+        private System.Windows.Forms.ToolStripMenuItem verInformaciónToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clientesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem registrarToolStripMenuItem;
+        public System.Windows.Forms.MenuStrip mainMenuStrip;
     }
 }
 
