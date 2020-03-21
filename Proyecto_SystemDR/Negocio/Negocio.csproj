@@ -41,12 +41,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Business Objects\PersonaBO.cs" />
+    <Compile Include="DTOs\PersonaDTO.cs" />
+    <Compile Include="DTOs\TelefonoDTO.cs" />
+    <Compile Include="Helpers\AgeCalculator.cs" />
+    <Compile Include="Helpers\MyMapper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
-    <Folder Include="Business Objects\" />
-    <Folder Include="DTOs\" />
-    <Folder Include="Helpers\" />
+    <ProjectReference Include="..\Datos\Datos.csproj">
+      <Project>{db1b054e-161a-4577-9399-7521158d43ea}</Project>
+      <Name>Datos</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
