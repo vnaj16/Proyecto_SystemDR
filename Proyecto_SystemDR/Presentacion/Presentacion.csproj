@@ -57,8 +57,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Controllers\VerInfo_ClienteController.cs" />
+    <Compile Include="Controllers\VerInfo_ProveedorController.cs" />
+    <Compile Include="Helpers\Resources.cs" />
     <Compile Include="Models\ClienteModel.cs" />
     <Compile Include="Models\PersonaModel.cs" />
+    <Compile Include="Models\ProveedorModel.cs" />
     <Compile Include="Views\StartupView.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -72,6 +75,12 @@
     </Compile>
     <Compile Include="Views\VerInfo_ClienteView.Designer.cs">
       <DependentUpon>VerInfo_ClienteView.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\VerInfo_ProveedorView.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Views\VerInfo_ProveedorView.Designer.cs">
+      <DependentUpon>VerInfo_ProveedorView.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
@@ -87,6 +96,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Views\VerInfo_ClienteView.resx">
       <DependentUpon>VerInfo_ClienteView.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Views\VerInfo_ProveedorView.resx">
+      <DependentUpon>VerInfo_ProveedorView.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">

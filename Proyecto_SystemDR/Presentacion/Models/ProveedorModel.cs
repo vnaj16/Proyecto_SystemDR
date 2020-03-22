@@ -9,18 +9,18 @@ using System.Threading.Tasks;
 
 namespace Presentacion.Models
 {
-    public class ClienteModel
+    public class ProveedorModel
     {
-        public List<ClienteDTO> Clientes { get; set; }
+        public List<ProveedorDTO> Proveedores { get; set; }
 
-        public ClienteModel()
+        public ProveedorModel()
         {
             UpdateSource();
         }
 
         public void UpdateSource()
         {
-            Clientes = ClienteBO.GetAll().ToList();
+            Proveedores = ProveedorBO.GetAll().ToList();
         }
     }
 }

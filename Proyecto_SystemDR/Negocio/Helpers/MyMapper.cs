@@ -1,5 +1,6 @@
 ﻿using Datos.Models;
 using Negocio.DTOs;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -55,6 +56,26 @@ namespace Negocio.Helpers
         {
             destination.RUC = source.RUC;
             destination.Razon_Social = source.Razon_Social;
+            destination.DNI = source.DNI;
+            destination.Direccion = source.Direccion;
+            destination.Tipo = source.Tipo;
+        }
+
+        public static void Map(ProveedorDTO source, Proveedor destination)
+        {
+            destination.RUC = source.RUC;
+            destination.Razon_Social = source.Razon_Social;
+            destination.Productos = source.Productos;
+            destination.DNI = source.DNI;
+            destination.Direccion = source.Direccion;
+            destination.Tipo = source.Tipo;
+        }
+
+        public static void Map(Proveedor source, ProveedorDTO destination)
+        {
+            destination.RUC = source.RUC;
+            destination.Razon_Social = source.Razon_Social;
+            destination.Productos = source.Productos;
             destination.DNI = source.DNI;
             destination.Direccion = source.Direccion;
             destination.Tipo = source.Tipo;

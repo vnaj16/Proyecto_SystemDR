@@ -1,4 +1,5 @@
 ﻿using Negocio.DTOs;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,13 +14,21 @@ namespace Negocio.Helpers
         {
             foreach (PersonaDTO p in ListaPersona)
             {
-                p.Telefono = ListaTelefonos.Where(x => x.DNI == p.DNI);
+                p.Telefono = ListaTelefonos.Where(x => x.DNI == p.DNI).ToList();
             }
         }
 
         public static void LinkClientePersona(IEnumerable<ClienteDTO> ListaCliente, IEnumerable<PersonaDTO> ListaPersona)
         {
             foreach (ClienteDTO c in ListaCliente)
+            {
+                c.Persona = ListaPersona.Where(x => x.DNI == c.DNI).FirstOrDefault();
+            }
+        }
+
+        public static void LinkProveedorPersona(IEnumerable<ProveedorDTO> ListaProveedor, IEnumerable<PersonaDTO> ListaPersona)
+        {
+            foreach (ProveedorDTO c in ListaProveedor)
             {
                 c.Persona = ListaPersona.Where(x => x.DNI == c.DNI).FirstOrDefault();
             }

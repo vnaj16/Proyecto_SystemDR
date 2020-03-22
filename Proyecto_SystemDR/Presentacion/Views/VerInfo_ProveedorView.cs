@@ -13,16 +13,14 @@ using System.Windows.Forms;
 
 namespace Presentacion.Views
 {
-    public partial class VerInfo_ClienteView : Form
+    public partial class VerInfo_ProveedorView : Form
     {
-        private VerInfo_ClienteController VI_ClienteController;
-        public VerInfo_ClienteView(ClienteModel modelCliente)
+        private VerInfo_ProveedorController VI_ProveedorController;
+        public VerInfo_ProveedorView(ProveedorModel modelProveedor)
         {
             InitializeComponent();
             this.Size = Resources.size_verinfoView;
-            VI_ClienteController = new VerInfo_ClienteController(this, modelCliente);
+            VI_ProveedorController = new VerInfo_ProveedorController(this, modelProveedor);
         }
-
-
     }
 }

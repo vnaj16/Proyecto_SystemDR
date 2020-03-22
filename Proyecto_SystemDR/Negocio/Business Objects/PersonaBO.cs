@@ -12,16 +12,34 @@ namespace Negocio.Business_Objects
 {
     public static class PersonaBO
     {
-        public static PersonaRepository dbPersona;  
-
+        public static PersonaRepository dbPersona;
+        private static List<PersonaDTO> listaPersonaDTO;
         static PersonaBO()
         {
             dbPersona = new PersonaRepository();
+            InitializeList();
+        }
+
+        private static void InitializeList()
+        {
+            listaPersonaDTO = new List<PersonaDTO>();
+            var listaDB = dbPersona.GetAll();
+
+            foreach (Persona x in listaDB)
+            {
+                PersonaDTO obj = new PersonaDTO();
+                MyMapper.Map(x, obj);
+                listaPersonaDTO.Add(obj);
+            }
+
+            //Here link Persona with Telefonos
+            Linker.LinkPersonaTelefono(listaPersonaDTO, TelefonoBO.GetAll());//ToList para acelerar la ejecucion diferida
         }
 
         public static IEnumerable<PersonaDTO> GetAll()
         {
-            var listaDTO = new List<PersonaDTO>();
+            return listaPersonaDTO;
+            /*var listaDTO = new List<PersonaDTO>();
             var listaDB = dbPersona.GetAll();
 
             foreach (Persona x in listaDB)
@@ -32,7 +50,7 @@ namespace Negocio.Business_Objects
             }
             //Here link Persona with Telefonos
 
-            return listaDTO.AsEnumerable();
+            return listaDTO.AsEnumerable();*/
 
         }
 

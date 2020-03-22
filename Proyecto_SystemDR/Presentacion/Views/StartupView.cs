@@ -1,4 +1,5 @@
-﻿using Presentacion.Models;
+﻿using Presentacion.Helpers;
+using Presentacion.Models;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -13,11 +14,17 @@ namespace Presentacion.Views
 {
     public partial class StartupView : Form
     {
+        #region Modelos
         private ClienteModel modelCliente;
+        private ProveedorModel modelProveedor;
+        #endregion
+
         public StartupView()
         {
             modelCliente = new ClienteModel();
+            modelProveedor = new ProveedorModel();
             InitializeComponent();
+            this.Size = Resources.size_startupView;
             this.MaximumSize = this.Size;
             this.MinimumSize = this.Size;
         }
@@ -44,5 +51,26 @@ namespace Presentacion.Views
             //throw new NotImplementedException();
         }
 
+
+        VerInfo_ProveedorView VI_ProveedorView;
+        private void proveedoresToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (VI_ProveedorView == null)
+            {
+                VI_ProveedorView = new VerInfo_ProveedorView(modelProveedor);
+                VI_ProveedorView.MdiParent = this;
+                VI_ProveedorView.FormClosed += VI_ProveedorView_FormClosed;
+                VI_ProveedorView.Show();
+            }
+            else
+            {
+                VI_ProveedorView.Activate();
+            }
+        }
+
+        private void VI_ProveedorView_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            VI_ProveedorView = null;
+        }
     }
 }
