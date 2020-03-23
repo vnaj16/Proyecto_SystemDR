@@ -20,6 +20,7 @@ namespace Presentacion.Views
         {
             InitializeComponent();
             this.Size = Resources.size_verinfoView;
+            this.LayoutMdi(MdiLayout.ArrangeIcons);
             VI_ProveedorController = new VerInfo_ProveedorController(this, modelProveedor);
         }
     }

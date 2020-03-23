@@ -23,7 +23,9 @@ namespace Presentacion.Views
         {
             modelCliente = new ClienteModel();
             modelProveedor = new ProveedorModel();
+            this.LayoutMdi(MdiLayout.TileHorizontal);
             InitializeComponent();
+
             this.Size = Resources.size_startupView;
             this.MaximumSize = this.Size;
             this.MinimumSize = this.Size;
