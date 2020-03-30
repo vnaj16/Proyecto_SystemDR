@@ -15,6 +15,12 @@ namespace Negocio.Helpers
             foreach (PersonaDTO p in ListaPersona)
             {
                 p.Telefono = ListaTelefonos.Where(x => x.DNI == p.DNI).ToList();
+                
+                /*foreach (var t in p.Telefono)
+                {
+                    t.Persona = p;
+                }*/
+
             }
         }
 

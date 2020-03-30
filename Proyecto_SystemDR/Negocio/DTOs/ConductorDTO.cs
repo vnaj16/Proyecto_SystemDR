@@ -18,6 +18,6 @@ namespace Negocio.DTOs
 
         public virtual PersonaDTO Persona { get; set; }
 
-        public virtual ICollection<HistorialDTO> Historial { get; set; }
+        public virtual IEnumerable<HistorialDTO> Historial { get; set; }
     }
 }

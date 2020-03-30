@@ -13,6 +13,6 @@ namespace Negocio.DTOs
         public Nullable<System.DateTime> Y_Fabricacion { get; set; }
         public string Serie_Chasis { get; set; }
 
-        public virtual ICollection<HistorialDTO> Historial { get; set; }
+        public virtual HashSet<HistorialDTO> Historial { get; set; }
     }
 }
