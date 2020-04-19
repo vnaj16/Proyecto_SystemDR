@@ -12,5 +12,10 @@ namespace Negocio.DTOs
         public string DNI { get; set; }
 
         public virtual PersonaDTO Persona { get; set; }
+
+        public override string ToString()
+        {
+            return Numero;
+        }
     }
 }

@@ -10,16 +10,15 @@ namespace Presentacion.Helpers
 {
     public static class Converter
     {
-        public static void Convert(ObservableCollection<ClienteDTO> destination, List<ClienteDTO> source)
+        /*public static void Convert(ObservableCollection<ClienteDTO> destination, IEnumerable<ClienteDTO> source)
         {
             if (destination != null && source != null)
             {
-                foreach (ClienteDTO c in source)
+                destination = new ObservableCollection<ClienteDTO>(source);
+                /*foreach (ClienteDTO c in source)
                 {
                     destination.Add(c);
-                }
+                }*/
             }
-        }
-
-    }
 }
+

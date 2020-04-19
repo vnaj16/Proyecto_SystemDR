@@ -24,8 +24,7 @@ namespace Presentacion.Models
         public void UpdateSource()
         {//CREAR UN MAPEADOR DE LIST<T> A OBSERVABLECOLLECTION<T> PARA TRABAJAR EN LA CAPA PRESENTACION CON ESA ESTRUCTURA POR CUESTIONES DE BINDING
          //Guiarse de Test_WPF_MVVM
-            Clientes = new ObservableCollection<ClienteDTO>();
-            Converter.Convert(Clientes, ClienteBO.GetAll().ToList());
+            Clientes = new ObservableCollection<ClienteDTO>(ClienteBO.GetAll());
         }
     }
 }

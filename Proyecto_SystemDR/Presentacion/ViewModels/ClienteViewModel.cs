@@ -21,7 +21,7 @@ namespace Presentacion.ViewModels
 
         private ClienteModel Modelo_Cliente = new ClienteModel();
 
-
+        #region VARIABLES
         private ObservableCollection<ClienteDTO> lista_clientes = new ObservableCollection<ClienteDTO>();
 
         public ObservableCollection<ClienteDTO> Lista_Clientes
@@ -58,6 +58,30 @@ namespace Presentacion.ViewModels
             }
         }
 
+        private ObservableCollection<ClienteDTO> lista_cliente_filtrada = new ObservableCollection<ClienteDTO>();
+
+        public ObservableCollection<ClienteDTO> Lista_Clientes_Filtrada
+        {
+            get
+            {
+                return lista_cliente_filtrada;
+            }
+
+            set
+            {
+                lista_cliente_filtrada = value;
+
+                if (value != null && value.Count > 0)//SI LA LISTA NO ESTA VACIA
+                {
+                    Current_Cliente = value[0];
+                }
+
+                RaisePropertyChanged("Lista_Clientes_Filtrada");
+            }
+        }
+
+        #endregion 
+
         #region DEFINICION DE LOS COMANDOS
         #endregion
 
@@ -72,6 +96,21 @@ namespace Presentacion.ViewModels
                 MessageBox.Show("Es null");*/
         }
         #endregion
+
+        //0: RUC, 1: DNI
+        //FALTA IMPLEMENTAR LOS DEMAS FILTROS, ES SOLO UN COPIA Y PEGA, PARA ESTE, PROVEEDOR, CHOFERES, ETC
+        public void GetByFilter(string texto, int filter)
+        {
+            switch (filter)
+            {
+                case 0:
+                    Lista_Clientes_Filtrada = new ObservableCollection<ClienteDTO>(Lista_Clientes.Where(x => x.RUC.StartsWith(texto)));
+                    break;
+                case 1:
+                    Lista_Clientes_Filtrada = new ObservableCollection<ClienteDTO>(Lista_Clientes.Where(x => x.DNI.StartsWith(texto)));
+                    break;
+            }
+        }
 
         private bool CanShowInfo
         {
