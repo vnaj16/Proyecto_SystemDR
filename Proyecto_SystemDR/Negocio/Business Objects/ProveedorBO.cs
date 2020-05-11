@@ -33,9 +33,6 @@ namespace Negocio.Business_Objects
                 MyMapper.Map(x, obj);
                 listaProveedorDTO.Add(obj);
             }
-
-            //Here link Cliente with Persona
-            Linker.LinkProveedorPersona(listaProveedorDTO, PersonaBO.GetAll().Where(x => x.Tipo == "pro").ToList());//ToList para acelerar la ejecucion diferida
         }
 
         public static IEnumerable<ProveedorDTO> GetAll()

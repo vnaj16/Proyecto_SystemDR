@@ -26,5 +26,10 @@ namespace Presentacion.Models
          //Guiarse de Test_WPF_MVVM
             Clientes = new ObservableCollection<ClienteDTO>(ClienteBO.GetAll());
         }
+
+        public bool Register(ClienteDTO obj, out int state_code)
+        {
+            return ClienteBO.Register(obj, out state_code);
+        }
     }
 }

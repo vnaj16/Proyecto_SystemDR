@@ -95,7 +95,7 @@ namespace Presentacion.ViewModels
             else
                 MessageBox.Show("Es null");*/
         }
-        #endregion
+
 
         //0: RUC, 1: DNI
         //FALTA IMPLEMENTAR LOS DEMAS FILTROS, ES SOLO UN COPIA Y PEGA, PARA ESTE, PROVEEDOR, CHOFERES, ETC
@@ -112,6 +112,15 @@ namespace Presentacion.ViewModels
             }
         }
 
+        public bool Register(string RUC, out int state_code)
+        {
+            //Validaciones
+            ClienteDTO obj = new ClienteDTO();
+            obj.RUC = RUC;
+
+            return Modelo_Cliente.Register(obj, out state_code);
+        }
+        #endregion
         private bool CanShowInfo
         {
             get { return Current_Cliente != null; }

@@ -13,7 +13,7 @@ namespace Datos.Repositories
         {
             using (TransporteDRContext db = new TransporteDRContext())
             {
-                return db.Proveedor.ToList();
+                return db.Proveedor.Include("Persona.Telefono").ToList();
             }
         }
     }

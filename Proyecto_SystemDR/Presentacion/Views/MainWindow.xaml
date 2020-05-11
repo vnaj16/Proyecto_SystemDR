@@ -5,8 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Presentacion.Views"
         mc:Ignorable="d"
-        Title="Transportes DR" Height="720" Width="1080"
-        xmlns:vm="clr-namespace:Presentacion.ViewModels">
+        Title="Transportes D&amp;R" Height="720" Width="1080"
+        xmlns:vm="clr-namespace:Presentacion.ViewModels" WindowStartupLocation="CenterScreen" WindowStyle="SingleBorderWindow" KeyUp="Window_KeyUp">
 
     <Window.Resources>
         <vm:ClienteViewModel x:Key="ClienteVM"/>
@@ -78,31 +78,47 @@
                             <Grid Margin="0,10">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="30" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
-                                <TextBlock Text="DNI: " FontWeight="Bold" />
-                                <TextBlock Text="{Binding DNI}" Grid.Column="1" />
-                                <TextBlock Text="Nombre: " FontWeight="Bold" Grid.Row="1" />
+
+                                <TextBlock Text="DNI: " FontWeight="Bold" Grid.Column="0" Grid.Row="0"/>
+                                <TextBlock Text="{Binding DNI}" Grid.Column="1" Grid.Row="0" />
+                                
+                                <TextBlock Text="Nombre: " FontWeight="Bold" Grid.Column="0" Grid.Row="1" />
                                 <TextBlock Text="{Binding Persona.Nombre}" Grid.Column="1" Grid.Row="1" />
-                                <TextBlock Text="Cumpleaños: " FontWeight="Bold" Grid.Row="2" />
-                                <TextBlock Text="{Binding Persona.Fecha_Nac, StringFormat=d}" Grid.Column="1" Grid.Row="2" />
+
+                                <TextBlock Text="Apellidos: " FontWeight="Bold" Grid.Column="0" Grid.Row="2" />
+                                <TextBlock Text="{Binding Persona.Apellido}" Grid.Column="1" Grid.Row="2" />
+
+                                <TextBlock Text="Nacionalidad: " FontWeight="Bold" Grid.Column="3" Grid.Row="0"  />
+                                <TextBlock Text="{Binding Persona.Nacionalidad}"  Grid.Column="4" Grid.Row="0" />
+
+                                <TextBlock Text="Edad: " FontWeight="Bold" Grid.Column="3" Grid.Row="1" />
+                                <TextBlock Text="{Binding Persona.Edad}" Grid.Column="4" Grid.Row="1" />
+                                
+                                <TextBlock Text="Cumpleaños: " FontWeight="Bold" Grid.Column="3" Grid.Row="2" />
+                                <TextBlock Text="{Binding Persona.Fecha_Nac, StringFormat=d}" Grid.Column="4" Grid.Row="2" />
                             </Grid>
                         </DockPanel>
                     </DataTemplate>
                 </DataGrid.RowDetailsTemplate>
             </DataGrid>
             <Label Content="{Binding Current_Cliente.Persona.Nombre}" HorizontalAlignment="Left" Margin="79,535,0,0" VerticalAlignment="Top"/>
-            <TextBlock HorizontalAlignment="Left" Margin="444,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlock_TitleGrid_Style}" Text="Lista de Clientes" VerticalAlignment="Top"/>
+            <TextBlock HorizontalAlignment="Left" Margin="423,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlock_TitleGrid_Style}" Text="Lista de Clientes" VerticalAlignment="Top"/>
             <TextBox HorizontalAlignment="Left" Name="TextBox_Buscador_ClienteGV" Height="23"  Margin="503,66,0,0" TextChanged="TextBox_Buscador_ClienteGV_TextChanged" TextWrapping="Wrap" VerticalAlignment="Top" Width="181"/>
             <ComboBox HorizontalAlignment="Left" Name="ComboBox_SearchFilter_ClienteGV" Margin="711,66,0,0" VerticalAlignment="Top" Width="91" SelectedIndex="0">
                 <ComboBoxItem>RUC</ComboBoxItem>
                 <ComboBoxItem>DNI</ComboBoxItem>
             </ComboBox>
+            <Button x:Name="Button_AgregarCliente_ClienteGV" Content="Agregar Cliente" HorizontalAlignment="Left" Margin="810,417,0,0" VerticalAlignment="Top" Width="100" Height="24" Click="Button_AgregarCliente_ClienteGV_Click"/>
 
         </Grid>
 
@@ -136,19 +152,41 @@
                             <Grid Margin="0,10">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto" />
-                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="30" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="30" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                     <RowDefinition Height="Auto" />
                                 </Grid.RowDefinitions>
-                                <TextBlock Text="DNI: " FontWeight="Bold" />
-                                <TextBlock Text="{Binding DNI}" Grid.Column="1" />
-                                <TextBlock Text="Nombre: " FontWeight="Bold" Grid.Row="1" />
+
+                                <TextBlock Text="DNI: " FontWeight="Bold" Grid.Column="0" Grid.Row="0"/>
+                                <TextBlock Text="{Binding DNI}" Grid.Column="1" Grid.Row="0" />
+
+                                <TextBlock Text="Nombre: " FontWeight="Bold" Grid.Column="0" Grid.Row="1" />
                                 <TextBlock Text="{Binding Persona.Nombre}" Grid.Column="1" Grid.Row="1" />
-                                <TextBlock Text="Cumpleaños: " FontWeight="Bold" Grid.Row="2" />
-                                <TextBlock Text="{Binding Persona.Fecha_Nac, StringFormat=d}" Grid.Column="1" Grid.Row="2" />
+
+                                <TextBlock Text="Apellidos: " FontWeight="Bold" Grid.Column="0" Grid.Row="2" />
+                                <TextBlock Text="{Binding Persona.Apellido}" Grid.Column="1" Grid.Row="2" />
+
+                                <TextBlock Text="Nacionalidad: " FontWeight="Bold" Grid.Column="3" Grid.Row="0"  />
+                                <TextBlock Text="{Binding Persona.Nacionalidad}"  Grid.Column="4" Grid.Row="0" />
+
+                                <TextBlock Text="Edad: " FontWeight="Bold" Grid.Column="3" Grid.Row="1" />
+                                <TextBlock Text="{Binding Persona.Edad}" Grid.Column="4" Grid.Row="1" />
+
+                                <TextBlock Text="Cumpleaños: " FontWeight="Bold" Grid.Column="3" Grid.Row="2" />
+                                <TextBlock Text="{Binding Persona.Fecha_Nac, StringFormat=d}" Grid.Column="4" Grid.Row="2" />
+
+                                <TextBlock Text="Productos: " FontWeight="Bold" Grid.Column="6" Grid.Row="0"/>
+                                <TextBlock Text="{Binding Productos}" Grid.Column="7" Grid.Row="0" />
+
                             </Grid>
                         </DockPanel>
                     </DataTemplate>

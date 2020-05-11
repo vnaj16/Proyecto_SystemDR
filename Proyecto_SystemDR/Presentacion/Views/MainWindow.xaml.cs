@@ -81,5 +81,21 @@ namespace Presentacion.Views
                 DG_Cliente.ItemsSource = c.Lista_Clientes_Filtrada;
             }
         }
+
+        #region Views Emergentes
+        private void Button_AgregarCliente_ClienteGV_Click(object sender, RoutedEventArgs e)
+        {
+            RegistrarClienteView registrarClienteView = new RegistrarClienteView(c);
+            registrarClienteView.ShowDialog();
+        }
+        #endregion
+
+        private void Window_KeyUp(object sender, KeyEventArgs e)
+        {
+            if(e.Key == Key.F5)
+            {
+                MessageBox.Show("Actualizando...");
+            }
+        }
     }
 }

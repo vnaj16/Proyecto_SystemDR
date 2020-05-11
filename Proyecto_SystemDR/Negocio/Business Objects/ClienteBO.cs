@@ -33,9 +33,6 @@ namespace Negocio.Business_Objects
                 MyMapper.Map(x, obj);
                 listaClienteDTO.Add(obj);
             }
-
-            //Here link Cliente with Persona
-            Linker.LinkClientePersona(listaClienteDTO, PersonaBO.GetAll().Where(x => x.Tipo == "cli").ToList());//ToList para acelerar la ejecucion diferida
         }
         public static IEnumerable<ClienteDTO> GetAll()
         {
@@ -57,5 +54,11 @@ namespace Negocio.Business_Objects
             return listaDTO.AsEnumerable();*/
         }
 
+        public static bool Register(ClienteDTO obj, out int state_code)
+        {
+            Cliente obj_db = new Cliente();
+            MyMapper.Map(obj, obj_db);
+            return dbCliente.Register(obj_db, out state_code);
+        }
     }
 }
