@@ -8,6 +8,11 @@ namespace Negocio.DTOs
 {
     public class ConductorDTO
     {
+        public ConductorDTO()
+        {
+            ImageUrl = "https://cdn.pixabay.com/photo/2018/05/11/23/45/highway-3392100__340.jpg";
+        }
+
         public string DNI { get; set; }
         public Nullable<System.DateTime> Fecha_Inicio { get; set; }
         public string Brevete { get; set; }
@@ -15,6 +20,8 @@ namespace Negocio.DTOs
         public string Grado_Instruccion { get; set; }
         public string Direccion { get; set; }
         public string Personalidad { get; set; }
+
+        public string ImageUrl;
 
         public virtual PersonaDTO Persona { get; set; }
 

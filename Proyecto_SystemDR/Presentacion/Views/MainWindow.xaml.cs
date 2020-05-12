@@ -20,7 +20,7 @@ namespace Presentacion.Views
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
-    /// </summary>
+    /// </summary>ClienteView
     public partial class MainWindow : Window
     {
         private ClienteViewModel c;
@@ -28,6 +28,7 @@ namespace Presentacion.Views
         private ViewManager viewManager;
         public MainWindow()
         {
+
             c = new ClienteViewModel();
             p = new ProveedorViewModel();
 
@@ -53,6 +54,11 @@ namespace Presentacion.Views
         private void VI_Proveedor_Click(object sender, RoutedEventArgs e)
         {
             viewManager.Change_View(ProveedoresGridView);
+        }
+
+        private void VI_Conductor_Click(object sender, RoutedEventArgs e)
+        {
+            viewManager.Change_View(ConductoresGridView);
         }
 
         ///////BUSCADORES

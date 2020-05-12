@@ -69,6 +69,32 @@ namespace Negocio.Helpers
                  Map(source.Persona, destination.Persona);
              }
         }
+
+        public static void Map(Conductor source, ConductorDTO destination)
+        {
+            destination.DNI = source.DNI;
+            destination.Fecha_Inicio = source.Fecha_Inicio;
+            destination.Brevete = source.Brevete;
+            destination.Lugar_Nac = source.Lugar_Nac;
+            destination.Grado_Instruccion = source.Grado_Instruccion;
+            destination.Direccion = source.Direccion;
+            destination.Personalidad = source.Personalidad;
+
+            if (source.Persona != null)
+            {
+                destination.Persona = new PersonaDTO();
+                Map(source.Persona, destination.Persona);
+            }
+        }
+
+        public static void Map(Unidad_Vehicular source, Unidad_VehicularDTO destination)
+        {
+            destination.Placa = source.Placa;
+            destination.Marca = source.Marca;
+            destination.Y_Fabricacion = source.Y_Fabricacion;
+            destination.Serie_Chasis = source.Serie_Chasis;
+        }
+
         #endregion
 
 
@@ -129,6 +155,31 @@ namespace Negocio.Helpers
                 destination.Persona = new Persona();
                 Map(source.Persona, destination.Persona);
             }
+        }
+
+        public static void Map(ConductorDTO source, Conductor destination)
+        {
+            destination.DNI = source.DNI;
+            destination.Fecha_Inicio = source.Fecha_Inicio;
+            destination.Brevete = source.Brevete;
+            destination.Lugar_Nac = source.Lugar_Nac;
+            destination.Grado_Instruccion = source.Grado_Instruccion;
+            destination.Direccion = source.Direccion;
+            destination.Personalidad = source.Personalidad;
+
+            if (source.Persona != null)
+            {
+                destination.Persona = new Persona();
+                Map(source.Persona, destination.Persona);
+            }
+        }
+
+        public static void Map(Unidad_VehicularDTO source, Unidad_Vehicular destination)
+        {
+            destination.Placa = source.Placa;
+            destination.Marca = source.Marca;
+            destination.Y_Fabricacion = source.Y_Fabricacion;
+            destination.Serie_Chasis = source.Serie_Chasis;
         }
         #endregion
 

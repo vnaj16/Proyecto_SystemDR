@@ -42,9 +42,11 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Business Objects\ClienteBO.cs" />
+    <Compile Include="Business Objects\ConductorBO.cs" />
     <Compile Include="Business Objects\PersonaBO.cs" />
     <Compile Include="Business Objects\ProveedorBO.cs" />
     <Compile Include="Business Objects\TelefonoBO.cs" />
+    <Compile Include="Business Objects\UnidadVehicularBO.cs" />
     <Compile Include="DTOs\ClienteDTO.cs" />
     <Compile Include="DTOs\ConductorDTO.cs" />
     <Compile Include="DTOs\HistorialDTO.cs" />

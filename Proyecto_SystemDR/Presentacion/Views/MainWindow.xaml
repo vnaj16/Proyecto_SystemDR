@@ -11,6 +11,8 @@
     <Window.Resources>
         <vm:ClienteViewModel x:Key="ClienteVM"/>
         <vm:ProveedorViewModel x:Key="ProveedorVM"/>
+        <vm:ConductorViewModel x:Key="ConductorVM"/>
+        <vm:UnidadVehicularViewModel x:Key="UnidadVehicularVM"/>
         <Style TargetType="TextBlock" x:Key="TextBlock_MenuItem2_Style">
             <Setter Property="Foreground" Value="Black" />
             <Setter Property="FontSize" Value="14" />
@@ -24,7 +26,7 @@
             <Setter Property="FontSize" Value="25" />
         </Style>
     </Window.Resources>
-    <Grid Name="ClienteView">
+    <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="25"/>
             <RowDefinition Height="*"/>
@@ -46,10 +48,15 @@
                         <TextBlock Style="{StaticResource TextBlock_MenuItem2_Style}">Proveedores</TextBlock>
                     </MenuItem.Header>
                 </MenuItem>
+                <MenuItem Click="VI_Conductor_Click">
+                    <MenuItem.Header>
+                        <TextBlock Style="{StaticResource TextBlock_MenuItem2_Style}">Conductores</TextBlock>
+                    </MenuItem.Header>
+                </MenuItem>
             </MenuItem>
         </Menu>
 
-        <Grid DataContext="{StaticResource ClienteVM}" Grid.Row="1" Name="ClientesGridView" Visibility="Visible">
+        <Grid DataContext="{StaticResource ClienteVM}" Grid.Row="1" Name="ClientesGridView" Visibility="Hidden">
             <Button Content="Button" HorizontalAlignment="Left" Click="Button_Click" Margin="179,434,0,0" VerticalAlignment="Top" Width="75"/>
             <DataGrid Name="DG_Cliente"  ItemsSource="{Binding Lista_Clientes}" SelectedItem="{Binding Current_Cliente}" HorizontalAlignment="Left" 
                   Height="267" Margin="79,104,0,0" VerticalAlignment="Top" Width="920" AutoGenerateColumns="False">
@@ -91,7 +98,7 @@
 
                                 <TextBlock Text="DNI: " FontWeight="Bold" Grid.Column="0" Grid.Row="0"/>
                                 <TextBlock Text="{Binding DNI}" Grid.Column="1" Grid.Row="0" />
-                                
+
                                 <TextBlock Text="Nombre: " FontWeight="Bold" Grid.Column="0" Grid.Row="1" />
                                 <TextBlock Text="{Binding Persona.Nombre}" Grid.Column="1" Grid.Row="1" />
 
@@ -103,7 +110,7 @@
 
                                 <TextBlock Text="Edad: " FontWeight="Bold" Grid.Column="3" Grid.Row="1" />
                                 <TextBlock Text="{Binding Persona.Edad}" Grid.Column="4" Grid.Row="1" />
-                                
+
                                 <TextBlock Text="Cumpleaños: " FontWeight="Bold" Grid.Column="3" Grid.Row="2" />
                                 <TextBlock Text="{Binding Persona.Fecha_Nac, StringFormat=d}" Grid.Column="4" Grid.Row="2" />
                             </Grid>
@@ -201,6 +208,88 @@
                 <ComboBoxItem>RUC</ComboBoxItem>
                 <ComboBoxItem>DNI</ComboBoxItem>
             </ComboBox>
+        </Grid>
+
+        <Grid DataContext="{StaticResource ConductorVM}" Grid.Row="1" Name="ConductoresGridView" Visibility="Hidden">
+            <DataGrid Name="DG_Conductor"  ItemsSource="{Binding Lista_Conductores}" SelectedItem="{Binding Current_Conductor}" HorizontalAlignment="Left" 
+                  Height="267" Margin="89,104,0,0" VerticalAlignment="Top" Width="Auto" AutoGenerateColumns="False">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="DNI" Binding="{Binding DNI}" Width="90"/>
+                    <DataGridTextColumn Header="Nombre" Binding="{Binding Persona.Nombre}" Width="120"/>
+                    <DataGridTextColumn Header="Apellido" Binding="{Binding Persona.Apellido}" Width="150"/>
+                    <DataGridTextColumn Header="Fecha de Inicio" Binding="{Binding Fecha_Inicio, StringFormat=d}" Width="150"/>
+                    <DataGridTextColumn Header="Brevete" Binding="{Binding Brevete}" Width="70"/>
+                    <DataGridTextColumn Header="Dirección" Binding="{Binding Direccion}" Width="200"/>
+                    <DataGridTemplateColumn Header="Teléfonos" Width="120">
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <TextBlock Text="{Binding Path=Persona.Telefono[0]}"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                        <DataGridTemplateColumn.CellEditingTemplate>
+                            <DataTemplate>
+                                <ComboBox ItemsSource="{Binding Persona.Telefono}" SelectedIndex="0"/>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellEditingTemplate>
+                    </DataGridTemplateColumn>
+                </DataGrid.Columns>
+                <DataGrid.RowDetailsTemplate>
+                    <DataTemplate>
+                        <DockPanel Background="GhostWhite">
+                            <Image DockPanel.Dock="Left" Source="{Binding ImageUrl}" Height="64" Width="64" Margin="10" />
+                            <Grid Margin="0,10">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="30" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="30" />
+                                    <ColumnDefinition Width="Auto" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Text="DNI: " FontWeight="Bold" Grid.Column="0" Grid.Row="0"/>
+                                <TextBlock Text="{Binding DNI}" Grid.Column="1" Grid.Row="0" />
+
+                                <TextBlock Text="Fecha de Nacimiento: " FontWeight="Bold" Grid.Column="0" Grid.Row="1" />
+                                <TextBlock Text="{Binding Persona.Fecha_Nac, StringFormat=d}" Grid.Column="1" Grid.Row="1" />
+
+                                <TextBlock Text="Edad: " FontWeight="Bold" Grid.Column="0" Grid.Row="2" />
+                                <TextBlock Text="{Binding Persona.Edad}" Grid.Column="1" Grid.Row="2" />
+
+                                <TextBlock Text="Nacionalidad: " FontWeight="Bold" Grid.Column="3" Grid.Row="0"  />
+                                <TextBlock Text="{Binding Persona.Nacionalidad}"  Grid.Column="4" Grid.Row="0" />
+
+                                <TextBlock Text="Lugar de Nacimiento: " FontWeight="Bold" Grid.Column="3" Grid.Row="1" />
+                                <TextBlock Text="{Binding Lugar_Nac}" Grid.Column="4" Grid.Row="1" />
+
+                                <TextBlock Text="Grado Instrucción: " FontWeight="Bold" Grid.Column="3" Grid.Row="2" />
+                                <TextBlock Text="{Binding Grado_Instruccion}" Grid.Column="4" Grid.Row="2" />
+
+                                <TextBlock Text="Personalidad: " FontWeight="Bold" Grid.Column="6" Grid.Row="0" />
+                                <TextBlock Text="{Binding Personalidad}" Grid.Column="7" Grid.Row="0" />
+                            </Grid>
+                        </DockPanel>
+                    </DataTemplate>
+                </DataGrid.RowDetailsTemplate>
+            </DataGrid>
+            <TextBlock HorizontalAlignment="Left" Margin="423,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlock_TitleGrid_Style}" Text="Lista de Conductores" VerticalAlignment="Top"/>
+        </Grid>
+
+        <Grid DataContext="{StaticResource UnidadVehicularVM}" Grid.Row="1" Name="UnidadesVehicularesGridView" Visibility="Visible">
+            <TextBlock HorizontalAlignment="Left" Margin="363,10,0,0" TextWrapping="Wrap" Style="{StaticResource TextBlock_TitleGrid_Style}" Text="Lista de Unidades Vehiculares" VerticalAlignment="Top"/>
+            <ListBox HorizontalAlignment="Left" ItemsSource="{Binding Lista_UnidadesV}" SelectedItem="{Binding Current_UnidadVehicular}" Height="302" Margin="64,74,0,0" VerticalAlignment="Top" Width="160"/>
+            <Label Content="Placa - Marca" HorizontalAlignment="Left" Margin="88,44,0,0" VerticalAlignment="Top" FontSize="15"/>
+            <TextBlock HorizontalAlignment="Left" Margin="636,149,0,0" TextWrapping="Wrap" Text="{Binding Current_UnidadVehicular.Y_Fabricacion, StringFormat=d}" VerticalAlignment="Top"/>
+            <TextBlock HorizontalAlignment="Left" Margin="636,224,0,0" TextWrapping="Wrap" Text="{Binding Current_UnidadVehicular.Serie_Chasis}" VerticalAlignment="Top"/>
+            <Image HorizontalAlignment="Left" Source="https://cdn.pixabay.com/photo/2018/05/11/23/45/highway-3392100__340.jpg" Height="128" Stretch="Uniform" Width="Auto" Margin="802,74,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.209,0.434"/>
+
         </Grid>
 
     </Grid>

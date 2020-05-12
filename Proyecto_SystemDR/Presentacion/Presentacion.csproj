@@ -69,7 +69,11 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Helpers\ViewManager.cs" />
+    <Compile Include="Models\ConductorModel.cs" />
+    <Compile Include="Models\UnidadVehicularModel.cs" />
+    <Compile Include="ViewModels\ConductorViewModel.cs" />
     <Compile Include="ViewModels\ProveedorViewModel.cs" />
+    <Compile Include="ViewModels\UnidadVehicularViewModel.cs" />
     <Compile Include="Views\RegistrarClienteView.xaml.cs">
       <DependentUpon>RegistrarClienteView.xaml</DependentUpon>
     </Compile>

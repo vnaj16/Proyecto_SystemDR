@@ -14,5 +14,10 @@ namespace Negocio.DTOs
         public string Serie_Chasis { get; set; }
 
         public virtual HashSet<HistorialDTO> Historial { get; set; }
+
+        public override string ToString()
+        {
+            return Placa + " - " + Marca;
+        }
     }
 }
