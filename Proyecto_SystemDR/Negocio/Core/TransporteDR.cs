@@ -11,6 +11,7 @@ namespace Negocio.Core
     public static class TransporteDR
     {
         private static ClienteBO clienteBO;
+        private static TelefonoBO telefonoBO;
 
 
         static TransporteDR()
@@ -21,6 +22,7 @@ namespace Negocio.Core
         public static void Initialize()
         {
             clienteBO = new ClienteBO(new ClienteRepository());
+            telefonoBO = new TelefonoBO(new TelefonoRepository());
         }
 
         public static ClienteBO ClienteBO
@@ -35,5 +37,20 @@ namespace Negocio.Core
                 return clienteBO;
             }
         }
+
+        public static TelefonoBO TelefonoBO
+        {
+            get
+            {
+                if (telefonoBO == null)
+                {
+                    telefonoBO = new TelefonoBO(new TelefonoRepository());
+                }
+
+                return telefonoBO;
+            }
+        }
+
+
     }
 }

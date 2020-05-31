@@ -10,7 +10,7 @@ namespace Datos.Interfaces
     {
         bool Insert(T obj);
         bool Update(T obj);
-        bool Delete(T obj);
+        bool Delete(string ID);
         IEnumerable<T> GetAll();
     }
 }
