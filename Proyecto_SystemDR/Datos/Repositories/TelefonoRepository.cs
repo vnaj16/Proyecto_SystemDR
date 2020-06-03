@@ -12,7 +12,36 @@ namespace Datos.Repositories
     {
         public bool Delete(string Numero)
         {
-            throw new NotImplementedException();
+            using (dbTransporteDRContext db = new dbTransporteDRContext())
+            {
+                try
+                {
+                    if (!String.IsNullOrWhiteSpace(Numero))
+                    {
+                        Telefono obj = db.Telefono.FirstOrDefault(x => x.Numero == Numero);
+                        if (!(obj is null))
+                        {
+                            db.Entry(obj).State = System.Data.Entity.EntityState.Deleted;
+
+                            db.SaveChanges();
+
+                            return true;
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return false;
+                }
+            }
         }
 
         public IEnumerable<Telefono> GetAll()
@@ -61,9 +90,43 @@ namespace Datos.Repositories
             }
         }
 
+        /// <summary>
+        /// 1. Verifico que vengan los numeros y el DNI del owner
+        /// 2. Elimino el numero anterior
+        /// 3. Agrego el numero nuevo
+        /// 4. Guardo
+        /// </summary>
+        /// <param name="obj"></param>
+        /// <returns></returns>
         public bool Update(Telefono obj)
         {
-            throw new NotImplementedException();
+            using (dbTransporteDRContext db = new dbTransporteDRContext())
+            {
+                try
+                {
+                    if (!String.IsNullOrWhiteSpace(obj.Numero) && !String.IsNullOrWhiteSpace(obj.DNI) && !String.IsNullOrWhiteSpace(obj.NumeroAntiguo))
+                    {
+                        //Telefono tlfAntiguo = db.Telefono.FirstOrDefault(x => x.Numero == obj.NumeroAntiguo);
+                        if (Delete(obj.NumeroAntiguo))
+                        {
+                            return Insert(obj);
+                        }
+                        else
+                        {
+                            return false;
+                        }
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return false;
+                }
+            }
+                        
         }
     }
 }

@@ -61,6 +61,7 @@
     <Compile Include="Telefono.cs">
       <DependentUpon>TransporteDRModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="TelefonoExt.cs" />
     <Compile Include="TransporteDRModel.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

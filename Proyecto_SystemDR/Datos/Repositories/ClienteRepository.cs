@@ -40,15 +40,14 @@ namespace Datos.Repositories
 
                     if (persona_db != null)
                     {
+                        var telefonos_db = persona_db.Telefono;
+
+                        if (telefonos_db != null)
+                        {
+                            db.Telefono.RemoveRange(telefonos_db);
+                        }
 
                         db.Entry(persona_db).State = System.Data.Entity.EntityState.Deleted;
-
-                        if(persona_db.Telefono != null)
-                        {
-                            var x = persona_db.Telefono;
-
-                            db.Telefono.RemoveRange(x);
-                        }
                     }
 
                     db.Entry(cliente_db).State = System.Data.Entity.EntityState.Deleted;
@@ -103,7 +102,7 @@ namespace Datos.Repositories
                                 }
                                 else
                                 {
-                                    obj.Persona = new Persona() { DNI = obj.DNI };
+                                    obj.Persona = new Persona() { DNI = obj.DNI, Tipo="cli"};
                                     db.Persona.Add(obj.Persona);
                                 }
 

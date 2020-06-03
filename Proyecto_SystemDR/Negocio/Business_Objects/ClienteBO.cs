@@ -186,7 +186,7 @@ namespace Negocio.Business_Objects
             {
                 if (listaClientes.Exists(x => x.RUC == RUC))
                 {
-                    listaClientes.RemoveAll(x => x.RUC == RUC);
+                    listaClientes.Remove(listaClientes.FirstOrDefault(x => x.RUC == RUC));
 
                     return clienteRepository.Delete(RUC);
                 }

@@ -18,6 +18,7 @@ namespace Entidades
         public dbTransporteDRContext()
             : base("name=dbTransporteDRContext")
         {
+            //this.Configuration.ProxyCreationEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

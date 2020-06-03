@@ -14,12 +14,15 @@ namespace ConsoleApp
     {
         static void Main(string[] args)
         {
-            Telefono obj1 = new Telefono() { Numero = "784512451236999", DNI = "71" };
+            ConductorRepository x = new ConductorRepository();
 
+            Conductor obj1 = new Conductor() { DNI = "00758693", Brevete = "AC-865", Direccion = "Los Horizontes", Lugar_Nac = "Jaen", Persona = new Persona() { DNI = "00758693", Nombre = "Pepe", Apellido = "Santana" },Fecha_Inicio = new DateTime(2010, 12, 12), Personalidad = "Calmado" };
 
-            if (TransporteDR.TelefonoBO.Registrar(obj1))
+            var obj2 = x.GetAll().FirstOrDefault(y => y.DNI == "00758693");
+
+            if (x.Update(obj1))
             {
-                Console.WriteLine("Registrado");
+                Console.WriteLine("Updated");
             }
             else
             {
@@ -27,7 +30,13 @@ namespace ConsoleApp
             }
 
 
-           Console.ReadKey();
+
+            foreach(var y in x.GetAll())
+            {
+                Console.WriteLine(y.DNI + " " + y.Persona.Nombre);
+            }
+
+            Console.ReadKey();
         }
     }
 }
