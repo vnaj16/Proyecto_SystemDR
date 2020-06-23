@@ -54,6 +54,7 @@
     <Compile Include="Interfaces\IConductorRepository.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\ITelefonoRepository.cs" />
+    <Compile Include="Interfaces\IUnidadVehicularRepository.cs" />
     <Compile Include="Models\TransporteDRModel.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -68,6 +69,7 @@
     <Compile Include="Repositories\ClienteRepository.cs" />
     <Compile Include="Repositories\ConductorRepository.cs" />
     <Compile Include="Repositories\TelefonoRepository.cs" />
+    <Compile Include="Repositories\UnidadVehicularRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <EntityDeploy Include="Models\TransporteDRModel.edmx">

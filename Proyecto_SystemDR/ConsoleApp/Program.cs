@@ -14,15 +14,17 @@ namespace ConsoleApp
     {
         static void Main(string[] args)
         {
-            ConductorRepository x = new ConductorRepository();
-
-            Conductor obj1 = new Conductor() { DNI = "00758693", Brevete = "AC-865", Direccion = "Los Horizontes", Lugar_Nac = "Jaen", Persona = new Persona() { DNI = "00758693", Nombre = "Pepe", Apellido = "Santana" },Fecha_Inicio = new DateTime(2010, 12, 12), Personalidad = "Calmado" };
-
-            var obj2 = x.GetAll().FirstOrDefault(y => y.DNI == "00758693");
-
-            if (x.Update(obj1))
+            Unidad_Vehicular obj1 = new Unidad_Vehicular()
             {
-                Console.WriteLine("Updated");
+                Placa = "XY-39",
+                Marca = "Hyundai - X",
+                Serie_Chasis = "ALK-5",
+                Y_Fabricacion = new DateTime(2005, 12, 13)
+            };
+
+            if (TransporteDR.UnidadVehicularBO.Registrar(obj1))
+            {
+                Console.WriteLine("Exito");
             }
             else
             {
@@ -30,10 +32,9 @@ namespace ConsoleApp
             }
 
 
-
-            foreach(var y in x.GetAll())
+            foreach(var y in TransporteDR.UnidadVehicularBO.GetAll())
             {
-                Console.WriteLine(y.DNI + " " + y.Persona.Nombre);
+                Console.WriteLine(y.Placa + " " + y.Y_Fabricacion);
             }
 
             Console.ReadKey();

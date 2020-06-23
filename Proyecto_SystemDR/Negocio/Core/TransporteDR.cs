@@ -12,7 +12,8 @@ namespace Negocio.Core
     {
         private static ClienteBO clienteBO;
         private static TelefonoBO telefonoBO;
-
+        private static ConductorBO conductorBO;
+        private static UnidadVehicularBO unidadVehicularBO;
 
         static TransporteDR()
         {
@@ -23,6 +24,8 @@ namespace Negocio.Core
         {
             clienteBO = new ClienteBO(new ClienteRepository());
             telefonoBO = new TelefonoBO(new TelefonoRepository());
+            conductorBO = new ConductorBO(new ConductorRepository());
+            unidadVehicularBO = new UnidadVehicularBO(new UnidadVehicularRepository());
         }
 
         public static ClienteBO ClienteBO
@@ -51,6 +54,30 @@ namespace Negocio.Core
             }
         }
 
+        public static ConductorBO ConductorBO
+        {
+            get
+            {
+                if (conductorBO == null)
+                {
+                    conductorBO = new ConductorBO(new ConductorRepository());
+                }
 
+                return conductorBO;
+            }
+        }
+
+        public static UnidadVehicularBO UnidadVehicularBO
+        {
+            get
+            {
+                if (unidadVehicularBO == null)
+                {
+                    unidadVehicularBO = new UnidadVehicularBO(new UnidadVehicularRepository());
+                }
+
+                return unidadVehicularBO;
+            }
+        }
     }
 }

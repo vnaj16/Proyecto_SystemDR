@@ -39,8 +39,6 @@ namespace Negocio.Business_Objects
 
                 return listaClientes;
             }
-
-
         }
 
         public bool Registrar(Cliente obj)
@@ -92,11 +90,11 @@ namespace Negocio.Business_Objects
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public bool Actualizar(Cliente obj)//EN TESTEO
+        public bool Actualizar(Cliente obj)
         {
             if (!String.IsNullOrWhiteSpace(obj.RUC))//EVALUO CAMPOS OBLIGATORIOS
             {
-                Cliente current = listaClientes.Find(x => x.RUC == obj.RUC);
+                Cliente current = listaClientes.FirstOrDefault(x => x.RUC == obj.RUC);
                 if (!(current is null))//EVALUO SI YA EXISTE
                 {
 

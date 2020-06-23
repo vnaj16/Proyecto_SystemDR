@@ -42,7 +42,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Business_Objects\ClienteBO.cs" />
+    <Compile Include="Business_Objects\ConductorBO.cs" />
     <Compile Include="Business_Objects\TelefonoBO.cs" />
+    <Compile Include="Business_Objects\UnidadVehicularBO.cs" />
     <Compile Include="Core\TransporteDR.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
