@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Presentacion.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -22,6 +23,34 @@ namespace Presentacion.Views
         public MainWindow()
         {
             InitializeComponent();
+
+            this.DataContext = new MainWindowViewModel();
         }
+
+        private void ListViewItem_Selected(object sender, RoutedEventArgs e)
+        {
+            var LWItem = sender as ListViewItem;
+
+            switch (LWItem.Name)
+            {
+                case "Clientes":
+                    CC_MainWindow.Content = ClientesView.Instance;
+                    break;
+                case "Viajes":
+                    CC_MainWindow.Content = ViajesView.Instance;
+                    break;
+                case "Proveedores":
+                    CC_MainWindow.Content = ProveedoresView.Instance;
+                    break;
+                case "Conductores":
+                    CC_MainWindow.Content = ConductoresView.Instance;
+                    break;
+                default:
+                    CC_MainWindow.Content = null;
+                    break;
+
+            }
+        }
+
     }
 }

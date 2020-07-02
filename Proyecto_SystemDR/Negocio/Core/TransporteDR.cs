@@ -10,6 +10,8 @@ namespace Negocio.Core
 {
     public static class TransporteDR
     {
+        public static int x = 0;
+
         private static ClienteBO clienteBO;
         private static TelefonoBO telefonoBO;
         private static ConductorBO conductorBO;
@@ -20,7 +22,7 @@ namespace Negocio.Core
             Initialize();
         }
 
-        public static void Initialize()
+        private static void Initialize()
         {
             clienteBO = new ClienteBO(new ClienteRepository());
             telefonoBO = new TelefonoBO(new TelefonoRepository());

@@ -5,9 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Presentacion.Views"
         xmlns:prism="http://prismlibrary.com/"
-        prism:ViewModelLocator.AutoWireViewModel="True"
         mc:Ignorable="d"
-        Title="MainWindow" Height="600" Width="1080"
+        Title="MainWindow" Height="800" Width="1200"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
     <Grid>
         <Grid.ColumnDefinitions>
@@ -19,43 +18,43 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" Grid.Column="0" Background="#27496d" MinWidth="100" MinHeight="50" Name="SP_Company">
+        <StackPanel Grid.Row="0" Grid.Column="0" Background="{StaticResource AuxColorBackground}" MinWidth="100" MinHeight="50" Name="SP_Company">
             <TextBlock HorizontalAlignment="Center" FontSize="25" VerticalAlignment="Center" Text="Transporte DR" Foreground="White"/>
         </StackPanel>
 
         <StackPanel Grid.Row="1" Grid.Column="0" MinWidth="150" MinHeight="50" Name="SP_SideMenu" Background="{StaticResource MainColorBackground}">
             <ListView FontSize="20" Style="{StaticResource StyleSideMenu}" Height="{Binding ElementName=SP_SideMenu, Path=ActualHeight}">
-                <ListViewItem Height="40">
+                <ListViewItem Height="40" Selected="ListViewItem_Selected" Name="Viajes">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="Map" Height="30" Width="30" Margin="0,0,20,0"/>
                         <TextBlock Text="Viajes"/>
                     </StackPanel>
                 </ListViewItem>
-                <ListViewItem Height="40">
+                <ListViewItem Height="40" Name="Clientes" Selected="ListViewItem_Selected">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="People" Height="30" Width="30" Foreground="White" Margin="0,0,20,0"/>
                         <TextBlock Text="Clientes"/>
                     </StackPanel>
                 </ListViewItem>
-                <ListViewItem Height="40">
+                <ListViewItem Height="40" Selected="ListViewItem_Selected" Name="Proveedores">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="Package"  Height="30" Width="30" Foreground="White" Margin="0,0,20,0"/>
                         <TextBlock Text="Proveedores"/>
                     </StackPanel>
                 </ListViewItem>
-                <ListViewItem Height="40">
+                <ListViewItem Height="40" Selected="ListViewItem_Selected" Name="Conductores">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="DriversLicense"  Height="30" Width="30" Foreground="White" Margin="0,0,20,0"/>
                         <TextBlock Text="Conductores"/>
                     </StackPanel>
                 </ListViewItem>
-                <ListViewItem Height="40">
+                <ListViewItem Height="40" Selected="ListViewItem_Selected">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="Truck" Height="25" Width="30" Foreground="White" Margin="0,0,20,0"/>
                         <TextBlock Text="Unidades Vehic."/>
                     </StackPanel>
                 </ListViewItem>
-                <ListViewItem Height="40">
+                <ListViewItem Height="40" Selected="ListViewItem_Selected">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="History" Height="25" Width="30" Foreground="White" Margin="0,0,20,0"/>
                         <TextBlock Text="Historial de Event."/>
@@ -64,19 +63,33 @@
             </ListView>
         </StackPanel>
 
-        <StackPanel Grid.Row="0" Grid.Column="1" Background="#e7dfd5" MinWidth="100" MinHeight="50" Name="SP_TopBar">
-            <materialDesign:PopupBox HorizontalAlignment="Right" Foreground="Black" Margin="5" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
+        <Grid Grid.Row="0" Grid.Column="1" Background="#e7dfd5" MinWidth="100" MinHeight="50" Name="SP_TopBar">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Label Grid.Column="1" VerticalAlignment="Center">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="User" Margin="0,0,10,0"/>
+                    <TextBlock Text="Arthur Valladares"/>
+                </StackPanel>
+            </Label>
+            
+            <materialDesign:PopupBox Grid.Column="2" HorizontalAlignment="Right"  Foreground="Black" Margin="5" PlacementMode="BottomAndAlignRightEdges" StaysOpen="False">
                 <StackPanel MinWidth="100">
-                    <Button Content="H1"/>
-                    <Button Content="H1"/>
+                    <Button Content="Información"/>
+                    <Button Content="Cerrar Sesión"/>
                     <Separator/>
-                    <Button Content="H1"/>
+                    <Button Content="Configuración"/>
                 </StackPanel>
             </materialDesign:PopupBox>
-        </StackPanel>
+        </Grid>
 
 
-        <ContentControl Grid.Row="1" Grid.Column="1" Name="CC_MainWindow" prism:RegionManager.RegionName="ContentRegion">
+        <ContentControl Grid.Row="1" Grid.Column="1" Name="CC_MainWindow">
+
         </ContentControl>
 
     </Grid>
