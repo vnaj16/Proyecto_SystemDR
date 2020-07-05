@@ -45,6 +45,9 @@ namespace Presentacion.Views
                 case "Conductores":
                     CC_MainWindow.Content = ConductoresView.Instance;
                     break;
+                case "UnidadesVehiculares":
+                    CC_MainWindow.Content = UnidadesVehicularesView.Instance;
+                    break;
                 default:
                     CC_MainWindow.Content = null;
                     break;

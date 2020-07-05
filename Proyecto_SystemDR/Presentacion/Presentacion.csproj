@@ -93,6 +93,8 @@
     <Compile Include="ViewModels\ClientesViewModel.cs" />
     <Compile Include="ViewModels\ConductoresViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
+    <Compile Include="ViewModels\ProveedoresViewModel.cs" />
+    <Compile Include="ViewModels\UnidadVehicularViewModel.cs" />
     <Compile Include="Views\ClientesView.xaml.cs">
       <DependentUpon>ClientesView.xaml</DependentUpon>
     </Compile>
@@ -110,6 +112,9 @@
     </Compile>
     <Compile Include="Views\ProveedoresView.xaml.cs">
       <DependentUpon>ProveedoresView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UnidadesVehicularesView.xaml.cs">
+      <DependentUpon>UnidadesVehicularesView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ViajesView.xaml.cs">
       <DependentUpon>ViajesView.xaml</DependentUpon>
@@ -174,6 +179,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ProveedoresView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UnidadesVehicularesView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

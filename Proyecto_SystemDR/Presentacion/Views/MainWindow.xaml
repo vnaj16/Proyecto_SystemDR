@@ -48,7 +48,7 @@
                         <TextBlock Text="Conductores"/>
                     </StackPanel>
                 </ListViewItem>
-                <ListViewItem Height="40" Selected="ListViewItem_Selected">
+                <ListViewItem Height="40" Selected="ListViewItem_Selected" Name="UnidadesVehiculares">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="Truck" Height="25" Width="30" Foreground="White" Margin="0,0,20,0"/>
                         <TextBlock Text="Unidades Vehic."/>

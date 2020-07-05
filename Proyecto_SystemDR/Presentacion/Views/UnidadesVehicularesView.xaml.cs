@@ -17,19 +17,19 @@ using System.Windows.Shapes;
 namespace Presentacion.Views
 {
     /// <summary>
-    /// Interaction logic for ProveedoresView.xaml
+    /// Interaction logic for UnidadesVehicularesView.xaml
     /// </summary>
-    public partial class ProveedoresView : UserControl
+    public partial class UnidadesVehicularesView : UserControl
     {
-        private static ProveedoresView instance;
+        private static UnidadesVehicularesView instance;
 
-        public ProveedoresView()
+        public UnidadesVehicularesView()
         {
             InitializeComponent();
 
             try
             {
-                this.DataContext = ProveedoresViewModel.Instance;
+                this.DataContext = UnidadVehicularViewModel.Instance;
             }
             catch (Exception ex)
             {
@@ -38,13 +38,13 @@ namespace Presentacion.Views
         }
 
 
-        public static ProveedoresView Instance
+        public static UnidadesVehicularesView Instance
         {
             get
             {
                 if (instance == null)
                 {
-                    instance = new ProveedoresView();
+                    instance = new UnidadesVehicularesView();
                 }
 
                 return instance;
