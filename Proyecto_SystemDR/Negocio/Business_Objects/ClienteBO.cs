@@ -1,4 +1,4 @@
-﻿using Datos.Interfaces;
+﻿    using Datos.Interfaces;
 using Datos.Repositories;
 using Entidades;
 using System;
@@ -60,9 +60,12 @@ namespace Negocio.Business_Objects
                         }
                     }
 
-                    //Lo agrego a la lista en memoria, luego a la DB
-                    listaClientes.Add(obj);
-                    return clienteRepository.Insert(obj);
+                    //Primero verifico si se agrego de manera correcta a la DB, luego lo agrego a la Lista in Memory
+                    var Result = clienteRepository.Insert(obj);
+
+                    if(Result) listaClientes.Add(obj);
+
+                    return Result;
                 }
                 else
                 {
@@ -184,9 +187,11 @@ namespace Negocio.Business_Objects
             {
                 if (listaClientes.Exists(x => x.RUC == RUC))
                 {
-                    listaClientes.Remove(listaClientes.FirstOrDefault(x => x.RUC == RUC));
+                    var result = clienteRepository.Delete(RUC);
 
-                    return clienteRepository.Delete(RUC);
+                    if (result) listaClientes.Remove(listaClientes.FirstOrDefault(x => x.RUC == RUC));
+               
+                    return result;
                 }
                 else
                 {

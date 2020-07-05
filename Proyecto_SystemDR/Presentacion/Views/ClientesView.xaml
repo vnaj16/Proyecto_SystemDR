@@ -29,9 +29,7 @@
 
             <TextBlock Grid.Column="0" FontSize="20" Text="Listado de Clientes" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20,0,0,20"/>
             <TextBlock VerticalAlignment="Center" HorizontalAlignment="Right" Grid.Column="1" Text="Buscar por: "/>
-            <ComboBox Grid.Column="2" MinWidth="100" MaxWidth="100" HorizontalAlignment="Left" MaxHeight="50" Margin="5,0,0,0">
-                <ComboBoxItem Content="Opcion 1"/>
-                <ComboBoxItem Content="Opcion 2"/>
+            <ComboBox  Name="ComboBox_Filtros" SelectedIndex="0" Grid.Column="2" MinWidth="100" MaxWidth="100" HorizontalAlignment="Left" MaxHeight="50" Margin="5,0,0,0" SelectionChanged="ComboBox_Filtros_SelectionChanged">
             </ComboBox>
             <Label Grid.Column="3" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0">
                 <StackPanel Orientation="Horizontal">

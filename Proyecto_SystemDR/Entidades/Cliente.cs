@@ -27,16 +27,33 @@ namespace Entidades
             set { SetProperty(ref ruc, value); }
         }
 
-        private string razon_Social;
 
+
+        private string razon_Social;
 
         public string Razon_Social
         {
             get => razon_Social;
             set => SetProperty(ref razon_Social, value);
         }
-        public string Direccion { get; set; }
-        public string Tipo { get; set; }
+
+
+        private string direccion;
+        public string Direccion 
+        {
+            get => direccion;
+            set => SetProperty(ref direccion, value);
+        }
+
+
+        private string tipo;
+        public string Tipo 
+        {
+            get => tipo;
+            set => SetProperty(ref tipo, value);
+        }
+
+
 
         private string dni;
         public string DNI
@@ -48,6 +65,8 @@ namespace Entidades
             }
         }
 
+
+
         private Persona persona;
         public virtual Persona Persona
         {
@@ -56,11 +75,6 @@ namespace Entidades
             {
                 SetProperty(ref persona, value);
             }
-        }
-
-        public Cliente Clone()
-        {
-            return (Cliente)this.MemberwiseClone();
         }
     }
 }

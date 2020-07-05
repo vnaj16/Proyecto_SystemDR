@@ -41,22 +41,14 @@ namespace Presentacion.Views.ClientesV
             else
             {
                 newCliente = obj;
-                copyCliente_Updated = new Cliente()
+                copyCliente_Updated = new Cliente();
+
+                if (!(obj.Persona is null))
                 {
-                    RUC = obj.RUC,
-                    Razon_Social = obj.Razon_Social,
-                    Direccion = obj.Direccion,
-                    DNI = obj.DNI,
-                    Tipo = obj.Tipo,
-                    Persona = new Persona()
-                    {
-                        DNI = obj.Persona?.DNI,
-                        Nombre = obj.Persona?.Nombre,
-                        Apellido = obj.Persona?.Apellido,
-                        Fecha_Nac = obj.Persona?.Fecha_Nac,
-                        Nacionalidad = obj.Persona?.Nacionalidad
-                    }
-                };
+                    copyCliente_Updated.Persona = new Persona();
+                }
+
+                CopyInstance(newCliente, copyCliente_Updated);
                 //ButtonState = "Actualizar";*/
             }
 
@@ -122,7 +114,7 @@ namespace Presentacion.Views.ClientesV
             if (isUpdate)
             {
                 isUpdated = false;
-                newCliente = copyCliente_Updated;
+                CopyInstance(copyCliente_Updated, newCliente);
             }
             this.Close();
         }
@@ -138,13 +130,36 @@ namespace Presentacion.Views.ClientesV
                 }
                 else
                 {
-                    if(newCliente.Persona.DNI != newCliente.DNI)
+                    if (newCliente.Persona.DNI != newCliente.DNI)
                     {
                         newCliente.Persona.DNI = newCliente.DNI;
                     }
                 }
             }
 
+        }
+
+        private void CopyInstance(Cliente fuente, Cliente destino)
+        {
+            destino.RUC = fuente.RUC;
+            destino.Razon_Social = fuente.Razon_Social;
+            destino.Direccion = fuente.Direccion;
+            destino.DNI = fuente.DNI;
+            destino.Tipo = fuente.Tipo;
+
+            if (!(fuente.Persona is null))
+            {
+                destino.Persona.DNI = fuente.Persona?.DNI;
+                destino.Persona.Nombre = fuente.Persona?.Nombre;
+                destino.Persona.Apellido = fuente.Persona?.Apellido;
+                destino.Persona.Fecha_Nac = fuente.Persona?.Fecha_Nac;
+                destino.Persona.Nacionalidad = fuente.Persona?.Nacionalidad;
+            }
+        }
+
+        public void ToDefaultCliente(Cliente cliente)
+        {
+            CopyInstance(copyCliente_Updated, cliente);
         }
     }
 }

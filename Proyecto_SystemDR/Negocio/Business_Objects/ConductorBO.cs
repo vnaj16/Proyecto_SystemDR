@@ -50,10 +50,12 @@ namespace Negocio.Business_Objects
                         obj.Persona.Tipo = "con";
                     }
 
-                    //Lo agrego a la lista en memoria, luego a la DB
-                    listaConductores.Add(obj);
+                    //Primero verifico si se agrego de manera correcta a la DB, luego lo agrego a la Lista in Memory
+                    var Result = conductorRepository.Insert(obj);
 
-                    return conductorRepository.Insert(obj);
+                    if (Result) listaConductores.Add(obj);
+
+                    return Result;
                 }
                 else
                 {
@@ -144,9 +146,11 @@ namespace Negocio.Business_Objects
             {
                 if(listaConductores.Exists(x=>x.DNI == DNI))
                 {
-                    listaConductores.Remove(listaConductores.FirstOrDefault(x => x.DNI == DNI));
+                    var result = conductorRepository.Delete(DNI);
 
-                    return conductorRepository.Delete(DNI);
+                    if (result) listaConductores.Remove(listaConductores.FirstOrDefault(x => x.DNI == DNI));
+
+                    return result;
                 }
                 else
                 {

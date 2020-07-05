@@ -46,10 +46,12 @@ namespace Negocio.Business_Objects
             {
                 if (!listaVehiculos.Exists(x => x.Placa == obj.Placa))//EVALUO SI YA EXISTE
                 {
+                    //Primero verifico si se agrego de manera correcta a la DB, luego lo agrego a la Lista in Memory
+                    var Result = unidadVehicularRepository.Insert(obj);
 
-                    //Lo agrego a la lista en memoria, luego a la DB
-                    listaVehiculos.Add(obj);
-                    return unidadVehicularRepository.Insert(obj);
+                    if (Result) listaVehiculos.Add(obj);
+
+                    return Result;
                 }
                 else
                 {
@@ -107,9 +109,11 @@ namespace Negocio.Business_Objects
             {
                 if (listaVehiculos.Exists(x => x.Placa == Placa))
                 {
-                    listaVehiculos.Remove(listaVehiculos.FirstOrDefault(x => x.Placa == Placa));
+                    var result = unidadVehicularRepository.Delete(Placa);
 
-                    return unidadVehicularRepository.Delete(Placa);
+                    if (result) listaVehiculos.Remove(listaVehiculos.FirstOrDefault(x => x.Placa == Placa));
+
+                    return result;
                 }
                 else
                 {

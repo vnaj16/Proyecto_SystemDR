@@ -40,9 +40,11 @@ namespace Negocio.Business_Objects
                     return false;
                 }
 
-                persona.Telefono?.Add(obj);
+                var result = telefonoRepository.Insert(obj);
 
-                return telefonoRepository.Insert(obj);
+                if(result) persona.Telefono?.Add(obj);
+
+                return result;
             }
             else
             {
@@ -72,9 +74,11 @@ namespace Negocio.Business_Objects
                 {
                     //int y = persona.Telefono.ToList().RemoveAll(x => x.Numero == Numero);
 
-                    bool p = persona.Telefono.Remove(persona.Telefono.FirstOrDefault(x => x.Numero == Numero));
+                    var result = telefonoRepository.Delete(Numero);
 
-                    return telefonoRepository.Delete(Numero);
+                    if(result) persona.Telefono.Remove(persona.Telefono.FirstOrDefault(x => x.Numero == Numero));
+
+                    return result;
                 }
 
 

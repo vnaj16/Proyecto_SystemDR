@@ -1,4 +1,5 @@
-﻿using Presentacion.ViewModels;
+﻿using Presentacion.Helpers;
+using Presentacion.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,9 +24,13 @@ namespace Presentacion.Views
     {
         private static ClientesView instance;
 
+        private FilterTypeSearchCliente FilterType = 0;
+
         private ClientesView()
         {
             InitializeComponent();
+
+            ComboBox_Filtros.ItemsSource = Enum.GetValues(typeof(FilterTypeSearchCliente));
 
             try
             {
@@ -53,18 +58,11 @@ namespace Presentacion.Views
 
         #region CODIGO PARA EL TEXTBOX BUSCAR
         private void TextBox_Buscar_TextChanged(object sender, TextChangedEventArgs e)
-        {
+        {//POR RENDIMIENTO, LUEGO MODIFICAR PARA QUE SOLO CAMBIE LUEGO DE QUE SE PRESIONE ENTER
             var Text = TextBox_Buscar.Text;
             if (Text != "Buscar")
             {
-                if (String.IsNullOrWhiteSpace(Text))
-                {
-                    MessageBox.Show("Ya no hay nada, deberia mostrarse la lista normal");
-                }
-                else
-                {
-                    MessageBox.Show("Hay algo, deberia mostrar en el DataGrid lo relacionado a " + Text);
-                }
+                ClientesViewModel.Instance.ChangeCollection(Text, FilterType);
             }
         }
 
@@ -81,5 +79,10 @@ namespace Presentacion.Views
         }
 
         #endregion
+
+        private void ComboBox_Filtros_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Enum.TryParse<FilterTypeSearchCliente>(ComboBox_Filtros.SelectedValue.ToString(), out FilterType);
+        }
     }
 }

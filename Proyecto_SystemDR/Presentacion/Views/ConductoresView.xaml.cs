@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Presentacion.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -25,6 +26,15 @@ namespace Presentacion.Views
         public ConductoresView()
         {
             InitializeComponent();
+
+            try
+            {
+                this.DataContext = ConductoresViewModel.Instance;
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
 
 
@@ -40,5 +50,35 @@ namespace Presentacion.Views
                 return instance;
             }
         }
+
+        #region CODIGO PARA EL TEXTBOX BUSCAR
+        private void TextBox_Buscar_TextChanged(object sender, TextChangedEventArgs e)
+        {//POR RENDIMIENTO, LUEGO MODIFICAR PARA QUE SOLO CAMBIE LUEGO DE QUE SE PRESIONE ENTER
+            var Text = TextBox_Buscar.Text;
+            if (Text != "Buscar")
+            {
+                //ClientesViewModel.Instance.ChangeCollection(Text, FilterType);
+            }
+        }
+
+        private void TextBox_Buscar_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if (TextBox_Buscar.Text == "Buscar")
+                TextBox_Buscar.Text = "";
+        }
+
+        private void TextBox_Buscar_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (String.IsNullOrWhiteSpace(TextBox_Buscar.Text))
+                TextBox_Buscar.Text = "Buscar";
+        }
+
+        #endregion
+
+        private void ComboBox_Filtros_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            //Enum.TryParse<FilterTypeSearchCliente>(ComboBox_Filtros.SelectedValue.ToString(), out FilterType);
+        }
+
     }
 }

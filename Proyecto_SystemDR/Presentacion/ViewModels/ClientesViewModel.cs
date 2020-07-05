@@ -11,6 +11,7 @@ using Prism.Commands;
 using System.Windows.Input;
 using Presentacion.Views.ClientesV;
 using System.Windows;
+using Presentacion.Helpers;
 
 namespace Presentacion.ViewModels
 {
@@ -22,6 +23,8 @@ namespace Presentacion.ViewModels
         private ClientesViewModel()
         {
             listaClientes = new ObservableCollection<Cliente>(TransporteDR.ClienteBO.GetAll());
+
+            ListaClientesAux = ListaClientes; //Este es otra referencia a la Lista que traigo de la DB, me sirve para cuando tenga que cambiar la lista que se muestra
 
             AgregarCommand = new DelegateCommand(Execute_AgregarCommand);
             ActualizarCommand = new DelegateCommand(Execute_ActualizarCommand, CanExecute_ActualizarCommand).ObservesProperty(() => CurrentCliente);
@@ -57,6 +60,7 @@ namespace Presentacion.ViewModels
         }
 
 
+        #region COMMANDS
         public ICommand AgregarCommand { get; set; }
 
         private void Execute_AgregarCommand()
@@ -109,19 +113,10 @@ namespace Presentacion.ViewModels
                 }
                 else
                 {
-                    var copyCC = registrarClienteView.GetClienteBackup();
-                    CurrentCliente.RUC = copyCC.RUC;
+                    registrarClienteView.ToDefaultCliente(CurrentCliente);
 
-                    if(!(CurrentCliente.DNI is null))
-                    {
-                        CurrentCliente.DNI = copyCC.DNI;
-                        CurrentCliente.Persona.DNI = copyCC.DNI;
-                    }
                     MessageBox.Show("Algo ha ocurrido con el proceso de actualizacion, por favor intentar de nuevo o reiniciar el computador.\nSi el problema persiste, contactar con el encargado del Sistema");
                 }
-
-
-
             }
         }
 
@@ -149,7 +144,7 @@ namespace Presentacion.ViewModels
             {
                 case MessageBoxResult.OK:
 
-                    switch(MessageBox.Show("Estás seguro?", "Confirmación", MessageBoxButton.YesNo, MessageBoxImage.Exclamation))
+                    switch (MessageBox.Show("Estás seguro?", "Confirmación", MessageBoxButton.YesNo, MessageBoxImage.Exclamation))
                     {
                         case MessageBoxResult.Yes:
                             if (TransporteDR.ClienteBO.Eliminar(CurrentCliente.RUC))
@@ -175,5 +170,49 @@ namespace Presentacion.ViewModels
             }
         }
 
+        #endregion
+
+
+        #region METHODS
+        ObservableCollection<Cliente> ListaClientesAux;
+        public void ChangeCollection(string Filter, FilterTypeSearchCliente filterType)
+        {
+            if (String.IsNullOrWhiteSpace(Filter))
+            {
+                ListaClientes = ListaClientesAux;
+            }
+            else
+            {
+                switch (filterType)
+                {
+                    case FilterTypeSearchCliente.RUC:
+                        ListaClientes = new ObservableCollection<Cliente>(ListaClientesAux.Where(x => x.RUC.StartsWith(Filter)));
+                        break;
+
+                    case FilterTypeSearchCliente.RazonSocial:
+                        ListaClientes = new ObservableCollection<Cliente>(ListaClientesAux.Where(x => x.Razon_Social.StartsWith(Filter)));
+                        break;
+                    case FilterTypeSearchCliente.DNI:
+                        var listAux = new ObservableCollection<Cliente>();
+
+                        foreach(var x in ListaClientesAux)
+                        {
+                            if(!(x.Persona is null))
+                            {
+                                if (x.Persona.DNI.StartsWith(Filter))
+                                {
+                                    listAux.Add(x);
+                                }
+                            }
+                        }
+
+                        ListaClientes = listAux;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+        #endregion
     }
 }
