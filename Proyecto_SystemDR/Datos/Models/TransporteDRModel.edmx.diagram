@@ -11,13 +11,36 @@
         <EntityTypeShape EntityType="dbTransporteDRModel.Persona" Width="1.5" PointX="0.75" PointY="5.5" IsExpanded="true" />
         <EntityTypeShape EntityType="dbTransporteDRModel.Proveedor" Width="1.5" PointX="3" PointY="7.75" IsExpanded="true" />
         <EntityTypeShape EntityType="dbTransporteDRModel.Telefono" Width="1.5" PointX="3" PointY="10.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="dbTransporteDRModel.Unidad_Vehicular" Width="1.5" PointX="3" PointY="13.75" IsExpanded="true" />
         <AssociationConnector Association="dbTransporteDRModel.FK_Cliente_Persona" ManuallyRouted="false" />
         <AssociationConnector Association="dbTransporteDRModel.FK_Conductor_Persona" ManuallyRouted="false" />
         <AssociationConnector Association="dbTransporteDRModel.FK_Historial_Conductor" ManuallyRouted="false" />
-        <AssociationConnector Association="dbTransporteDRModel.FK_Historial_Unidad_Vehicular" ManuallyRouted="false" />
         <AssociationConnector Association="dbTransporteDRModel.FK_Proveedor_Persona" ManuallyRouted="false" />
         <AssociationConnector Association="dbTransporteDRModel.FK_Telefono_Persona" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="dbTransporteDRModel.CuentasXRendir" Width="1.5" PointX="9.75" PointY="29.75" />
+        <EntityTypeShape EntityType="dbTransporteDRModel.DocumentoViaje" Width="1.5" PointX="5.25" PointY="0.75" />
+        <EntityTypeShape EntityType="dbTransporteDRModel.Flete" Width="1.5" PointX="9.75" PointY="19.75" />
+        <EntityTypeShape EntityType="dbTransporteDRModel.Gasto" Width="1.5" PointX="9.75" PointY="26.75" />
+        <EntityTypeShape EntityType="dbTransporteDRModel.GastoV" Width="1.5" PointX="9.75" PointY="23.25" />
+        <EntityTypeShape EntityType="dbTransporteDRModel.Mercaderia" Width="1.5" PointX="9.75" PointY="16.375" />
+        <EntityTypeShape EntityType="dbTransporteDRModel.Resumen" Width="1.5" PointX="9.75" PointY="12.5" />
+        <EntityTypeShape EntityType="dbTransporteDRModel.Viaje" Width="1.5" PointX="7.5" PointY="5.125" />
+        <AssociationConnector Association="dbTransporteDRModel.FK_DocumentoViaje_Cliente" />
+        <AssociationConnector Association="dbTransporteDRModel.FK_Viaje_Conductor" />
+        <AssociationConnector Association="dbTransporteDRModel.FK_CuentasXRendir_Viaje" />
+        <AssociationConnector Association="dbTransporteDRModel.FK_Viaje_CuentasXRendir" />
+        <AssociationConnector Association="dbTransporteDRModel.FK_DocumentoViaje_Viaje" />
+        <AssociationConnector Association="dbTransporteDRModel.FK_Viaje_DocumentoViaje" />
+        <AssociationConnector Association="dbTransporteDRModel.FK_Flete_Viaje" />
+        <AssociationConnector Association="dbTransporteDRModel.FK_Viaje_Flete" />
+        <AssociationConnector Association="dbTransporteDRModel.FK_Gasto_Gasto" />
+        <AssociationConnector Association="dbTransporteDRModel.FK_GastoV_Viaje" />
+        <AssociationConnector Association="dbTransporteDRModel.FK_Mercaderia_Viaje" />
+        <AssociationConnector Association="dbTransporteDRModel.FK_Viaje_Mercaderia" />
+        <AssociationConnector Association="dbTransporteDRModel.FK_Resumen_Resumen" />
+        <AssociationConnector Association="dbTransporteDRModel.FK_Viaje_Resumen" />
+        <EntityTypeShape EntityType="dbTransporteDRModel.Unidad_Vehicular" Width="1.5" PointX="7.375" PointY="0.875" />
+        <AssociationConnector Association="dbTransporteDRModel.FK_Historial_Unidad_Vehicular" />
+        <AssociationConnector Association="dbTransporteDRModel.FK_Viaje_Unidad_Vehicular" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

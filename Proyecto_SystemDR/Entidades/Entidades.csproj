@@ -55,7 +55,25 @@
     <Compile Include="Conductor.cs">
       <DependentUpon>TransporteDRModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="CuentasXRendir.cs">
+      <DependentUpon>TransporteDRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="DocumentoViaje.cs">
+      <DependentUpon>TransporteDRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Flete.cs">
+      <DependentUpon>TransporteDRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Gasto.cs">
+      <DependentUpon>TransporteDRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="GastoV.cs">
+      <DependentUpon>TransporteDRModel.tt</DependentUpon>
+    </Compile>
     <Compile Include="Historial.cs">
+      <DependentUpon>TransporteDRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Mercaderia.cs">
       <DependentUpon>TransporteDRModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Persona.cs">
@@ -64,6 +82,9 @@
     <Compile Include="PersonaExt.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Proveedor.cs">
+      <DependentUpon>TransporteDRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Resumen.cs">
       <DependentUpon>TransporteDRModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Telefono.cs">
@@ -76,6 +97,9 @@
       <DependentUpon>TransporteDRModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Unidad_Vehicular.cs">
+      <DependentUpon>TransporteDRModel.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Viaje.cs">
       <DependentUpon>TransporteDRModel.tt</DependentUpon>
     </Compile>
   </ItemGroup>

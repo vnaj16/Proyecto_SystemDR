@@ -53,6 +53,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="EntidadesPrueba\Documentos.cs" />
+    <Compile Include="EntidadesPrueba\Gasto.cs" />
+    <Compile Include="EntidadesPrueba\Mercaderia.cs" />
+    <Compile Include="EntidadesPrueba\Viaje.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

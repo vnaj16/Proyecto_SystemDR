@@ -18,8 +18,14 @@ namespace Entidades
 
     #region Backup Entity Cliente
     /*
-    public partial class Cliente : BindableBase
+     public partial class Cliente : BindableBase
     {
+                [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public Cliente()
+        {
+            this.DocumentoViaje = new HashSet<DocumentoViaje>();
+        }
+
         private string ruc;
 
         [Required(ErrorMessage = "El campo RUC es obligatorio")]
@@ -80,9 +86,12 @@ namespace Entidades
                 SetProperty(ref persona, value);
             }
         }
+
+            [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<DocumentoViaje> DocumentoViaje { get; set; }
     }
      */
 
-    //FECHA: 03/07/20
+    //FECHA: 07/07/20
     #endregion
 }

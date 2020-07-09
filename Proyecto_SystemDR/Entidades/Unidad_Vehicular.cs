@@ -18,14 +18,17 @@ namespace Entidades
         public Unidad_Vehicular()
         {
             this.Historial = new HashSet<Historial>();
+            this.Viaje = new HashSet<Viaje>();
         }
     
         public string Placa { get; set; }
         public string Marca { get; set; }
-        public Nullable<System.DateTime> Y_Fabricacion { get; set; }
         public string Serie_Chasis { get; set; }
+        public Nullable<int> Y_Fabricacion { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Historial> Historial { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Viaje> Viaje { get; set; }
     }
 }

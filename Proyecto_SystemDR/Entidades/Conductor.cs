@@ -18,6 +18,7 @@ namespace Entidades
         public Conductor()
         {
             this.Historial = new HashSet<Historial>();
+            this.Viaje = new HashSet<Viaje>();
         }
     
         public string DNI { get; set; }
@@ -31,5 +32,7 @@ namespace Entidades
         public virtual Persona Persona { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Historial> Historial { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<Viaje> Viaje { get; set; }
     }
 }

@@ -104,6 +104,9 @@
     <Compile Include="Views\ConductoresView.xaml.cs">
       <DependentUpon>ConductoresView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ConductoresV\RegistrarConductorView.xaml.cs">
+      <DependentUpon>RegistrarConductorView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Helpers\LoadView.xaml.cs">
       <DependentUpon>LoadView.xaml</DependentUpon>
     </Compile>
@@ -115,6 +118,9 @@
     </Compile>
     <Compile Include="Views\UnidadesVehicularesView.xaml.cs">
       <DependentUpon>UnidadesVehicularesView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\UnidadesVehicularesV\RegistrarUnidadVehicularView.xaml.cs">
+      <DependentUpon>RegistrarUnidadVehicularView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ViajesView.xaml.cs">
       <DependentUpon>ViajesView.xaml</DependentUpon>
@@ -170,6 +176,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ConductoresV\RegistrarConductorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Helpers\LoadView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -183,6 +193,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\UnidadesVehicularesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\UnidadesVehicularesV\RegistrarUnidadVehicularView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

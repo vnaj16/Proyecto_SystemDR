@@ -12,22 +12,24 @@ namespace Entidades
     using System;
     using System.Collections.Generic;
     
-    public partial class Cliente
+    public partial class Flete
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Cliente()
+        public Flete()
         {
-            this.DocumentoViaje = new HashSet<DocumentoViaje>();
+            this.Viaje1 = new HashSet<Viaje>();
         }
     
-        public string RUC { get; set; }
-        public string Razon_Social { get; set; }
-        public string Direccion { get; set; }
+        public int ID { get; set; }
         public string Tipo { get; set; }
-        public string DNI { get; set; }
+        public Nullable<double> Valor { get; set; }
+        public Nullable<double> Importe { get; set; }
+        public Nullable<double> Adelanto { get; set; }
+        public Nullable<double> Saldo { get; set; }
+        public string ID_Viaje { get; set; }
     
-        public virtual Persona Persona { get; set; }
+        public virtual Viaje Viaje { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DocumentoViaje> DocumentoViaje { get; set; }
+        public virtual ICollection<Viaje> Viaje1 { get; set; }
     }
 }

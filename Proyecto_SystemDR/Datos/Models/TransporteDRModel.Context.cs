@@ -18,7 +18,6 @@ namespace Entidades
         public dbTransporteDRContext()
             : base("name=dbTransporteDRContext")
         {
-            //this.Configuration.ProxyCreationEnabled = false;
         }
     
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -32,6 +31,14 @@ namespace Entidades
         public virtual DbSet<Persona> Persona { get; set; }
         public virtual DbSet<Proveedor> Proveedor { get; set; }
         public virtual DbSet<Telefono> Telefono { get; set; }
+        public virtual DbSet<CuentasXRendir> CuentasXRendir { get; set; }
+        public virtual DbSet<DocumentoViaje> DocumentoViaje { get; set; }
+        public virtual DbSet<Flete> Flete { get; set; }
+        public virtual DbSet<Gasto> Gasto { get; set; }
+        public virtual DbSet<GastoV> GastoV { get; set; }
+        public virtual DbSet<Mercaderia> Mercaderia { get; set; }
+        public virtual DbSet<Resumen> Resumen { get; set; }
+        public virtual DbSet<Viaje> Viaje { get; set; }
         public virtual DbSet<Unidad_Vehicular> Unidad_Vehicular { get; set; }
     }
 }
