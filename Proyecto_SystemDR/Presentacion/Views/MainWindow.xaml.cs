@@ -48,6 +48,9 @@ namespace Presentacion.Views
                 case "UnidadesVehiculares":
                     CC_MainWindow.Content = UnidadesVehicularesView.Instance;
                     break;
+                case "Historial":
+                    CC_MainWindow.Content = HistorialView.Instance;
+                    break;
                 default:
                     CC_MainWindow.Content = null;
                     break;

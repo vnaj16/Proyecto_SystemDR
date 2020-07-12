@@ -83,7 +83,30 @@
 
             <materialDesign:Card Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Margin="20,0,0,0" Width="200" MaxWidth="250" MaxHeight="120" Background="{StaticResource AuxColorBackground}">
                 <StackPanel>
-
+                    <Label Foreground="{StaticResource MainColorForeground}">
+                        <StackPanel Orientation="Horizontal" >
+                            <TextBlock Text="Placa: " Style="{StaticResource h3-w}"/>
+                            <TextBlock Text="{Binding CurrentUnidadVehicular.Placa}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
+                        </StackPanel>
+                    </Label>
+                    <Label Foreground="{StaticResource MainColorForeground}">
+                        <StackPanel Orientation="Horizontal" >
+                            <TextBlock Text="Marca: " Style="{StaticResource h3-w}"/>
+                            <TextBlock Text="{Binding CurrentUnidadVehicular.Marca}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
+                        </StackPanel>
+                    </Label>
+                    <Label Foreground="{StaticResource MainColorForeground}">
+                        <StackPanel Orientation="Horizontal" >
+                            <TextBlock Text="Año de Fabricación: " Style="{StaticResource h3-w}"/>
+                            <TextBlock Text="{Binding CurrentUnidadVehicular.Y_Fabricacion}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
+                        </StackPanel>
+                    </Label>
+                    <Label Foreground="{StaticResource MainColorForeground}">
+                        <StackPanel Orientation="Horizontal" >
+                            <TextBlock Text="Serie de Chasis: " Style="{StaticResource h3-w}"/>
+                            <TextBlock Text="{Binding CurrentUnidadVehicular.Serie_Chasis}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
+                        </StackPanel>
+                    </Label>
                 </StackPanel>
             </materialDesign:Card>
         </Grid>

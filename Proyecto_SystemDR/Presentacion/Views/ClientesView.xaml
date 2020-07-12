@@ -82,30 +82,30 @@
 
             <TextBlock Text="Datos de la empresa" Grid.Row="0" Style="{StaticResource h2-b}" Grid.Column="0" Margin="20,0,0,0"/>
 
-            <materialDesign:Card Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Margin="20,0,0,0" Width="200" MaxWidth="250" MaxHeight="120" Background="{StaticResource AuxColorBackground}">
+            <materialDesign:Card Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Margin="20,0,0,0" Width="300" MaxWidth="350" MaxHeight="120" Background="{StaticResource AuxColorBackground}">
                 <StackPanel>
                     <Label Foreground="{StaticResource MainColorForeground}">
                         <StackPanel Orientation="Horizontal" >
                             <TextBlock Text="Ruc: " Style="{StaticResource h3-w}"/>
-                            <TextBlock Text="{Binding CurrentCliente.RUC}" Style="{StaticResource h3-w}"/>
+                            <TextBlock Text="{Binding CurrentCliente.RUC}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
                         </StackPanel>
                     </Label>
                     <Label  Foreground="{StaticResource MainColorForeground}">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Razon Social: " Style="{StaticResource h3-w}"/>
-                            <TextBlock Text="{Binding CurrentCliente.Razon_Social}" Style="{StaticResource h3-w}"/>
+                            <TextBlock Text="Razon Social: "  Style="{StaticResource h3-w}"/>
+                            <TextBlock Text="{Binding CurrentCliente.Razon_Social}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
                         </StackPanel>
                     </Label>
                     <Label Foreground="{StaticResource MainColorForeground}">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Direccion: " Style="{StaticResource h3-w}"/>
-                            <TextBlock Text="{Binding CurrentCliente.Direccion}" Style="{StaticResource h3-w}"/>
+                            <TextBlock Text="Direccion: "  Style="{StaticResource h3-w}"/>
+                            <TextBlock Text="{Binding CurrentCliente.Direccion}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
                         </StackPanel>
                     </Label>
                     <Label Foreground="{StaticResource MainColorForeground}">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Tipo: " Style="{StaticResource h3-w}"/>
-                            <TextBlock Text="{Binding CurrentCliente.Tipo}" Style="{StaticResource h3-w}"/>
+                            <TextBlock Text="Tipo: "  Style="{StaticResource h3-w}"/>
+                            <TextBlock Text="{Binding CurrentCliente.Tipo}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
                         </StackPanel>
                     </Label>
                 </StackPanel>
@@ -113,7 +113,7 @@
 
             <TextBlock Text="Datos del Representante Legal" Style="{StaticResource h2-b}" Grid.Row="0" Grid.Column="1" Margin="20,0,0,0"/>
 
-            <materialDesign:Card Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Margin="20,0,0,0" Width="400" MaxWidth="700" MaxHeight="120" Background="{StaticResource AuxColorBackground}">
+            <materialDesign:Card Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Margin="20,0,0,0" Width="600" MaxWidth="650" MaxHeight="120" Background="{StaticResource AuxColorBackground}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
@@ -130,31 +130,31 @@
                     <Label Foreground="{StaticResource MainColorForeground}" Grid.Row="0" Grid.Column="0">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="DNI: " Style="{StaticResource h3-w}"/>
-                            <TextBlock Text="{Binding CurrentCliente.Persona.DNI}" Style="{StaticResource h3-w}"/>
+                            <TextBlock Text="{Binding CurrentCliente.Persona.DNI}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
                         </StackPanel>
                     </Label>
                     <Label Foreground="{StaticResource MainColorForeground}" Grid.Row="0" Grid.Column="1">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Nombre: " Style="{StaticResource h3-w}"/>
-                            <TextBlock Text="{Binding CurrentCliente.Persona.Nombre}" Style="{StaticResource h3-w}"/>
+                            <TextBlock Text="{Binding CurrentCliente.Persona.Nombre}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
                         </StackPanel>
                     </Label>
                     <Label Foreground="{StaticResource MainColorForeground}" Grid.Row="0" Grid.Column="2">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Apellido: " Style="{StaticResource h3-w}"/>
-                            <TextBlock Text="{Binding CurrentCliente.Persona.Apellidos}" Style="{StaticResource h3-w}"/>
+                            <TextBlock Text="{Binding CurrentCliente.Persona.Apellidos}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
                         </StackPanel>
                     </Label>
                     <Label Foreground="{StaticResource MainColorForeground}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Fecha Nacimiento: " Style="{StaticResource h3-w}"/>
-                            <TextBlock Text="{Binding CurrentCliente.Persona.Fecha_Nac, StringFormat=d}" Style="{StaticResource h3-w}"/>
+                            <TextBlock Text="{Binding CurrentCliente.Persona.Fecha_Nac, StringFormat=d}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
                         </StackPanel>
                     </Label>
                     <Label Foreground="{StaticResource MainColorForeground}" Grid.Row="1" Grid.Column="2">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Nacionalidad: " Style="{StaticResource h3-w}"/>
-                            <TextBlock Text="{Binding CurrentCliente.Persona.Nacionalidad}" Style="{StaticResource h3-w}"/>
+                            <TextBlock Text="{Binding CurrentCliente.Persona.Nacionalidad}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
                         </StackPanel>
                     </Label>
                     <Label Foreground="{StaticResource MainColorForeground}" Grid.Row="2" Grid.Column="0">

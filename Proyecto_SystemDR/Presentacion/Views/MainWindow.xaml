@@ -54,7 +54,7 @@
                         <TextBlock Text="Unidades Vehic."/>
                     </StackPanel>
                 </ListViewItem>
-                <ListViewItem Height="40" Selected="ListViewItem_Selected">
+                <ListViewItem Height="40" Selected="ListViewItem_Selected" Name="Historial">
                     <StackPanel Orientation="Horizontal">
                         <materialDesign:PackIcon Kind="History" Height="25" Width="30" Foreground="White" Margin="0,0,20,0"/>
                         <TextBlock Text="Historial de Event."/>

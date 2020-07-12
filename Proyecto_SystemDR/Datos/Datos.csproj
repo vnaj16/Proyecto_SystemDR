@@ -58,6 +58,7 @@
   <ItemGroup>
     <Compile Include="Interfaces\IClienteRepository.cs" />
     <Compile Include="Interfaces\IConductorRepository.cs" />
+    <Compile Include="Interfaces\IHistorialRepository.cs" />
     <Compile Include="Interfaces\IRepository.cs" />
     <Compile Include="Interfaces\ITelefonoRepository.cs" />
     <Compile Include="Interfaces\IUnidadVehicularRepository.cs" />
@@ -74,6 +75,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\ClienteRepository.cs" />
     <Compile Include="Repositories\ConductorRepository.cs" />
+    <Compile Include="Repositories\HistorialRepository.cs" />
     <Compile Include="Repositories\TelefonoRepository.cs" />
     <Compile Include="Repositories\UnidadVehicularRepository.cs" />
   </ItemGroup>

@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace Entidades
 {
-    public partial class PersonaExt
+    public partial class Persona
     {
+        public string FullName { get { return Nombre + ' ' + Apellido; } }
     }
 
     #region Backup Entity Persona

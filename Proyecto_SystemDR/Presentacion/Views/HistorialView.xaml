@@ -1,0 +1,204 @@
+﻿<UserControl x:Class="Presentacion.Views.HistorialView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Presentacion.Views"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800" Background="White"
+              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="0.1*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Grid.Column="0" Grid.Row="0" Style="{StaticResource h1-b}"  Text="Listado de Eventualidades" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="20,20,0,0"/>
+
+        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="1" Margin="0,20,20,0" HorizontalAlignment="Center">
+            <TextBlock VerticalAlignment="Center" Text="Buscar por: "/>
+            <ComboBox  Name="ComboBox_Filtros" SelectedIndex="0" MinWidth="100" MaxWidth="100" MaxHeight="50" Margin="5,0,0,0">
+                <ComboBoxItem>
+                    Item 1
+                </ComboBoxItem>
+            </ComboBox>
+            <Label  HorizontalAlignment="Left" VerticalAlignment="Center" Margin="5,0,0,0">
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="Search" VerticalAlignment="Center"/>
+                    <TextBox x:Name="TextBox_Buscar" Text="Buscar" MinWidth="100"/>
+                </StackPanel>
+            </Label>
+        </StackPanel>
+
+        <DataGrid ItemsSource="{Binding ListaHistoriales}" SelectedItem="{Binding CurrentHistorial}" AutoGenerateColumns="False" 
+                  VerticalScrollBarVisibility="Auto" Grid.Row="2" Grid.Column="0" MaxWidth="1000" HorizontalAlignment="Left" Margin="20,10,0,10">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="DNI" Binding="{Binding Conductor.DNI}" Width="80"/>
+                <DataGridTextColumn Header="Nombre Conductor" Binding="{Binding Conductor.Persona.FullName}" Width="170"/>
+                <DataGridTextColumn Header="Placa" Binding="{Binding Unidad_Vehicular.Placa}" Width="80"/>
+                <DataGridTextColumn Header="Fecha" Binding="{Binding Fecha, StringFormat=d}" Width="100"/>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="3" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="10,0,60,10">
+            <Button Content="Agregar" Margin="0,0,8,0" Height="28" Command="{Binding AgregarCommand}" Background="{StaticResource MainColorBackground}" Foreground="{StaticResource MainColorForeground}"/>
+            <Button Content="Modificar" Margin="0,0,8,0" Height="28" Command="{Binding ActualizarCommand}" Background="{StaticResource MainColorBackground}" Foreground="{StaticResource MainColorForeground}"/>
+            <Button Content="Eliminar" Height="28" Command="{Binding DeleteCommand}" Background="{StaticResource MainColorBackground}" Foreground="{StaticResource MainColorForeground}"/>
+        </StackPanel>
+
+        <Grid Grid.Column="1" Margin="10" Grid.RowSpan="5" Background="{StaticResource MainColorBackground}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <Label Grid.Row="0" Margin="20,10,0,10" MaxWidth="250" HorizontalAlignment="Left" >
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Historial Seleccionado: " Style="{StaticResource h2-w}"/>
+                    <TextBlock Text="{Binding CurrentHistorial.ID}" Style="{StaticResource h2-w}"/>
+                </StackPanel>
+            </Label>
+
+            <Grid Grid.Row="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Margin="20,10,0,10" MaxWidth="250" HorizontalAlignment="Left" Grid.ColumnSpan="2" >
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Datos del conductor con DNI " Style="{StaticResource h3-w}"/>
+                        <TextBlock Text="{Binding CurrentHistorial.Conductor.Persona.DNI}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
+                    </StackPanel>
+                </Label>
+
+                <Label Grid.Row="1" Margin="40,10,0,10" MaxWidth="250" HorizontalAlignment="Left"  Grid.ColumnSpan="2" >
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Nombre: " Style="{StaticResource h3-w}"/>
+                        <TextBlock Text="{Binding CurrentHistorial.Conductor.Persona.FullName}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
+                    </StackPanel>
+                </Label>
+
+
+                <Label Grid.Row="2" Margin="40,10,0,10" MaxWidth="250" HorizontalAlignment="Left" Grid.Column="0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Nacionalidad: " Style="{StaticResource h3-w}"/>
+                        <TextBlock Text="{Binding CurrentHistorial.Conductor.Persona.Nacionalidad}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
+                    </StackPanel>
+                </Label>
+
+                <Label Grid.Row="2" Margin="40,10,0,10" MaxWidth="250" HorizontalAlignment="Left" Grid.Column="1">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Brevete: " Style="{StaticResource h3-w}"/>
+                        <TextBlock Text="{Binding CurrentHistorial.Conductor.Brevete}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
+                    </StackPanel>
+                </Label>
+
+            </Grid>
+
+            <Grid Grid.Row="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Margin="20,10,0,10" MaxWidth="250" HorizontalAlignment="Left" Grid.ColumnSpan="2" >
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Datos de la Unidad Vehicular con placa" Style="{StaticResource h3-w}"/>
+                        <TextBlock Text="{Binding CurrentHistorial.Unidad_Vehicular.Placa}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
+                    </StackPanel>
+                </Label>
+
+                <Label Grid.Row="1" Margin="40,10,0,10" MaxWidth="250" HorizontalAlignment="Left"  Grid.ColumnSpan="2" >
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Marca: " Style="{StaticResource h3-w}"/>
+                        <TextBlock Text="{Binding CurrentHistorial.Unidad_Vehicular.Placa}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
+                    </StackPanel>
+                </Label>
+
+
+                <Label Grid.Row="2" Margin="40,10,0,10" MaxWidth="250" HorizontalAlignment="Left" Grid.Column="0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Serie de Chasis: " Style="{StaticResource h3-w}"/>
+                        <TextBlock Text="{Binding CurrentHistorial.Unidad_Vehicular.SerieChasis}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
+                    </StackPanel>
+                </Label>
+            </Grid>
+
+            <Grid Grid.Row="3">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="Auto"/>
+                </Grid.RowDefinitions>
+
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <Label Grid.Row="0" Margin="20,10,0,10" MaxWidth="250" HorizontalAlignment="Left" Grid.ColumnSpan="2" >
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Datos del Evento" Style="{StaticResource h3-w}"/>
+                        <TextBlock Text="{Binding CurrentHistorial.Unidad_Vehicular.Placa}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
+                    </StackPanel>
+                </Label>
+
+                <Label Grid.Row="1" Margin="40,10,0,10" MaxWidth="250" HorizontalAlignment="Left" Grid.ColumnSpan="2" >
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Fecha " Style="{StaticResource h3-w}"/>
+                        <TextBlock Text="{Binding CurrentHistorial.Fecha}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
+                    </StackPanel>
+                </Label>
+
+                <Label Grid.Row="1" Margin="40,10,0,10" MaxWidth="250" HorizontalAlignment="Left" Grid.Column="1" Grid.ColumnSpan="2" >
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Lugar: " Style="{StaticResource h3-w}"/>
+                        <TextBlock Text="{Binding CurrentHistorial.Lugar}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
+                    </StackPanel>
+                </Label>
+
+
+                <Label Grid.Row="2" Margin="40,10,0,10" MaxWidth="250" HorizontalAlignment="Left" Grid.Column="0">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Nacionalidad: " Style="{StaticResource h3-w}"/>
+                        <TextBlock Text="{Binding CurrentHistorial.Conductor.Persona.Nacionalidad}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
+                    </StackPanel>
+                </Label>
+
+                <Label Grid.Row="2" Margin="40,10,0,10" MaxWidth="250" HorizontalAlignment="Left" Grid.Column="1">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="Brevete: " Style="{StaticResource h3-w}"/>
+                        <TextBlock Text="{Binding CurrentHistorial.Conductor.Brevete}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
+                    </StackPanel>
+                </Label>
+
+            </Grid>
+
+        </Grid>
+
+    </Grid>
+</UserControl>

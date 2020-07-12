@@ -1,0 +1,81 @@
+﻿<Window x:Class="Presentacion.Views.HistorialV.RegistrarHistorialView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Presentacion.Views.HistorialV"
+        mc:Ignorable="d"
+        Title="RegistrarHistorialView" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Registro de Eventualidad" Style="{StaticResource h1-b}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20 20 0 0" Grid.Row="0"/>
+
+        <TextBlock Text="Datos de la empresa" Style="{StaticResource h2-b}" Grid.Row="1" Margin="5,5,0,5" Grid.ColumnSpan="2"/>
+
+
+        <Grid Grid.Row="2" Background="{StaticResource MainColorBackground}" Margin="20,0,20,0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            
+            <Label Foreground="{StaticResource MainColorForeground}" Margin="10" Grid.Row="0" Grid.Column="0">
+                <StackPanel>
+                    <TextBlock Text="Conductor" Style="{StaticResource h3-w}" Margin="0 0 0 2"/>
+                    <ComboBox Name="ComboBox_Conductor" Background="White"  Foreground="Black" SelectionChanged="ComboBox_Conductor_SelectionChanged"/>
+                </StackPanel>
+            </Label>
+            <Label Foreground="{StaticResource MainColorForeground}" Margin="10" Grid.Row="1" Grid.Column="0">
+                <StackPanel>
+                    <TextBlock Text="Unidad Vehicular" Margin="0 0 0 2" Style="{StaticResource h3-w}"/>
+                    <ComboBox Name="ComboBox_Vehiculo" Background="White"  Foreground="Black" SelectionChanged="ComboBox_Vehiculo_SelectionChanged"/>
+                </StackPanel>
+            </Label>
+            <Label Foreground="{StaticResource MainColorForeground}" Margin="10" Grid.Row="2" Grid.Column="0">
+                <StackPanel>
+                    <TextBlock Text="Lugar" Margin="0 0 0 2" Style="{StaticResource h3-w}"/>
+                    <TextBox MinWidth="150" Style="{StaticResource StyleTextBox}" TabIndex="2" Text="{Binding Lugar, Mode=TwoWay}"/>
+                </StackPanel>
+            </Label>
+            <Label Foreground="{StaticResource MainColorForeground}" Margin="10" Grid.Row="0" Grid.Column="1">
+                <StackPanel>
+                    <TextBlock Text="Fecha" Margin="0 0 0 2" Style="{StaticResource h3-w}"/>
+                    <TextBox MinWidth="80" Style="{StaticResource StyleTextBox}" TabIndex="3" Text="{Binding Tipo, Mode=TwoWay}"/>
+                </StackPanel>
+            </Label>
+
+            <Label Foreground="{StaticResource MainColorForeground}" Margin="10" Grid.Row="0" Grid.Column="2">
+                <StackPanel>
+                    <TextBlock Text="Eventualidad" Margin="0 0 0 2" Style="{StaticResource h3-w}"/>
+                    <TextBox MinWidth="150" Style="{StaticResource StyleTextBox}" TabIndex="3" Text="{Binding Eventualidad, Mode=TwoWay}"/>
+                </StackPanel>
+            </Label>
+
+            <Label Foreground="{StaticResource MainColorForeground}" Margin="10" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="2">
+                <StackPanel>
+                    <TextBlock Text="Descripción (Máx 150 caracteres)" Margin="0 0 0 2" Style="{StaticResource h3-w}"/>
+                    <TextBox MinWidth="400" Height="100" Style="{StaticResource StyleTextBox}" TabIndex="3" Text="{Binding Descripcion, Mode=TwoWay}"/>
+                </StackPanel>
+            </Label>
+        </Grid>
+
+        <StackPanel Grid.Row="3" Grid.Column="4" Orientation="Horizontal" HorizontalAlignment="Center" Margin="105,0,106,0">
+            <Button Name="Guardar" Content="Guardar" Margin="10" Background="{StaticResource MainColorBackground}" Foreground="{StaticResource MainColorForeground}" Click="Guardar_Click"/>
+            <Button x:Name="Regresar" Content="Regresar" Margin="10" Background="{StaticResource MainColorBackground}" Foreground="{StaticResource MainColorForeground}" Click="Regresar_Click"/>
+        </StackPanel>
+
+    </Grid>
+</Window>

@@ -92,6 +92,7 @@
     <Compile Include="Helpers\MyValidator.cs" />
     <Compile Include="ViewModels\ClientesViewModel.cs" />
     <Compile Include="ViewModels\ConductoresViewModel.cs" />
+    <Compile Include="ViewModels\HistorialViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\ProveedoresViewModel.cs" />
     <Compile Include="ViewModels\UnidadVehicularViewModel.cs" />
@@ -109,6 +110,12 @@
     </Compile>
     <Compile Include="Views\Helpers\LoadView.xaml.cs">
       <DependentUpon>LoadView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HistorialView.xaml.cs">
+      <DependentUpon>HistorialView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HistorialV\RegistrarHistorialView.xaml.cs">
+      <DependentUpon>RegistrarHistorialView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -181,6 +188,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Helpers\LoadView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HistorialView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\HistorialV\RegistrarHistorialView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

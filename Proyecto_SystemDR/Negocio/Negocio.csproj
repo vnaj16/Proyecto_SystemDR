@@ -43,6 +43,7 @@
   <ItemGroup>
     <Compile Include="Business_Objects\ClienteBO.cs" />
     <Compile Include="Business_Objects\ConductorBO.cs" />
+    <Compile Include="Business_Objects\HistorialBO.cs" />
     <Compile Include="Business_Objects\TelefonoBO.cs" />
     <Compile Include="Business_Objects\UnidadVehicularBO.cs" />
     <Compile Include="Core\TransporteDR.cs" />
