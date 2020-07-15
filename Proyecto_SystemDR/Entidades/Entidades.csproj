@@ -55,6 +55,7 @@
     <Compile Include="Conductor.cs">
       <DependentUpon>TransporteDRModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="ConductorExt.cs" />
     <Compile Include="CuentasXRendir.cs">
       <DependentUpon>TransporteDRModel.tt</DependentUpon>
     </Compile>
@@ -99,6 +100,7 @@
     <Compile Include="Unidad_Vehicular.cs">
       <DependentUpon>TransporteDRModel.tt</DependentUpon>
     </Compile>
+    <Compile Include="Unidad_VehicularExt.cs" />
     <Compile Include="Viaje.cs">
       <DependentUpon>TransporteDRModel.tt</DependentUpon>
     </Compile>

@@ -190,7 +190,7 @@ namespace Presentacion.ViewModels
                         break;
 
                     case FilterTypeSearchCliente.RazonSocial:
-                        ListaClientes = new ObservableCollection<Cliente>(ListaClientesAux.Where(x => x.Razon_Social.StartsWith(Filter)));
+                        ListaClientes = new ObservableCollection<Cliente>(ListaClientesAux.Where(x => x.Razon_Social.ToLower().StartsWith(Filter.ToLower())));
                         break;
                     case FilterTypeSearchCliente.DNI:
                         var listAux = new ObservableCollection<Cliente>();

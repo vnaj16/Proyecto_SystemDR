@@ -5,7 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:Presentacion.Views"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Background="White"
+             d:DesignHeight="550" d:DesignWidth="950" Background="White"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
     <Grid>
         <Grid.RowDefinitions>
@@ -42,20 +42,20 @@
 
         <Grid Grid.Row="1">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
             <DataGrid ItemsSource="{Binding ListaProveedores}" SelectedItem="{Binding CurrentProveedor}" AutoGenerateColumns="False" VerticalScrollBarVisibility="Auto" Grid.Row="1" MinWidth="500" MaxWidth="1000" HorizontalAlignment="Left" Margin="20,10,0,10">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="RUC" Binding="{Binding RUC}" Width="80"/>
+                    <DataGridTextColumn Header="RUC" Binding="{Binding RUC}" Width="100"/>
                     <DataGridTextColumn Header="Razón Social" Binding="{Binding Razon_Social}" Width="170"/>
-                    <DataGridTextColumn Header="Dirección" Binding="{Binding Direccion}" Width="180"/>
-                    <DataGridTextColumn Header="DNI" Binding="{Binding Persona.DNI}" Width="80"/>
+                    <DataGridTextColumn Header="Dirección" Binding="{Binding Direccion}" Width="200"/>
+                    <DataGridTextColumn Header="DNI" Binding="{Binding Persona.DNI}" Width="100"/>
                 </DataGrid.Columns>
             </DataGrid>
 
-            <StackPanel Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="10,0,60,10">
+            <StackPanel Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="50,0,60,10">
                 <Button Content="Agregar" Margin="0,0,0,8" Height="28" Command="{Binding AgregarCommand}" Background="{StaticResource MainColorBackground}" Foreground="{StaticResource MainColorForeground}"/>
                 <Button Content="Modificar" Margin="0,0,0,8" Height="28" Command="{Binding ActualizarCommand}" Background="{StaticResource MainColorBackground}" Foreground="{StaticResource MainColorForeground}"/>
                 <Button Content="Eliminar" Height="28" Command="{Binding DeleteCommand}" Background="{StaticResource MainColorBackground}" Foreground="{StaticResource MainColorForeground}"/>
@@ -65,14 +65,14 @@
         <Label Grid.Row="2" Margin="20,10,0,10" MaxWidth="250" HorizontalAlignment="Left">
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Proveedor Seleccionado: " Style="{StaticResource h2-b}"/>
-                <TextBlock Text="{Binding CurrentConductor.RUC}"/>
+                <TextBlock Text="{Binding CurrentConductor.RUC}" FontWeight="Bold"/>
             </StackPanel>
         </Label>
 
         <Grid Grid.Row="4">
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*"/>
-                <ColumnDefinition Width="2*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto"/>
@@ -81,9 +81,9 @@
 
             <TextBlock Text="Datos del Proveedor" Grid.Row="0" Style="{StaticResource h2-b}" Grid.Column="0" Margin="20,0,0,0"/>
 
-            <materialDesign:Card Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" Margin="20,0,0,0" Width="300" MaxWidth="350" MaxHeight="120" Background="{StaticResource AuxColorBackground}">
+            <materialDesign:Card Grid.Row="1" Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,10,0,0" Width="300" MaxWidth="350" MinHeight="150" Background="{StaticResource AuxColorBackground}">
                 <StackPanel>
-                    <Label Foreground="{StaticResource MainColorForeground}">
+                    <Label Foreground="{StaticResource MainColorForeground}" Margin="0 0 0 5">
                         <StackPanel Orientation="Horizontal" >
                             <TextBlock Text="Ruc: " Style="{StaticResource h3-w}"/>
                             <TextBlock Text="{Binding CurrentProveedor.RUC}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
@@ -92,19 +92,19 @@
                     <Label  Foreground="{StaticResource MainColorForeground}">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Razon Social: "  Style="{StaticResource h3-w}"/>
-                            <TextBlock Text="{Binding CurrentProveedor.Razon_Social}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
+                            <TextBlock Text="{Binding CurrentProveedor.Razon_Social}"  Margin="0 0 0 5" FontWeight="Bold" Style="{StaticResource h3-w}"/>
                         </StackPanel>
                     </Label>
                     <Label Foreground="{StaticResource MainColorForeground}">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Direccion: "  Style="{StaticResource h3-w}"/>
-                            <TextBlock Text="{Binding CurrentProveedor.Direccion}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
+                            <TextBlock Text="{Binding CurrentProveedor.Direccion}" TextWrapping="Wrap" Margin="0 0 0 5" FontWeight="Bold" Style="{StaticResource h3-w}"/>
                         </StackPanel>
                     </Label>
                     <Label Foreground="{StaticResource MainColorForeground}">
                         <StackPanel Orientation="Horizontal">
-                            <TextBlock Text="Tipo: "  Style="{StaticResource h3-w}"/>
-                            <TextBlock Text="{Binding CurrentProveedor.Tipo}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
+                            <TextBlock Text="Productos: "  Style="{StaticResource h3-w}"/>
+                            <TextBlock Text="{Binding CurrentProveedor.Productos}" TextWrapping="Wrap" FontWeight="Bold" Style="{StaticResource h3-w}"/>
                         </StackPanel>
                     </Label>
                 </StackPanel>
@@ -112,7 +112,7 @@
 
             <TextBlock Text="Datos del Representante Legal" Style="{StaticResource h2-b}" Grid.Row="0" Grid.Column="1" Margin="20,0,0,0"/>
 
-            <materialDesign:Card Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" Margin="20,0,0,0" Width="600" MaxWidth="650" MaxHeight="120" Background="{StaticResource AuxColorBackground}">
+            <materialDesign:Card Grid.Row="1" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="20,10,0,0" Width="600" MaxWidth="650" MinHeight="150" Background="{StaticResource AuxColorBackground}">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>

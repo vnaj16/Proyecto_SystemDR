@@ -1,4 +1,5 @@
-﻿using Presentacion.ViewModels;
+﻿using Presentacion.Helpers;
+using Presentacion.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,9 +24,13 @@ namespace Presentacion.Views
     {
         private static UnidadesVehicularesView instance;
 
+        private FilterTypeSearchVehiculo FilterType = 0;
+
         public UnidadesVehicularesView()
         {
             InitializeComponent();
+
+            ComboBox_Filtros.ItemsSource = Enum.GetValues(typeof(FilterTypeSearchVehiculo));
 
             try
             {
@@ -57,7 +62,7 @@ namespace Presentacion.Views
             var Text = TextBox_Buscar.Text;
             if (Text != "Buscar")
             {
-                //ClientesViewModel.Instance.ChangeCollection(Text, FilterType);
+                UnidadVehicularViewModel.Instance.ChangeCollection(Text, FilterType);
             }
         }
 
@@ -77,7 +82,7 @@ namespace Presentacion.Views
 
         private void ComboBox_Filtros_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //Enum.TryParse<FilterTypeSearchCliente>(ComboBox_Filtros.SelectedValue.ToString(), out FilterType);
+            Enum.TryParse<FilterTypeSearchVehiculo>(ComboBox_Filtros.SelectedValue.ToString(), out FilterType);
         }
 
     }

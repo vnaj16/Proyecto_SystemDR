@@ -1,5 +1,6 @@
 ﻿using Entidades;
 using Negocio.Core;
+using Presentacion.Helpers;
 using Presentacion.Views.ConductoresV;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -173,27 +174,20 @@ namespace Presentacion.ViewModels
 
         #region METHODS
         ObservableCollection<Conductor> ListaConductoresAux;
-        /*public void ChangeCollection(string Filter, FilterTypeSearchCliente filterType)
+        public void ChangeCollection(string Filter, FilterTypeSearchConductor filterType)
         {
             if (String.IsNullOrWhiteSpace(Filter))
             {
-                ListaClientes = ListaClientesAux;
+                ListaConductores = ListaConductoresAux;
             }
             else
             {
                 switch (filterType)
                 {
-                    case FilterTypeSearchCliente.RUC:
-                        ListaClientes = new ObservableCollection<Cliente>(ListaClientesAux.Where(x => x.RUC.StartsWith(Filter)));
-                        break;
+                    case FilterTypeSearchConductor.DNI:
+                        var listAux = new ObservableCollection<Conductor>();
 
-                    case FilterTypeSearchCliente.RazonSocial:
-                        ListaClientes = new ObservableCollection<Cliente>(ListaClientesAux.Where(x => x.Razon_Social.StartsWith(Filter)));
-                        break;
-                    case FilterTypeSearchCliente.DNI:
-                        var listAux = new ObservableCollection<Cliente>();
-
-                        foreach (var x in ListaClientesAux)
+                        foreach (var x in ListaConductoresAux)
                         {
                             if (!(x.Persona is null))
                             {
@@ -204,13 +198,49 @@ namespace Presentacion.ViewModels
                             }
                         }
 
-                        ListaClientes = listAux;
+                        ListaConductores = listAux;
+                        break;
+
+                    case FilterTypeSearchConductor.Brevete:
+                        ListaConductores = new ObservableCollection<Conductor>(ListaConductoresAux.Where(x => x.Brevete.ToLower().StartsWith(Filter.ToLower())));
+                        break;
+                    case FilterTypeSearchConductor.Nombre:
+                        var listAux1 = new ObservableCollection<Conductor>();
+
+                        foreach (var x in ListaConductoresAux)
+                        {
+                            if (!(x.Persona is null))
+                            {
+                                if (x.Persona.Nombre.ToLower().StartsWith(Filter.ToLower()))
+                                {
+                                    listAux1.Add(x);
+                                }
+                            }
+                        }
+
+                        ListaConductores = listAux1;
+                        break;
+                    case FilterTypeSearchConductor.Apellido:
+                        var listAux2 = new ObservableCollection<Conductor>();
+
+                        foreach (var x in ListaConductoresAux)
+                        {
+                            if (!(x.Persona is null))
+                            {
+                                if (x.Persona.Apellido.ToLower().StartsWith(Filter.ToLower()))
+                                {
+                                    listAux2.Add(x);
+                                }
+                            }
+                        }
+
+                        ListaConductores = listAux2;
                         break;
                     default:
                         break;
                 }
             }
-        }*/
+        }
         #endregion
     }
 }

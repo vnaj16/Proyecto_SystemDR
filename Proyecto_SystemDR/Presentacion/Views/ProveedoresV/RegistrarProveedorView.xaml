@@ -1,0 +1,120 @@
+﻿<Window x:Class="Presentacion.Views.ProveedoresV.RegistrarProveedorView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Presentacion.Views.ProveedoresV"
+        mc:Ignorable="d"
+        Title="RegistrarProveedorView" Height="500" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <TextBlock Text="Registro de Proveedor" Style="{StaticResource h1-b}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20 20 0 0" Grid.Row="0"/>
+
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="20"/>
+                <ColumnDefinition Width="77*"/>
+                <ColumnDefinition Width="204*"/>
+                <ColumnDefinition Width="50"/>
+                <ColumnDefinition Width="421*"/>
+                <ColumnDefinition Width="20"/>
+            </Grid.ColumnDefinitions>
+
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="20"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="Datos de la empresa" Style="{StaticResource h2-b}" Grid.Row="0" Grid.Column="1" Margin="5,5,0,5" Grid.ColumnSpan="2"/>
+            <StackPanel Background="{StaticResource MainColorBackground}" Grid.Column="1" Grid.Row="1" Grid.RowSpan="2" Grid.ColumnSpan="2">
+                <Label Foreground="{StaticResource MainColorForeground}" Margin="10">
+                    <StackPanel>
+                        <TextBlock Text="RUC" Style="{StaticResource h3-w}" Margin="0 0 0 2"/>
+                        <TextBox MinWidth="80" Style="{StaticResource StyleTextBox}" TabIndex="0" Text="{Binding RUC, Mode=TwoWay}"/>
+                    </StackPanel>
+                </Label>
+                <Label Foreground="{StaticResource MainColorForeground}" Margin="10">
+                    <StackPanel>
+                        <TextBlock Text="Razón Social" Margin="0 0 0 2" Style="{StaticResource h3-w}"/>
+                        <TextBox MinWidth="150" Style="{StaticResource StyleTextBox}" TabIndex="1" Text="{Binding Razon_Social, Mode=TwoWay}"/>
+                    </StackPanel>
+                </Label>
+                <Label Foreground="{StaticResource MainColorForeground}" Margin="10">
+                    <StackPanel>
+                        <TextBlock Text="Dirección" Margin="0 0 0 2" Style="{StaticResource h3-w}"/>
+                        <TextBox MinWidth="150" Style="{StaticResource StyleTextBox}" TabIndex="2" Text="{Binding Direccion, Mode=TwoWay}"/>
+                    </StackPanel>
+                </Label>
+                <Label Foreground="{StaticResource MainColorForeground}" Margin="10">
+                    <StackPanel>
+                        <TextBlock Text="Productos" Margin="0 0 0 2" Style="{StaticResource h3-w}"/>
+                        <TextBox MinWidth="150" Style="{StaticResource StyleTextBox}" TabIndex="3" Text="{Binding Productos, Mode=TwoWay}"/>
+                    </StackPanel>
+                </Label>
+                <Label Foreground="{StaticResource MainColorForeground}" Margin="10">
+                    <StackPanel>
+                        <TextBlock Text="Tipo" Margin="0 0 0 2" Style="{StaticResource h3-w}"/>
+                        <TextBox MinWidth="80" Style="{StaticResource StyleTextBox}" TabIndex="3" Text="{Binding Tipo, Mode=TwoWay}"/>
+                    </StackPanel>
+                </Label>
+            </StackPanel>
+
+            <TextBlock Text="Datos del representante legal" Style="{StaticResource h2-b}" Grid.Row="0" Grid.Column="4" Margin="5,5,0,5"/>
+            <Grid Background="{StaticResource MainColorBackground}" Grid.Column="4" Grid.Row="1">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Label Foreground="{StaticResource MainColorForeground}" Margin="10" Grid.Column="0">
+                    <StackPanel>
+                        <TextBlock Text="DNI" Margin="0 0 0 2" Style="{StaticResource h3-w}"/>
+                        <TextBox x:Name="TextBox_DNI" MinWidth="80" Style="{StaticResource StyleTextBox}" TabIndex="4" Text="{Binding DNI, Mode=TwoWay}" LostFocus="TextBox_DNI_LostFocus" />
+                    </StackPanel>
+                </Label>
+                <Label Foreground="{StaticResource MainColorForeground}" Margin="10" Grid.Row="1" Grid.Column="0">
+                    <StackPanel>
+                        <TextBlock Text="Nombre" Margin="0 0 0 2" Style="{StaticResource h3-w}"/>
+                        <TextBox MinWidth="120" Style="{StaticResource StyleTextBox}" TabIndex="5" Text="{Binding Persona.Nombre, Mode=TwoWay}"/>
+                    </StackPanel>
+                </Label>
+                <Label Foreground="{StaticResource MainColorForeground}" Margin="10" Grid.Row="2" Grid.Column="0">
+                    <StackPanel>
+                        <TextBlock Text="Apellidos" Margin="0 0 0 2" Style="{StaticResource h3-w}"/>
+                        <TextBox MinWidth="120" Style="{StaticResource StyleTextBox}" TabIndex="6" Text="{Binding Persona.Apellido, Mode=TwoWay}"/>
+                    </StackPanel>
+                </Label>
+                <Label Foreground="{StaticResource MainColorForeground}" Margin="10" Grid.Row="0" Grid.Column="1">
+                    <StackPanel>
+                        <TextBlock Text="Fecha de Nacimiento" Style="{StaticResource h3-w}" Margin="0 0 0 2"/>
+                        <DatePicker MinWidth="120" Background="White"  Foreground="Black" TabIndex="7" SelectedDate="{Binding Persona.Fecha_Nac, Mode=TwoWay}"/>
+                    </StackPanel>
+                </Label>
+                <Label Foreground="{StaticResource MainColorForeground}" Margin="10" Grid.Row="1" Grid.Column="1">
+                    <StackPanel>
+                        <TextBlock Text="Nacionalidad" Margin="0 0 0 2" Style="{StaticResource h3-w}"/>
+                        <TextBox MinWidth="120" Style="{StaticResource StyleTextBox}" TabIndex="8" Text="{Binding Persona.Nacionalidad, Mode=TwoWay}"/>
+                    </StackPanel>
+                </Label>
+            </Grid>
+
+            <StackPanel Grid.Row="2" Grid.Column="4" Orientation="Horizontal" HorizontalAlignment="Center" Margin="105,0,106,0">
+                <Button Name="Guardar" Content="Guardar" Click="Guardar_Click" Margin="10" Background="{StaticResource MainColorBackground}" Foreground="{StaticResource MainColorForeground}"/>
+                <Button x:Name="Regresar" Content="Regresar" Click="Regresar_Click" Margin="10" Background="{StaticResource MainColorBackground}" Foreground="{StaticResource MainColorForeground}"/>
+            </StackPanel>
+
+        </Grid>
+
+    </Grid>
+</Window>

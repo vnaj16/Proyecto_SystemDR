@@ -1,5 +1,6 @@
 ﻿using Entidades;
 using Negocio.Core;
+using Presentacion.Helpers;
 using Presentacion.Views.UnidadesVehicularesV;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -172,44 +173,28 @@ namespace Presentacion.ViewModels
 
         #region METHODS
         ObservableCollection<Unidad_Vehicular> ListaUnidadesVehicularesAux;
-        /*public void ChangeCollection(string Filter, FilterTypeSearchCliente filterType)
+        public void ChangeCollection(string Filter, FilterTypeSearchVehiculo filterType)
         {
             if (String.IsNullOrWhiteSpace(Filter))
             {
-                ListaClientes = ListaClientesAux;
+                ListaUnidadesVehiculares = ListaUnidadesVehicularesAux;
             }
             else
             {
                 switch (filterType)
                 {
-                    case FilterTypeSearchCliente.RUC:
-                        ListaClientes = new ObservableCollection<Cliente>(ListaClientesAux.Where(x => x.RUC.StartsWith(Filter)));
+                    case FilterTypeSearchVehiculo.Marca:
+                        ListaUnidadesVehiculares = new ObservableCollection<Unidad_Vehicular>(ListaUnidadesVehicularesAux.Where(x => x.Marca.ToLower().StartsWith(Filter.ToLower())));
                         break;
 
-                    case FilterTypeSearchCliente.RazonSocial:
-                        ListaClientes = new ObservableCollection<Cliente>(ListaClientesAux.Where(x => x.Razon_Social.StartsWith(Filter)));
-                        break;
-                    case FilterTypeSearchCliente.DNI:
-                        var listAux = new ObservableCollection<Cliente>();
-
-                        foreach (var x in ListaClientesAux)
-                        {
-                            if (!(x.Persona is null))
-                            {
-                                if (x.Persona.DNI.StartsWith(Filter))
-                                {
-                                    listAux.Add(x);
-                                }
-                            }
-                        }
-
-                        ListaClientes = listAux;
+                    case FilterTypeSearchVehiculo.Placa:
+                        ListaUnidadesVehiculares = new ObservableCollection<Unidad_Vehicular>(ListaUnidadesVehicularesAux.Where(x => x.Placa.ToLower().StartsWith(Filter.ToLower())));
                         break;
                     default:
                         break;
                 }
             }
-        }*/
+        }
         #endregion
     }
 

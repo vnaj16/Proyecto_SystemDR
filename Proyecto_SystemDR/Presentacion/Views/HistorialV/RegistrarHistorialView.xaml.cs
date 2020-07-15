@@ -37,6 +37,8 @@ namespace Presentacion.Views.HistorialV
             this.ComboBox_Conductor.ItemsSource = listaConductores;
             this.ComboBox_Conductor.DisplayMemberPath = "Persona.FullName";
             this.ComboBox_Vehiculo.ItemsSource = listaVehiculos;
+            this.ComboBox_Vehiculo.DisplayMemberPath = "FullName";
+
 
             this.isUpdate = isUpdate;
 

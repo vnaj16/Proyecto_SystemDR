@@ -56,9 +56,23 @@ namespace Datos.Repositories
                     {
                         if (!db.Historial.ToList().Exists(x => x.ID == obj.ID))
                         {
+                            /*
+                           Hago bakcup de Conductor y UV, para que el contexto no las trackee
+                             */
+
+                            var conductor = obj.Conductor; obj.Conductor = null;
+                            var vehiculo = obj.Unidad_Vehicular; obj.Unidad_Vehicular = null;
+
                             db.Historial.Add(obj);
 
+                            /*db.Entry(obj.Conductor).State = System.Data.Entity.EntityState.Unchanged;
+                            db.Entry(obj.Conductor.Persona).State = System.Data.Entity.EntityState.Unchanged;
+                            db.Entry(obj.Unidad_Vehicular).State = System.Data.Entity.EntityState.Unchanged;*/
+
                             db.SaveChanges();
+
+                            obj.Unidad_Vehicular = vehiculo;
+                            obj.Conductor = conductor;
 
                             return true;
                         }

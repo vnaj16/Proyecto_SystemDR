@@ -123,6 +123,9 @@
     <Compile Include="Views\ProveedoresView.xaml.cs">
       <DependentUpon>ProveedoresView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\ProveedoresV\RegistrarProveedorView.xaml.cs">
+      <DependentUpon>RegistrarProveedorView.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\UnidadesVehicularesView.xaml.cs">
       <DependentUpon>UnidadesVehicularesView.xaml</DependentUpon>
     </Compile>
@@ -204,6 +207,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ProveedoresView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ProveedoresV\RegistrarProveedorView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

@@ -1,5 +1,6 @@
 ﻿using Entidades;
 using Negocio.Core;
+using Presentacion.Helpers;
 using Presentacion.Views.HistorialV;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -23,7 +24,7 @@ namespace Presentacion.ViewModels
         {
             listaHistoriales = new ObservableCollection<Historial>(TransporteDR.HistorialBO.GetAll());
 
-            //ListaHistorialesAux = listaHistoriales; //Este es otra referencia a la Lista que traigo de la DB, me sirve para cuando tenga que cambiar la lista que se muestra
+            ListaHistorialesAux = listaHistoriales; //Este es otra referencia a la Lista que traigo de la DB, me sirve para cuando tenga que cambiar la lista que se muestra
 
             AgregarCommand = new DelegateCommand(Execute_AgregarCommand);
             ActualizarCommand = new DelegateCommand(Execute_ActualizarCommand, CanExecute_ActualizarCommand).ObservesProperty(() => CurrentHistorial);
@@ -178,6 +179,65 @@ namespace Presentacion.ViewModels
             }
         }
 
+        #endregion
+
+        #region METHODS
+        ObservableCollection<Historial> ListaHistorialesAux;
+        public void ChangeCollection(string Filter, FilterTypeSearchHistorial filterType)
+        {
+            if (String.IsNullOrWhiteSpace(Filter))
+            {
+                ListaHistoriales = ListaHistorialesAux;
+            }
+            else
+            {
+                switch (filterType)
+                {
+                    case FilterTypeSearchHistorial.DNI:
+                        var listAux = new ObservableCollection<Historial>();
+
+                        foreach (var x in ListaHistorialesAux)
+                        {
+                            if (!(x.Conductor is null))
+                            {
+                                if (x.Conductor.DNI.StartsWith(Filter))
+                                {
+                                    listAux.Add(x);
+                                }
+                            }
+                        }
+
+                        ListaHistoriales = listAux;
+                        break;
+
+                    case FilterTypeSearchHistorial.Eventualidad:
+                        ListaHistoriales = new ObservableCollection<Historial>(ListaHistorialesAux.Where(x => x.Eventualidad.ToLower().StartsWith(Filter.ToLower())));
+                        break;
+
+                    case FilterTypeSearchHistorial.Lugar:
+                        ListaHistoriales = new ObservableCollection<Historial>(ListaHistorialesAux.Where(x => x.Lugar.ToLower().StartsWith(Filter.ToLower())));
+                        break;
+                    case FilterTypeSearchHistorial.Placa:
+                        var listAux1 = new ObservableCollection<Historial>();
+
+                        foreach (var x in ListaHistorialesAux)
+                        {
+                            if (!(x.Unidad_Vehicular is null))
+                            {
+                                if (x.Unidad_Vehicular.Placa.ToLower().StartsWith(Filter.ToLower()))
+                                {
+                                    listAux1.Add(x);
+                                }
+                            }
+                        }
+
+                        ListaHistoriales = listAux1;
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
         #endregion
 
     }

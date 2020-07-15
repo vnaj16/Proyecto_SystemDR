@@ -16,7 +16,7 @@
 
         <TextBlock Text="Registro de Eventualidad" Style="{StaticResource h1-b}" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="20 20 0 0" Grid.Row="0"/>
 
-        <TextBlock Text="Datos de la empresa" Style="{StaticResource h2-b}" Grid.Row="1" Margin="5,5,0,5" Grid.ColumnSpan="2"/>
+        <TextBlock Text="Datos de la Eventualidad ocurrida" Style="{StaticResource h2-b}" Grid.Row="1" Margin="5,5,0,5" Grid.ColumnSpan="2"/>
 
 
         <Grid Grid.Row="2" Background="{StaticResource MainColorBackground}" Margin="20,0,20,0">
@@ -53,21 +53,21 @@
             <Label Foreground="{StaticResource MainColorForeground}" Margin="10" Grid.Row="0" Grid.Column="1">
                 <StackPanel>
                     <TextBlock Text="Fecha" Margin="0 0 0 2" Style="{StaticResource h3-w}"/>
-                    <TextBox MinWidth="80" Style="{StaticResource StyleTextBox}" TabIndex="3" Text="{Binding Tipo, Mode=TwoWay}"/>
+                    <DatePicker MinWidth="120" Background="White" Foreground="Black" TabIndex="3" SelectedDate="{Binding Fecha, Mode=TwoWay}"/>
                 </StackPanel>
             </Label>
 
             <Label Foreground="{StaticResource MainColorForeground}" Margin="10" Grid.Row="0" Grid.Column="2">
                 <StackPanel>
                     <TextBlock Text="Eventualidad" Margin="0 0 0 2" Style="{StaticResource h3-w}"/>
-                    <TextBox MinWidth="150" Style="{StaticResource StyleTextBox}" TabIndex="3" Text="{Binding Eventualidad, Mode=TwoWay}"/>
+                    <TextBox MinWidth="200" Style="{StaticResource StyleTextBox}" TextWrapping="Wrap" MaxWidth="250" TabIndex="3" Text="{Binding Eventualidad, Mode=TwoWay}"/>
                 </StackPanel>
             </Label>
 
             <Label Foreground="{StaticResource MainColorForeground}" Margin="10" Grid.Row="1" Grid.RowSpan="2" Grid.Column="1" Grid.ColumnSpan="2">
                 <StackPanel>
                     <TextBlock Text="Descripción (Máx 150 caracteres)" Margin="0 0 0 2" Style="{StaticResource h3-w}"/>
-                    <TextBox MinWidth="400" Height="100" Style="{StaticResource StyleTextBox}" TabIndex="3" Text="{Binding Descripcion, Mode=TwoWay}"/>
+                    <TextBox MinWidth="400" Height="100" TextWrapping="Wrap" Style="{StaticResource StyleTextBox}" TabIndex="3" Text="{Binding Descripcion, Mode=TwoWay}"/>
                 </StackPanel>
             </Label>
         </Grid>

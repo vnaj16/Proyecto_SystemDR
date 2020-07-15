@@ -1,42 +1,30 @@
 ﻿using Datos.Interfaces;
-//using Datos.Models;
 using Entidades;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading;
 using System.Threading.Tasks;
+using System.Data.Entity;
 
 namespace Datos.Repositories
 {
-    public class ClienteRepository : IClienteRepository
+    public class ProveedorRepository : IProveedorRepository
     {
-        /// <summary>
-        /// 1. Obtiene la Entidad de la DB en base al obj recibido
-        /// 2. Verifica que no sea null
-        /// 3. Obtiene la Entidad Persona si es que tiene
-        /// 4. Si es que tiene Entidad Persona (es diferente de null), pone el estado de esa entidad persona como eliminado
-        /// 5. Verifico si tiene telefonos y los borro
-        /// 6. Luego pone a la entidad principal su estado en eliminado
-        /// 7. Guarda cambios y retorna true
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
         public bool Delete(string RUC)
         {
             using (dbTransporteDRContext db = new dbTransporteDRContext())
             {
                 try
                 {
-                    var cliente_db = db.Cliente.FirstOrDefault(x => x.RUC == RUC);
+                    var proveedor_db = db.Proveedor.FirstOrDefault(x => x.RUC == RUC);
 
-                    if(cliente_db == null)
+                    if (proveedor_db == null)
                     {
-                        return false;
+                        throw new Exception("Este proveedor ya no se encuentra en la Base de Datos");
                     }
 
-                    var persona_db = cliente_db.Persona;
+                    var persona_db = proveedor_db.Persona;
 
                     if (persona_db != null)
                     {
@@ -50,39 +38,29 @@ namespace Datos.Repositories
                         db.Entry(persona_db).State = System.Data.Entity.EntityState.Deleted;
                     }
 
-                    db.Entry(cliente_db).State = System.Data.Entity.EntityState.Deleted;
+                    db.Entry(proveedor_db).State = System.Data.Entity.EntityState.Deleted;
 
-                 
+
                     db.SaveChanges();
 
                     return true;
                 }
                 catch (Exception ex)
                 {
-                    return false;
+                    throw;
                 }
             }
         }
 
-        public IEnumerable<Cliente> GetAll()
-        {//Aca podria ir un contador y determinar si se consulta varias veces, aplicar singleton para simular cache
+        public IEnumerable<Proveedor> GetAll()
+        {
             using (dbTransporteDRContext db = new dbTransporteDRContext())
             {
-                return db.Cliente.Include("Persona.Telefono").ToList();
+                return db.Proveedor.Include(x=>x.Persona.Telefono).ToList();
             }
         }
 
-        /// <summary>
-        /// 1. Verifico que el obj pasado tenga su PK
-        /// 2. Verifico que ese obj con ese PK no exista en la DB, o sea que sea nuevo
-        /// 3. Agrego el objeto al contexto del Cliente
-        /// 4. Verifico si su FK DNI no este null o blanca, mejor dicho ver si tiene una entidad persona relacionada
-        /// 5. Si es que tiene, verifico que su objeto persona no sea nulo y lo agrego al contexto de Persona
-        /// 6. Guarda cambios y retorna true
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        public bool Insert(Cliente obj)
+        public bool Insert(Proveedor obj)
         {
             using (dbTransporteDRContext db = new dbTransporteDRContext())
             {
@@ -90,9 +68,9 @@ namespace Datos.Repositories
                 {
                     if (!String.IsNullOrWhiteSpace(obj.RUC))
                     {
-                        if (!db.Cliente.ToList().Exists(x => x.RUC == obj.RUC))
+                        if (!db.Proveedor.ToList().Exists(x => x.RUC == obj.RUC))
                         {
-                            db.Cliente.Add(obj);
+                            db.Proveedor.Add(obj);
 
                             if (!String.IsNullOrWhiteSpace(obj.DNI))
                             {
@@ -102,7 +80,7 @@ namespace Datos.Repositories
                                 }
                                 else
                                 {
-                                    obj.Persona = new Persona() { DNI = obj.DNI, Tipo="cli"};
+                                    obj.Persona = new Persona() { DNI = obj.DNI, Tipo = "pro" };
                                     db.Persona.Add(obj.Persona);
                                 }
 
@@ -114,33 +92,22 @@ namespace Datos.Repositories
                         }
                         else
                         {
-                            return false;
+                            throw new Exception("Ya existe ese proveedor");
                         }
                     }
                     else
                     {
-                        return false;
+                        throw new Exception("No hay RUC");
                     }
 
 
 
                 }
-                catch (Exception ex) { return false; }
+                catch (Exception ex) { throw; }
             }
         }
 
-        /// <summary>
-        /// 1. Verifico que el obj pasado tenga su PK
-        /// 2. Obtengo la Entidad con ese PK de la DB
-        /// 3. si no es null (es decir si existe ese objeto en la db), mapeo la el obj pasado con la entidad obtenida de la db
-        /// 4. Verifico si es que su PK DNI no esta vacia
-        /// 5. Si el objeto persona es diferente de null, paso a verificar si la entidad traida de la DB tiene una entidad persona
-        /// 6. Si no tiene, agrego el nuevo objeto persona al contexto. Si es que tiene, modifico los datos de esa entidad
-        /// 7. Guarda cambios y retorna true
-        /// </summary>
-        /// <param name="obj"></param>
-        /// <returns></returns>
-        public bool Update(Cliente obj)
+        public bool Update(Proveedor obj)
         {
             using (dbTransporteDRContext db = new dbTransporteDRContext())
             {
@@ -148,8 +115,7 @@ namespace Datos.Repositories
                 {
                     if (!String.IsNullOrWhiteSpace(obj.RUC))
                     {
-                        var obj_db = db.Cliente.FirstOrDefault(x => x.RUC == obj.RUC);
-                        System.Threading.Thread.Sleep(500);
+                        var obj_db = db.Proveedor.Include(x=>x.Persona.Telefono).FirstOrDefault(x => x.RUC == obj.RUC);
                         if (!(obj_db is null))
                         {
                             if (!String.IsNullOrWhiteSpace(obj.Direccion))
@@ -172,7 +138,7 @@ namespace Datos.Repositories
                                 if (obj.Persona != null)
                                 {
 
-                                    if(obj_db.Persona is null)
+                                    if (obj_db.Persona is null)
                                     {
                                         db.Persona.Add(obj.Persona);
                                         //obj_db.Persona = obj.Persona;
@@ -215,18 +181,18 @@ namespace Datos.Repositories
                         }
                         else
                         {
-                            return false;
+                            throw new Exception("Ya existe ese proveedor");
                         }
                     }
                     else
                     {
-                        return false;
+                        throw new Exception("No hay RUC");
                     }
 
 
 
                 }
-                catch (Exception ex ) { return false; }
+                catch (Exception ex) { throw; }
             }
         }
     }

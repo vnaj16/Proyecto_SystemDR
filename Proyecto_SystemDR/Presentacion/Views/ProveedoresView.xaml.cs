@@ -1,4 +1,5 @@
-﻿using Presentacion.ViewModels;
+﻿using Presentacion.Helpers;
+using Presentacion.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,9 +24,13 @@ namespace Presentacion.Views
     {
         private static ProveedoresView instance;
 
+        private FilterTypeSearchProveedor FilterType = 0;
+
         public ProveedoresView()
         {
             InitializeComponent();
+
+            ComboBox_Filtros.ItemsSource = Enum.GetValues(typeof(FilterTypeSearchProveedor));
 
             try
             {
@@ -57,7 +62,7 @@ namespace Presentacion.Views
             var Text = TextBox_Buscar.Text;
             if (Text != "Buscar")
             {
-                //ClientesViewModel.Instance.ChangeCollection(Text, FilterType);
+                ProveedoresViewModel.Instance.ChangeCollection(Text, FilterType);
             }
         }
 
@@ -77,7 +82,7 @@ namespace Presentacion.Views
 
         private void ComboBox_Filtros_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            //Enum.TryParse<FilterTypeSearchCliente>(ComboBox_Filtros.SelectedValue.ToString(), out FilterType);
+            Enum.TryParse<FilterTypeSearchProveedor>(ComboBox_Filtros.SelectedValue.ToString(), out FilterType);
         }
 
     }
