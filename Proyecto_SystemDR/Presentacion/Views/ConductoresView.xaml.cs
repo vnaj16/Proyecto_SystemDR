@@ -1,5 +1,6 @@
 ﻿using Presentacion.Helpers;
 using Presentacion.ViewModels;
+using Presentacion.Views.ConductoresV;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -85,5 +86,14 @@ namespace Presentacion.Views
             Enum.TryParse<FilterTypeSearchConductor>(ComboBox_Filtros.SelectedValue.ToString(), out FilterType);
         }
 
+        private void Label_Eventualidades_MouseDoubleClick(object sender, MouseButtonEventArgs e)
+        {
+            if (!(ConductoresViewModel.Instance.CurrentConductor is null))
+            {
+                //Crear una nueva ventana, que solo muestre esos Historiales
+                CustomHistorialesView customHistorialesView = new CustomHistorialesView(ConductoresViewModel.Instance.CurrentConductor.DNI, FilterTypeSearchHistorial.DNI);
+                customHistorialesView.ShowDialog();
+            }
+        }
     }
 }

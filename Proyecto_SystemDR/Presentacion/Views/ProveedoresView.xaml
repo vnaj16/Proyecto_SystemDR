@@ -50,15 +50,16 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="RUC" Binding="{Binding RUC}" Width="100"/>
                     <DataGridTextColumn Header="Razón Social" Binding="{Binding Razon_Social}" Width="170"/>
+                    <DataGridTextColumn Header="Productos" Binding="{Binding Productos}" Width="200"/>
                     <DataGridTextColumn Header="Dirección" Binding="{Binding Direccion}" Width="200"/>
-                    <DataGridTextColumn Header="DNI" Binding="{Binding Persona.DNI}" Width="100"/>
                 </DataGrid.Columns>
             </DataGrid>
 
             <StackPanel Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="50,0,60,10">
                 <Button Content="Agregar" Margin="0,0,0,8" Height="28" Command="{Binding AgregarCommand}" Background="{StaticResource MainColorBackground}" Foreground="{StaticResource MainColorForeground}"/>
                 <Button Content="Modificar" Margin="0,0,0,8" Height="28" Command="{Binding ActualizarCommand}" Background="{StaticResource MainColorBackground}" Foreground="{StaticResource MainColorForeground}"/>
-                <Button Content="Eliminar" Height="28" Command="{Binding DeleteCommand}" Background="{StaticResource MainColorBackground}" Foreground="{StaticResource MainColorForeground}"/>
+                <Button Content="Eliminar" Margin="0,0,0,10"  Height="28" Command="{Binding DeleteCommand}" Background="{StaticResource MainColorBackground}" Foreground="{StaticResource MainColorForeground}"/>
+                <Button Content="Ver Telefonos" Height="25" FontSize="11" Command="{Binding VerTelefonosCommand}" Background="{StaticResource MainColorBackground}" Foreground="{StaticResource MainColorForeground}" />
             </StackPanel>
         </Grid>
 
@@ -141,7 +142,7 @@
                     <Label Foreground="{StaticResource MainColorForeground}" Grid.Row="0" Grid.Column="2">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Apellido: " Style="{StaticResource h3-w}"/>
-                            <TextBlock Text="{Binding CurrentProveedor.Persona.Apellidos}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
+                            <TextBlock Text="{Binding CurrentProveedor.Persona.Apellido}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
                         </StackPanel>
                     </Label>
                     <Label Foreground="{StaticResource MainColorForeground}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">

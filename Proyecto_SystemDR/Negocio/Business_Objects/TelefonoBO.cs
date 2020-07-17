@@ -22,18 +22,24 @@ namespace Negocio.Business_Objects
         {
             if (!String.IsNullOrWhiteSpace(obj.Numero) && !String.IsNullOrWhiteSpace(obj.DNI))
             {
-                //Primero jalo a ver si es cliente, luego si es proveedor, o sino por ultimo si es conductor
-                var persona = TransporteDR.ClienteBO.GetAll().FirstOrDefault(x => x.DNI == obj.DNI).Persona;
+                var persona = obj.Persona;
+                //Persona persona;
+                ////Primero jalo a ver si es cliente, luego si es proveedor, o sino por ultimo si es conductor
+                //if (TransporteDR.ClienteBO.GetAll().Exists(x => x.DNI == obj.DNI))
+                //{
 
-                if(persona is null)
-                {
-                    //persona = TransporteDR.ClienteBO.GetAll().Find(x => x.DNI == obj.DNI).Persona;
-                }
-
-                if(persona is null)
-                {
-                    //persona = TransporteDR.ClienteBO.GetAll().Find(x => x.DNI == obj.DNI).Persona;
-                }
+                //}
+                //else if(TransporteDR.ProveedorBO.GetAll().Exists(x => x.DNI == obj.DNI))
+                //{
+                //    persona = TransporteDR.ProveedorBO.GetAll().Find(x => x.DNI == obj.DNI).Persona;
+                //}
+                //else if(TransporteDR.ConductorBO.GetAll().Exists(x => x.DNI == obj.DNI)){
+                //    persona = TransporteDR.ConductorBO.GetAll().Find(x => x.DNI == obj.DNI).Persona;
+                //}
+                //else
+                //{
+                //    throw new Exception("No existe esa persona");
+                //}
 
                 if (persona.Telefono.ToList().Exists(x => x.Numero == obj.Numero))
                 {
@@ -42,7 +48,7 @@ namespace Negocio.Business_Objects
 
                 var result = telefonoRepository.Insert(obj);
 
-                if(result) persona.Telefono?.Add(obj);
+                if (result) persona.Telefono?.Add(obj);
 
                 return result;
             }
@@ -52,31 +58,21 @@ namespace Negocio.Business_Objects
             }
         }
 
-        public bool Eliminar(string Numero, string DNI)
+        public bool Eliminar(Telefono obj)
         {
-            if (!String.IsNullOrWhiteSpace(Numero))
+            if (!String.IsNullOrWhiteSpace(obj.Numero))
             {
                 //Primero jalo a ver si es cliente, luego si es proveedor, o sino por ultimo si es conductor
-                var persona = TransporteDR.ClienteBO.GetAll().FirstOrDefault(x => x.DNI ==DNI).Persona;
-
-                if (persona is null)
-                {
-                    //persona = TransporteDR.ClienteBO.GetAll().Find(x => x.DNI == obj.DNI).Persona;
-                }
-
-                if (persona is null)
-                {
-                    //persona = TransporteDR.ClienteBO.GetAll().Find(x => x.DNI == obj.DNI).Persona;
-                }
+                var persona = obj.Persona;
 
 
-                if (persona.Telefono.ToList().Exists(x => x.Numero == Numero))
+                if (persona.Telefono.ToList().Exists(x => x.Numero == obj.Numero))
                 {
                     //int y = persona.Telefono.ToList().RemoveAll(x => x.Numero == Numero);
 
-                    var result = telefonoRepository.Delete(Numero);
+                    var result = telefonoRepository.Delete(obj.Numero);
 
-                    if(result) persona.Telefono.Remove(persona.Telefono.FirstOrDefault(x => x.Numero == Numero));
+                    if (result) persona.Telefono.Remove(persona.Telefono.FirstOrDefault(x => x.Numero == obj.Numero));
 
                     return result;
                 }
@@ -84,11 +80,12 @@ namespace Negocio.Business_Objects
 
                 return false;
             }
-            else{
+            else
+            {
                 return false;
             }
         }
-    
+
         public bool Actualizar(Telefono obj)
         {
             if (!String.IsNullOrWhiteSpace(obj.Numero) && !String.IsNullOrWhiteSpace(obj.DNI) && !String.IsNullOrWhiteSpace(obj.NumeroAntiguo))

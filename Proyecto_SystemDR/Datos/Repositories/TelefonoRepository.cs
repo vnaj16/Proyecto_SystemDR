@@ -66,9 +66,15 @@ namespace Datos.Repositories
                     {
                         if (!db.Telefono.ToList().Exists(x => x.Numero == obj.Numero))
                         {
+                            var persona = obj.Persona;
+
+                            obj.Persona = null;
+
                             db.Telefono.Add(obj);
 
                             db.SaveChanges();
+
+                            obj.Persona = persona;
 
                             return true;
                         }

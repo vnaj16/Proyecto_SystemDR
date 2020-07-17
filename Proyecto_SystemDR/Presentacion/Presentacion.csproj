@@ -95,6 +95,7 @@
     <Compile Include="ViewModels\HistorialViewModel.cs" />
     <Compile Include="ViewModels\MainWindowViewModel.cs" />
     <Compile Include="ViewModels\ProveedoresViewModel.cs" />
+    <Compile Include="ViewModels\TelefonoViewModel.cs" />
     <Compile Include="ViewModels\UnidadVehicularViewModel.cs" />
     <Compile Include="Views\ClientesView.xaml.cs">
       <DependentUpon>ClientesView.xaml</DependentUpon>
@@ -104,6 +105,9 @@
     </Compile>
     <Compile Include="Views\ConductoresView.xaml.cs">
       <DependentUpon>ConductoresView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ConductoresV\CustomHistorialesView.xaml.cs">
+      <DependentUpon>CustomHistorialesView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ConductoresV\RegistrarConductorView.xaml.cs">
       <DependentUpon>RegistrarConductorView.xaml</DependentUpon>
@@ -125,6 +129,9 @@
     </Compile>
     <Compile Include="Views\ProveedoresV\RegistrarProveedorView.xaml.cs">
       <DependentUpon>RegistrarProveedorView.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TelefonoView.xaml.cs">
+      <DependentUpon>TelefonoView.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\UnidadesVehicularesView.xaml.cs">
       <DependentUpon>UnidadesVehicularesView.xaml</DependentUpon>
@@ -186,6 +193,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\ConductoresV\CustomHistorialesView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\ConductoresV\RegistrarConductorView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -211,6 +222,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ProveedoresV\RegistrarProveedorView.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\TelefonoView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

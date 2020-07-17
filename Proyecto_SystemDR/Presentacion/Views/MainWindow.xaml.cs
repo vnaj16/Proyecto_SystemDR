@@ -20,12 +20,30 @@ namespace Presentacion.Views
     /// </summary>
     public partial class MainWindow : Window
     {
+        private static MainWindow instance;
+
         public MainWindow()
         {
             InitializeComponent();
 
             this.DataContext = new MainWindowViewModel();
         }
+
+
+        public static MainWindow Instance
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    instance = new MainWindow();
+                }
+
+                return instance;
+            }
+        }
+
+
 
         private void ListViewItem_Selected(object sender, RoutedEventArgs e)
         {
@@ -57,6 +75,7 @@ namespace Presentacion.Views
 
             }
         }
+
 
     }
 }

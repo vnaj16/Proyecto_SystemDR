@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Prism.Mvvm;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace Entidades
 {
-    public partial class Conductor
+    public partial class Conductor: BindableBase
     {
+        void p (){ Lugar_Nac}
     }
     #region Backup Entity Conductor
     /*public partial class Conductor : BindableBase

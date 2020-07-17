@@ -49,8 +49,8 @@
             <DataGrid ItemsSource="{Binding ListaConductores}" SelectedItem="{Binding CurrentConductor}" AutoGenerateColumns="False" VerticalScrollBarVisibility="Auto" Grid.Row="1" MinWidth="500" MaxWidth="1000" HorizontalAlignment="Left" Margin="20,10,0,10">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="DNI" Binding="{Binding DNI}" Width="100"/>
-                    <DataGridTextColumn Header="Nombre" Binding="{Binding Persona.Nombre}" Width="170"/>
-                    <DataGridTextColumn Header="Apellido" Binding="{Binding Persona.Apellido}" Width="170"/>
+                    <DataGridTextColumn Header="Nombres" Binding="{Binding Persona.Nombre}" Width="170"/>
+                    <DataGridTextColumn Header="Apellidos" Binding="{Binding Persona.Apellido}" Width="170"/>
                     <DataGridTextColumn Header="Brevete" Binding="{Binding Brevete}" Width="100"/>
                     <DataGridTextColumn Header="Fecha de Inicio" Binding="{Binding Fecha_Inicio, StringFormat=d}" Width="120"/>
                 </DataGrid.Columns>
@@ -59,16 +59,28 @@
             <StackPanel Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="50,0,60,10">
                 <Button Content="Agregar" Margin="0,0,0,8" Height="28" Command="{Binding AgregarCommand}" Background="{StaticResource MainColorBackground}" Foreground="{StaticResource MainColorForeground}"/>
                 <Button Content="Modificar" Margin="0,0,0,8" Height="28" Command="{Binding ActualizarCommand}" Background="{StaticResource MainColorBackground}" Foreground="{StaticResource MainColorForeground}"/>
-                <Button Content="Eliminar" Height="28" Command="{Binding DeleteCommand}" Background="{StaticResource MainColorBackground}" Foreground="{StaticResource MainColorForeground}"/>
+                <Button Content="Eliminar" Margin="0,0,0,10"  Height="28" Command="{Binding DeleteCommand}" Background="{StaticResource MainColorBackground}" Foreground="{StaticResource MainColorForeground}"/>
+                <Button Content="Ver Telefonos" Height="25" FontSize="11" Command="{Binding VerTelefonosCommand}" Background="{StaticResource MainColorBackground}" Foreground="{StaticResource MainColorForeground}" />
             </StackPanel>
         </Grid>
 
-        <Label Grid.Row="2" Margin="20,10,0,10" MaxWidth="350" HorizontalAlignment="Left">
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Text="Conductor Seleccionado: " Style="{StaticResource h2-b}"/>
-                <TextBlock Text="{Binding CurrentConductor.DNI}" Style="{StaticResource h2-b}" FontWeight="Bold"/>
-            </StackPanel>
-        </Label>
+        <Grid Grid.Row="2">
+            <Label  Margin="20,10,0,10" MaxWidth="350" HorizontalAlignment="Left">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Conductor Seleccionado: " Style="{StaticResource h2-b}"/>
+                    <TextBlock Text="{Binding CurrentConductor.DNI}" Style="{StaticResource h2-b}" FontWeight="Bold"/>
+                </StackPanel>
+            </Label>
+
+            <Label  Margin="20,10,20,10" MaxWidth="350" Name="Label_Eventualidades" HorizontalAlignment="Right" MouseDoubleClick="Label_Eventualidades_MouseDoubleClick">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="Numero de Eventualidades: " Style="{StaticResource h2-b}"/>
+                    <TextBlock Text="{Binding CurrentConductor.Historial.Count}" Style="{StaticResource h2-b}" FontWeight="Bold"/>
+                    <TextBlock Text="(más info)" VerticalAlignment="Center" FontSize="10"/>
+                </StackPanel>
+            </Label>
+        </Grid>
+
 
         <Grid Grid.Row="4">
             <Grid.RowDefinitions>

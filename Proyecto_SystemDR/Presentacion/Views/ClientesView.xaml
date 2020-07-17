@@ -59,7 +59,8 @@
             <StackPanel Orientation="Vertical" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Bottom" Margin="50,0,60,10">
                 <Button Content="Agregar" Margin="0,0,0,8" Height="28" Command="{Binding AgregarCommand}" Background="{StaticResource MainColorBackground}" Foreground="{StaticResource MainColorForeground}"/>
                 <Button Content="Modificar" Margin="0,0,0,8" Height="28" Command="{Binding ActualizarCommand}" Background="{StaticResource MainColorBackground}" Foreground="{StaticResource MainColorForeground}"/>
-                <Button Content="Eliminar" Height="28" Command="{Binding DeleteCommand}" Background="{StaticResource MainColorBackground}" Foreground="{StaticResource MainColorForeground}"/>
+                <Button Content="Eliminar" Margin="0,0,0,10" Height="28" Command="{Binding DeleteCommand}" Background="{StaticResource MainColorBackground}" Foreground="{StaticResource MainColorForeground}"/>
+                <Button Content="Ver Telefonos" Height="25" FontSize="11" Command="{Binding VerTelefonosCommand}" Background="{StaticResource MainColorBackground}" Foreground="{StaticResource MainColorForeground}" />
             </StackPanel>
         </Grid>
 

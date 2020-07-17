@@ -1,6 +1,7 @@
 ﻿using Entidades;
 using Negocio.Core;
 using Presentacion.Helpers;
+using Presentacion.Views;
 using Presentacion.Views.ProveedoresV;
 using Prism.Commands;
 using Prism.Mvvm;
@@ -45,6 +46,7 @@ namespace Presentacion.ViewModels
             AgregarCommand = new DelegateCommand(Execute_AgregarCommand);
             ActualizarCommand = new DelegateCommand(Execute_ActualizarCommand, CanExecute_ActualizarCommand).ObservesProperty(() => CurrentProveedor);
             DeleteCommand = new DelegateCommand(Execute_DeleteCommand, CanExecute_DeleteCommand).ObservesProperty(() => CurrentProveedor);
+            VerTelefonosCommand = new DelegateCommand(Execute_VerTelefonosCommand, CanExecute_VerTelefonosCommand).ObservesProperty(() => CurrentProveedor);
         }
         public static ProveedoresViewModel Instance
         {
@@ -210,6 +212,26 @@ namespace Presentacion.ViewModels
                 case MessageBoxResult.Cancel:
                     break;
             }
+        }
+
+        public ICommand VerTelefonosCommand { get; set; }
+
+        private bool CanExecute_VerTelefonosCommand()
+        {
+            if (!(CurrentProveedor is null))
+            {
+                return !(CurrentProveedor.Persona is null);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private void Execute_VerTelefonosCommand()
+        {
+            TelefonoView telefonoView = new TelefonoView(CurrentProveedor.Persona);
+            telefonoView.ShowDialog();
         }
 
         #endregion

@@ -12,6 +12,7 @@ using System.Windows.Input;
 using Presentacion.Views.ClientesV;
 using System.Windows;
 using Presentacion.Helpers;
+using Presentacion.Views;
 
 namespace Presentacion.ViewModels
 {
@@ -29,6 +30,7 @@ namespace Presentacion.ViewModels
             AgregarCommand = new DelegateCommand(Execute_AgregarCommand);
             ActualizarCommand = new DelegateCommand(Execute_ActualizarCommand, CanExecute_ActualizarCommand).ObservesProperty(() => CurrentCliente);
             DeleteCommand = new DelegateCommand(Execute_DeleteCommand, CanExecute_DeleteCommand).ObservesProperty(() => CurrentCliente);
+            VerTelefonosCommand = new DelegateCommand(Execute_VerTelefonosCommand, CanExecute_VerTelefonosCommand).ObservesProperty(() => CurrentCliente);
         }
         public static ClientesViewModel Instance
         {
@@ -168,6 +170,26 @@ namespace Presentacion.ViewModels
                 case MessageBoxResult.Cancel:
                     break;
             }
+        }
+
+        public ICommand VerTelefonosCommand { get; set; }
+
+        private bool CanExecute_VerTelefonosCommand()
+        {
+            if(!(CurrentCliente is null))
+            {
+                return !(CurrentCliente.Persona is null);
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        private void Execute_VerTelefonosCommand()
+        {
+            TelefonoView telefonoView = new TelefonoView(CurrentCliente.Persona, CurrentCliente.Razon_Social);
+            telefonoView.ShowDialog();
         }
 
         #endregion
