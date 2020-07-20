@@ -37,10 +37,10 @@
         <DataGrid ItemsSource="{Binding ListaHistoriales}" SelectedItem="{Binding CurrentHistorial}" AutoGenerateColumns="False" 
                   VerticalScrollBarVisibility="Auto" Grid.Row="2" Grid.Column="0" MaxWidth="1000" MinHeight="300" MaxHeight="500" HorizontalAlignment="Left" Margin="20,10,0,10">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="DNI" Binding="{Binding Conductor.DNI}" Width="100"/>
-                <DataGridTextColumn Header="Nombre Conductor" Binding="{Binding Conductor.Persona.FullName}" Width="170"/>
-                <DataGridTextColumn Header="Placa" Binding="{Binding Unidad_Vehicular.Placa}" Width="80"/>
-                <DataGridTextColumn Header="Fecha" Binding="{Binding Fecha, StringFormat=d}" Width="100"/>
+                <DataGridTextColumn Header="DNI" Binding="{Binding Conductor.DNI}" Width="100" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Nombre Conductor" Binding="{Binding Conductor.Persona.FullName}" Width="170" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Placa" Binding="{Binding Unidad_Vehicular.Placa}" Width="80" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Fecha" Binding="{Binding Fecha, StringFormat=d}" Width="100" IsReadOnly="True"/>
             </DataGrid.Columns>
         </DataGrid>
 

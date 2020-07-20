@@ -27,63 +27,6 @@
           <Property Name="Direccion" Type="varchar" MaxLength="50" />
           <Property Name="Personalidad" Type="varchar" MaxLength="150" />
         </EntityType>
-        <EntityType Name="CuentasXRendir">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="FleteEntregadoA" Type="varchar" MaxLength="25" />
-          <Property Name="Cantidad" Type="float" />
-          <Property Name="Lugar" Type="varchar" MaxLength="25" />
-          <Property Name="ID_Viaje" Type="varchar" MaxLength="25" />
-        </EntityType>
-        <EntityType Name="DocumentoViaje">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="GRR" Type="varchar" MaxLength="15" />
-          <Property Name="GRT" Type="varchar" MaxLength="15" />
-          <Property Name="RUC" Type="varchar" MaxLength="15" />
-          <Property Name="Factura" Type="varchar" MaxLength="25" />
-          <Property Name="ID_Viaje" Type="varchar" MaxLength="25" />
-        </EntityType>
-        <EntityType Name="Flete">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Tipo" Type="varchar" MaxLength="25" />
-          <Property Name="Valor" Type="float" />
-          <Property Name="Importe" Type="float" />
-          <Property Name="Adelanto" Type="float" />
-          <Property Name="Saldo" Type="float" />
-          <Property Name="ID_Viaje" Type="varchar" MaxLength="25" />
-        </EntityType>
-        <EntityType Name="Gasto">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Nombre" Type="varchar" MaxLength="25" />
-          <Property Name="Categoria" Type="varchar" MaxLength="25" />
-          <Property Name="Descripcion" Type="varchar" MaxLength="50" />
-          <Property Name="Importe" Type="float" />
-          <Property Name="ID_Viaje" Type="varchar" MaxLength="25" />
-        </EntityType>
-        <EntityType Name="GastoV">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Tipo" Type="varchar" MaxLength="25" />
-          <Property Name="Fecha" Type="datetime" />
-          <Property Name="KM" Type="float" />
-          <Property Name="Documento" Type="varchar" MaxLength="50" />
-          <Property Name="Razon_Social" Type="varchar" MaxLength="30" />
-          <Property Name="Importe" Type="float" />
-          <Property Name="ID_Viaje" Type="varchar" MaxLength="25" />
-        </EntityType>
         <EntityType Name="Historial">
           <Key>
             <PropertyRef Name="ID" />
@@ -95,17 +38,6 @@
           <Property Name="Descripcion" Type="varchar" MaxLength="150" />
           <Property Name="ID_Unidad" Type="varchar" MaxLength="15" />
           <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-        </EntityType>
-        <EntityType Name="Mercaderia">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="Producto" Type="varchar" MaxLength="25" />
-          <Property Name="Bultos" Type="varchar" MaxLength="25" />
-          <Property Name="Peso" Type="float" />
-          <Property Name="Unidad" Type="varchar" MaxLength="5" />
-          <Property Name="ID_Viaje" Type="varchar" MaxLength="25" />
         </EntityType>
         <EntityType Name="Persona">
           <Key>
@@ -129,20 +61,6 @@
           <Property Name="Productos" Type="varchar" MaxLength="100" />
           <Property Name="DNI" Type="varchar" MaxLength="15" />
         </EntityType>
-        <EntityType Name="Resumen">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="BolsaViaje" Type="float" />
-          <Property Name="BolsaViajeD" Type="varchar" MaxLength="25" />
-          <Property Name="GastoTotal" Type="float" />
-          <Property Name="SaldoFavor" Type="float" />
-          <Property Name="SaldoFavorD" Type="varchar" MaxLength="25" />
-          <Property Name="DeudaAntFavor" Type="float" />
-          <Property Name="DeudaAntFavorD" Type="varchar" MaxLength="25" />
-          <Property Name="ID_Viaje" Type="varchar" MaxLength="25" />
-        </EntityType>
         <EntityType Name="Telefono">
           <Key>
             <PropertyRef Name="Numero" />
@@ -158,28 +76,6 @@
           <Property Name="Marca" Type="varchar" MaxLength="25" />
           <Property Name="Serie Chasis" Type="varchar" MaxLength="25" />
           <Property Name="Y_Fabricacion" Type="int" />
-        </EntityType>
-        <EntityType Name="Viaje">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="varchar" MaxLength="25" Nullable="false" />
-          <Property Name="Fecha_Inicio" Type="datetime" />
-          <Property Name="Fecha_Salida" Type="datetime" />
-          <Property Name="Lugar_Origen" Type="varchar" MaxLength="25" />
-          <Property Name="KM_Origen" Type="float" />
-          <Property Name="Fecha_Llegada" Type="datetime" />
-          <Property Name="Lugar_Destino" Type="varchar" MaxLength="25" />
-          <Property Name="KM_Destino" Type="float" />
-          <Property Name="Nota" Type="varchar" MaxLength="100" />
-          <Property Name="Encargado" Type="varchar" MaxLength="25" />
-          <Property Name="ID_Documento" Type="int" />
-          <Property Name="ID_Mercaderia" Type="int" />
-          <Property Name="ID_Flete" Type="int" />
-          <Property Name="ID_Resumen" Type="int" />
-          <Property Name="ID_CuentasXRendir" Type="int" />
-          <Property Name="PlacaVehiculo" Type="varchar" MaxLength="15" />
-          <Property Name="DNI_Conductor" Type="varchar" MaxLength="15" />
         </EntityType>
         <Association Name="FK_Cliente_Persona">
           <End Role="Persona" Type="Self.Persona" Multiplicity="0..1" />
@@ -202,78 +98,6 @@
             </Principal>
             <Dependent Role="Conductor">
               <PropertyRef Name="DNI" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CuentasXRendir_Viaje">
-          <End Role="Viaje" Type="Self.Viaje" Multiplicity="0..1" />
-          <End Role="CuentasXRendir" Type="Self.CuentasXRendir" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Viaje">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="CuentasXRendir">
-              <PropertyRef Name="ID_Viaje" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DocumentoViaje_Cliente">
-          <End Role="Cliente" Type="Self.Cliente" Multiplicity="0..1" />
-          <End Role="DocumentoViaje" Type="Self.DocumentoViaje" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Cliente">
-              <PropertyRef Name="RUC" />
-            </Principal>
-            <Dependent Role="DocumentoViaje">
-              <PropertyRef Name="RUC" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DocumentoViaje_Viaje">
-          <End Role="Viaje" Type="Self.Viaje" Multiplicity="0..1" />
-          <End Role="DocumentoViaje" Type="Self.DocumentoViaje" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Viaje">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="DocumentoViaje">
-              <PropertyRef Name="ID_Viaje" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Flete_Viaje">
-          <End Role="Viaje" Type="Self.Viaje" Multiplicity="0..1" />
-          <End Role="Flete" Type="Self.Flete" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Viaje">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Flete">
-              <PropertyRef Name="ID_Viaje" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Gasto_Gasto">
-          <End Role="Viaje" Type="Self.Viaje" Multiplicity="0..1" />
-          <End Role="Gasto" Type="Self.Gasto" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Viaje">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Gasto">
-              <PropertyRef Name="ID_Viaje" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GastoV_Viaje">
-          <End Role="Viaje" Type="Self.Viaje" Multiplicity="0..1" />
-          <End Role="GastoV" Type="Self.GastoV" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Viaje">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="GastoV">
-              <PropertyRef Name="ID_Viaje" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -301,18 +125,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Mercaderia_Viaje">
-          <End Role="Viaje" Type="Self.Viaje" Multiplicity="0..1" />
-          <End Role="Mercaderia" Type="Self.Mercaderia" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Viaje">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Mercaderia">
-              <PropertyRef Name="ID_Viaje" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_Proveedor_Persona">
           <End Role="Persona" Type="Self.Persona" Multiplicity="0..1" />
           <End Role="Proveedor" Type="Self.Proveedor" Multiplicity="*" />
@@ -322,18 +134,6 @@
             </Principal>
             <Dependent Role="Proveedor">
               <PropertyRef Name="DNI" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Resumen_Resumen">
-          <End Role="Viaje" Type="Self.Viaje" Multiplicity="0..1" />
-          <End Role="Resumen" Type="Self.Resumen" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Viaje">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Resumen">
-              <PropertyRef Name="ID_Viaje" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -349,106 +149,14 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Viaje_Conductor">
-          <End Role="Conductor" Type="Self.Conductor" Multiplicity="0..1" />
-          <End Role="Viaje" Type="Self.Viaje" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Conductor">
-              <PropertyRef Name="DNI" />
-            </Principal>
-            <Dependent Role="Viaje">
-              <PropertyRef Name="DNI_Conductor" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Viaje_CuentasXRendir">
-          <End Role="CuentasXRendir" Type="Self.CuentasXRendir" Multiplicity="0..1" />
-          <End Role="Viaje" Type="Self.Viaje" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CuentasXRendir">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Viaje">
-              <PropertyRef Name="ID_CuentasXRendir" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Viaje_DocumentoViaje">
-          <End Role="DocumentoViaje" Type="Self.DocumentoViaje" Multiplicity="0..1" />
-          <End Role="Viaje" Type="Self.Viaje" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DocumentoViaje">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Viaje">
-              <PropertyRef Name="ID_Documento" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Viaje_Flete">
-          <End Role="Flete" Type="Self.Flete" Multiplicity="0..1" />
-          <End Role="Viaje" Type="Self.Viaje" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Flete">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Viaje">
-              <PropertyRef Name="ID_Flete" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Viaje_Mercaderia">
-          <End Role="Mercaderia" Type="Self.Mercaderia" Multiplicity="0..1" />
-          <End Role="Viaje" Type="Self.Viaje" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Mercaderia">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Viaje">
-              <PropertyRef Name="ID_Mercaderia" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Viaje_Resumen">
-          <End Role="Resumen" Type="Self.Resumen" Multiplicity="0..1" />
-          <End Role="Viaje" Type="Self.Viaje" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Resumen">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Viaje">
-              <PropertyRef Name="ID_Resumen" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Viaje_Unidad Vehicular">
-          <End Role="Unidad Vehicular" Type="Self.Unidad Vehicular" Multiplicity="0..1" />
-          <End Role="Viaje" Type="Self.Viaje" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Unidad Vehicular">
-              <PropertyRef Name="Placa" />
-            </Principal>
-            <Dependent Role="Viaje">
-              <PropertyRef Name="PlacaVehiculo" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityContainer Name="dbTransporteDRModelStoreContainer">
           <EntitySet Name="Cliente" EntityType="Self.Cliente" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Conductor" EntityType="Self.Conductor" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="CuentasXRendir" EntityType="Self.CuentasXRendir" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="DocumentoViaje" EntityType="Self.DocumentoViaje" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Flete" EntityType="Self.Flete" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Gasto" EntityType="Self.Gasto" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="GastoV" EntityType="Self.GastoV" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Historial" EntityType="Self.Historial" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Mercaderia" EntityType="Self.Mercaderia" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Persona" EntityType="Self.Persona" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Proveedor" EntityType="Self.Proveedor" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Resumen" EntityType="Self.Resumen" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Telefono" EntityType="Self.Telefono" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Unidad Vehicular" EntityType="Self.Unidad Vehicular" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="Viaje" EntityType="Self.Viaje" Schema="dbo" store:Type="Tables" />
           <AssociationSet Name="FK_Cliente_Persona" Association="Self.FK_Cliente_Persona">
             <End Role="Persona" EntitySet="Persona" />
             <End Role="Cliente" EntitySet="Cliente" />
@@ -456,30 +164,6 @@
           <AssociationSet Name="FK_Conductor_Persona" Association="Self.FK_Conductor_Persona">
             <End Role="Persona" EntitySet="Persona" />
             <End Role="Conductor" EntitySet="Conductor" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CuentasXRendir_Viaje" Association="Self.FK_CuentasXRendir_Viaje">
-            <End Role="Viaje" EntitySet="Viaje" />
-            <End Role="CuentasXRendir" EntitySet="CuentasXRendir" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DocumentoViaje_Cliente" Association="Self.FK_DocumentoViaje_Cliente">
-            <End Role="Cliente" EntitySet="Cliente" />
-            <End Role="DocumentoViaje" EntitySet="DocumentoViaje" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DocumentoViaje_Viaje" Association="Self.FK_DocumentoViaje_Viaje">
-            <End Role="Viaje" EntitySet="Viaje" />
-            <End Role="DocumentoViaje" EntitySet="DocumentoViaje" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Flete_Viaje" Association="Self.FK_Flete_Viaje">
-            <End Role="Viaje" EntitySet="Viaje" />
-            <End Role="Flete" EntitySet="Flete" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Gasto_Gasto" Association="Self.FK_Gasto_Gasto">
-            <End Role="Viaje" EntitySet="Viaje" />
-            <End Role="Gasto" EntitySet="Gasto" />
-          </AssociationSet>
-          <AssociationSet Name="FK_GastoV_Viaje" Association="Self.FK_GastoV_Viaje">
-            <End Role="Viaje" EntitySet="Viaje" />
-            <End Role="GastoV" EntitySet="GastoV" />
           </AssociationSet>
           <AssociationSet Name="FK_Historial_Conductor" Association="Self.FK_Historial_Conductor">
             <End Role="Conductor" EntitySet="Conductor" />
@@ -489,51 +173,15 @@
             <End Role="Unidad Vehicular" EntitySet="Unidad Vehicular" />
             <End Role="Historial" EntitySet="Historial" />
           </AssociationSet>
-          <AssociationSet Name="FK_Mercaderia_Viaje" Association="Self.FK_Mercaderia_Viaje">
-            <End Role="Viaje" EntitySet="Viaje" />
-            <End Role="Mercaderia" EntitySet="Mercaderia" />
-          </AssociationSet>
           <AssociationSet Name="FK_Proveedor_Persona" Association="Self.FK_Proveedor_Persona">
             <End Role="Persona" EntitySet="Persona" />
             <End Role="Proveedor" EntitySet="Proveedor" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Resumen_Resumen" Association="Self.FK_Resumen_Resumen">
-            <End Role="Viaje" EntitySet="Viaje" />
-            <End Role="Resumen" EntitySet="Resumen" />
           </AssociationSet>
           <AssociationSet Name="FK_Telefono_Persona" Association="Self.FK_Telefono_Persona">
             <End Role="Persona" EntitySet="Persona" />
             <End Role="Telefono" EntitySet="Telefono" />
           </AssociationSet>
-          <AssociationSet Name="FK_Viaje_Conductor" Association="Self.FK_Viaje_Conductor">
-            <End Role="Conductor" EntitySet="Conductor" />
-            <End Role="Viaje" EntitySet="Viaje" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Viaje_CuentasXRendir" Association="Self.FK_Viaje_CuentasXRendir">
-            <End Role="CuentasXRendir" EntitySet="CuentasXRendir" />
-            <End Role="Viaje" EntitySet="Viaje" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Viaje_DocumentoViaje" Association="Self.FK_Viaje_DocumentoViaje">
-            <End Role="DocumentoViaje" EntitySet="DocumentoViaje" />
-            <End Role="Viaje" EntitySet="Viaje" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Viaje_Flete" Association="Self.FK_Viaje_Flete">
-            <End Role="Flete" EntitySet="Flete" />
-            <End Role="Viaje" EntitySet="Viaje" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Viaje_Mercaderia" Association="Self.FK_Viaje_Mercaderia">
-            <End Role="Mercaderia" EntitySet="Mercaderia" />
-            <End Role="Viaje" EntitySet="Viaje" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Viaje_Resumen" Association="Self.FK_Viaje_Resumen">
-            <End Role="Resumen" EntitySet="Resumen" />
-            <End Role="Viaje" EntitySet="Viaje" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Viaje_Unidad Vehicular" Association="Self.FK_Viaje_Unidad Vehicular">
-            <End Role="Unidad Vehicular" EntitySet="Unidad Vehicular" />
-            <End Role="Viaje" EntitySet="Viaje" />
-          </AssociationSet>
-        </EntityContainer>
+          </EntityContainer>
       </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
@@ -548,7 +196,6 @@
           <Property Name="Tipo" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="DNI" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Persona" Relationship="Self.FK_Cliente_Persona" FromRole="Cliente" ToRole="Persona" />
-          <NavigationProperty Name="DocumentoViaje" Relationship="dbTransporteDRModel.FK_DocumentoViaje_Cliente" FromRole="Cliente" ToRole="DocumentoViaje" />
         </EntityType>
         <EntityType Name="Conductor">
           <Key>
@@ -563,7 +210,6 @@
           <Property Name="Personalidad" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
           <NavigationProperty Name="Persona" Relationship="Self.FK_Conductor_Persona" FromRole="Conductor" ToRole="Persona" />
           <NavigationProperty Name="Historial" Relationship="Self.FK_Historial_Conductor" FromRole="Conductor" ToRole="Historial" />
-          <NavigationProperty Name="Viaje" Relationship="dbTransporteDRModel.FK_Viaje_Conductor" FromRole="Conductor" ToRole="Viaje" />
         </EntityType>
         <EntityType Name="Historial">
           <Key>
@@ -701,379 +347,12 @@
             <End Role="Persona" EntitySet="Persona" />
             <End Role="Telefono" EntitySet="Telefono" />
           </AssociationSet>
-          <EntitySet Name="CuentasXRendir" EntityType="dbTransporteDRModel.CuentasXRendir" />
-          <EntitySet Name="DocumentoViaje" EntityType="dbTransporteDRModel.DocumentoViaje" />
-          <EntitySet Name="Flete" EntityType="dbTransporteDRModel.Flete" />
-          <EntitySet Name="Gasto" EntityType="dbTransporteDRModel.Gasto" />
-          <EntitySet Name="GastoV" EntityType="dbTransporteDRModel.GastoV" />
-          <EntitySet Name="Mercaderia" EntityType="dbTransporteDRModel.Mercaderia" />
-          <EntitySet Name="Resumen" EntityType="dbTransporteDRModel.Resumen" />
-          <EntitySet Name="Viaje" EntityType="dbTransporteDRModel.Viaje" />
-          <AssociationSet Name="FK_DocumentoViaje_Cliente" Association="dbTransporteDRModel.FK_DocumentoViaje_Cliente">
-            <End Role="Cliente" EntitySet="Cliente" />
-            <End Role="DocumentoViaje" EntitySet="DocumentoViaje" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Viaje_Conductor" Association="dbTransporteDRModel.FK_Viaje_Conductor">
-            <End Role="Conductor" EntitySet="Conductor" />
-            <End Role="Viaje" EntitySet="Viaje" />
-          </AssociationSet>
-          <AssociationSet Name="FK_CuentasXRendir_Viaje" Association="dbTransporteDRModel.FK_CuentasXRendir_Viaje">
-            <End Role="Viaje" EntitySet="Viaje" />
-            <End Role="CuentasXRendir" EntitySet="CuentasXRendir" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Viaje_CuentasXRendir" Association="dbTransporteDRModel.FK_Viaje_CuentasXRendir">
-            <End Role="CuentasXRendir" EntitySet="CuentasXRendir" />
-            <End Role="Viaje" EntitySet="Viaje" />
-          </AssociationSet>
-          <AssociationSet Name="FK_DocumentoViaje_Viaje" Association="dbTransporteDRModel.FK_DocumentoViaje_Viaje">
-            <End Role="Viaje" EntitySet="Viaje" />
-            <End Role="DocumentoViaje" EntitySet="DocumentoViaje" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Viaje_DocumentoViaje" Association="dbTransporteDRModel.FK_Viaje_DocumentoViaje">
-            <End Role="DocumentoViaje" EntitySet="DocumentoViaje" />
-            <End Role="Viaje" EntitySet="Viaje" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Flete_Viaje" Association="dbTransporteDRModel.FK_Flete_Viaje">
-            <End Role="Viaje" EntitySet="Viaje" />
-            <End Role="Flete" EntitySet="Flete" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Viaje_Flete" Association="dbTransporteDRModel.FK_Viaje_Flete">
-            <End Role="Flete" EntitySet="Flete" />
-            <End Role="Viaje" EntitySet="Viaje" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Gasto_Gasto" Association="dbTransporteDRModel.FK_Gasto_Gasto">
-            <End Role="Viaje" EntitySet="Viaje" />
-            <End Role="Gasto" EntitySet="Gasto" />
-          </AssociationSet>
-          <AssociationSet Name="FK_GastoV_Viaje" Association="dbTransporteDRModel.FK_GastoV_Viaje">
-            <End Role="Viaje" EntitySet="Viaje" />
-            <End Role="GastoV" EntitySet="GastoV" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Mercaderia_Viaje" Association="dbTransporteDRModel.FK_Mercaderia_Viaje">
-            <End Role="Viaje" EntitySet="Viaje" />
-            <End Role="Mercaderia" EntitySet="Mercaderia" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Viaje_Mercaderia" Association="dbTransporteDRModel.FK_Viaje_Mercaderia">
-            <End Role="Mercaderia" EntitySet="Mercaderia" />
-            <End Role="Viaje" EntitySet="Viaje" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Resumen_Resumen" Association="dbTransporteDRModel.FK_Resumen_Resumen">
-            <End Role="Viaje" EntitySet="Viaje" />
-            <End Role="Resumen" EntitySet="Resumen" />
-          </AssociationSet>
-          <AssociationSet Name="FK_Viaje_Resumen" Association="dbTransporteDRModel.FK_Viaje_Resumen">
-            <End Role="Resumen" EntitySet="Resumen" />
-            <End Role="Viaje" EntitySet="Viaje" />
-          </AssociationSet>
           <EntitySet Name="Unidad_Vehicular" EntityType="dbTransporteDRModel.Unidad_Vehicular" />
           <AssociationSet Name="FK_Historial_Unidad_Vehicular" Association="dbTransporteDRModel.FK_Historial_Unidad_Vehicular">
             <End Role="Unidad_Vehicular" EntitySet="Unidad_Vehicular" />
             <End Role="Historial" EntitySet="Historial" />
           </AssociationSet>
-          <AssociationSet Name="FK_Viaje_Unidad_Vehicular" Association="dbTransporteDRModel.FK_Viaje_Unidad_Vehicular">
-            <End Role="Unidad_Vehicular" EntitySet="Unidad_Vehicular" />
-            <End Role="Viaje" EntitySet="Viaje" />
-          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="CuentasXRendir">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="FleteEntregadoA" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="Cantidad" Type="Double" />
-          <Property Name="Lugar" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="ID_Viaje" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Viaje" Relationship="dbTransporteDRModel.FK_CuentasXRendir_Viaje" FromRole="CuentasXRendir" ToRole="Viaje" />
-          <NavigationProperty Name="Viaje1" Relationship="dbTransporteDRModel.FK_Viaje_CuentasXRendir" FromRole="CuentasXRendir" ToRole="Viaje" />
-        </EntityType>
-        <EntityType Name="DocumentoViaje">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="GRR" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="GRT" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="RUC" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="Factura" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="ID_Viaje" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Cliente" Relationship="dbTransporteDRModel.FK_DocumentoViaje_Cliente" FromRole="DocumentoViaje" ToRole="Cliente" />
-          <NavigationProperty Name="Viaje" Relationship="dbTransporteDRModel.FK_DocumentoViaje_Viaje" FromRole="DocumentoViaje" ToRole="Viaje" />
-          <NavigationProperty Name="Viaje1" Relationship="dbTransporteDRModel.FK_Viaje_DocumentoViaje" FromRole="DocumentoViaje" ToRole="Viaje" />
-        </EntityType>
-        <EntityType Name="Flete">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Tipo" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="Valor" Type="Double" />
-          <Property Name="Importe" Type="Double" />
-          <Property Name="Adelanto" Type="Double" />
-          <Property Name="Saldo" Type="Double" />
-          <Property Name="ID_Viaje" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Viaje" Relationship="dbTransporteDRModel.FK_Flete_Viaje" FromRole="Flete" ToRole="Viaje" />
-          <NavigationProperty Name="Viaje1" Relationship="dbTransporteDRModel.FK_Viaje_Flete" FromRole="Flete" ToRole="Viaje" />
-        </EntityType>
-        <EntityType Name="Gasto">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Nombre" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="Categoria" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="Descripcion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Importe" Type="Double" />
-          <Property Name="ID_Viaje" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Viaje" Relationship="dbTransporteDRModel.FK_Gasto_Gasto" FromRole="Gasto" ToRole="Viaje" />
-        </EntityType>
-        <EntityType Name="GastoV">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Tipo" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="Fecha" Type="DateTime" Precision="3" />
-          <Property Name="KM" Type="Double" />
-          <Property Name="Documento" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
-          <Property Name="Razon_Social" Type="String" MaxLength="30" FixedLength="false" Unicode="false" />
-          <Property Name="Importe" Type="Double" />
-          <Property Name="ID_Viaje" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Viaje" Relationship="dbTransporteDRModel.FK_GastoV_Viaje" FromRole="GastoV" ToRole="Viaje" />
-        </EntityType>
-        <EntityType Name="Mercaderia">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="Producto" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="Bultos" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="Peso" Type="Double" />
-          <Property Name="Unidad" Type="String" MaxLength="5" FixedLength="false" Unicode="false" />
-          <Property Name="ID_Viaje" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Viaje" Relationship="dbTransporteDRModel.FK_Mercaderia_Viaje" FromRole="Mercaderia" ToRole="Viaje" />
-          <NavigationProperty Name="Viaje1" Relationship="dbTransporteDRModel.FK_Viaje_Mercaderia" FromRole="Mercaderia" ToRole="Viaje" />
-        </EntityType>
-        <EntityType Name="Resumen">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="BolsaViaje" Type="Double" />
-          <Property Name="BolsaViajeD" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="GastoTotal" Type="Double" />
-          <Property Name="SaldoFavor" Type="Double" />
-          <Property Name="SaldoFavorD" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="DeudaAntFavor" Type="Double" />
-          <Property Name="DeudaAntFavorD" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="ID_Viaje" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Viaje" Relationship="dbTransporteDRModel.FK_Resumen_Resumen" FromRole="Resumen" ToRole="Viaje" />
-          <NavigationProperty Name="Viaje1" Relationship="dbTransporteDRModel.FK_Viaje_Resumen" FromRole="Resumen" ToRole="Viaje" />
-        </EntityType>
-        <EntityType Name="Viaje">
-          <Key>
-            <PropertyRef Name="ID" />
-          </Key>
-          <Property Name="ID" Type="String" Nullable="false" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="Fecha_Inicio" Type="DateTime" Precision="3" />
-          <Property Name="Fecha_Salida" Type="DateTime" Precision="3" />
-          <Property Name="Lugar_Origen" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="KM_Origen" Type="Double" />
-          <Property Name="Fecha_Llegada" Type="DateTime" Precision="3" />
-          <Property Name="Lugar_Destino" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="KM_Destino" Type="Double" />
-          <Property Name="Nota" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
-          <Property Name="Encargado" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
-          <Property Name="ID_Documento" Type="Int32" />
-          <Property Name="ID_Mercaderia" Type="Int32" />
-          <Property Name="ID_Flete" Type="Int32" />
-          <Property Name="ID_Resumen" Type="Int32" />
-          <Property Name="ID_CuentasXRendir" Type="Int32" />
-          <Property Name="PlacaVehiculo" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <Property Name="DNI_Conductor" Type="String" MaxLength="15" FixedLength="false" Unicode="false" />
-          <NavigationProperty Name="Conductor" Relationship="dbTransporteDRModel.FK_Viaje_Conductor" FromRole="Viaje" ToRole="Conductor" />
-          <NavigationProperty Name="CuentasXRendir" Relationship="dbTransporteDRModel.FK_CuentasXRendir_Viaje" FromRole="Viaje" ToRole="CuentasXRendir" />
-          <NavigationProperty Name="CuentasXRendir1" Relationship="dbTransporteDRModel.FK_Viaje_CuentasXRendir" FromRole="Viaje" ToRole="CuentasXRendir" />
-          <NavigationProperty Name="DocumentoViaje" Relationship="dbTransporteDRModel.FK_DocumentoViaje_Viaje" FromRole="Viaje" ToRole="DocumentoViaje" />
-          <NavigationProperty Name="DocumentoViaje1" Relationship="dbTransporteDRModel.FK_Viaje_DocumentoViaje" FromRole="Viaje" ToRole="DocumentoViaje" />
-          <NavigationProperty Name="Flete" Relationship="dbTransporteDRModel.FK_Flete_Viaje" FromRole="Viaje" ToRole="Flete" />
-          <NavigationProperty Name="Flete1" Relationship="dbTransporteDRModel.FK_Viaje_Flete" FromRole="Viaje" ToRole="Flete" />
-          <NavigationProperty Name="Gasto" Relationship="dbTransporteDRModel.FK_Gasto_Gasto" FromRole="Viaje" ToRole="Gasto" />
-          <NavigationProperty Name="GastoV" Relationship="dbTransporteDRModel.FK_GastoV_Viaje" FromRole="Viaje" ToRole="GastoV" />
-          <NavigationProperty Name="Mercaderia" Relationship="dbTransporteDRModel.FK_Mercaderia_Viaje" FromRole="Viaje" ToRole="Mercaderia" />
-          <NavigationProperty Name="Mercaderia1" Relationship="dbTransporteDRModel.FK_Viaje_Mercaderia" FromRole="Viaje" ToRole="Mercaderia" />
-          <NavigationProperty Name="Resumen" Relationship="dbTransporteDRModel.FK_Resumen_Resumen" FromRole="Viaje" ToRole="Resumen" />
-          <NavigationProperty Name="Resumen1" Relationship="dbTransporteDRModel.FK_Viaje_Resumen" FromRole="Viaje" ToRole="Resumen" />
-          <NavigationProperty Name="Unidad_Vehicular" Relationship="dbTransporteDRModel.FK_Viaje_Unidad_Vehicular" FromRole="Viaje" ToRole="Unidad_Vehicular" />
-        </EntityType>
-        <Association Name="FK_DocumentoViaje_Cliente">
-          <End Type="dbTransporteDRModel.Cliente" Role="Cliente" Multiplicity="0..1" />
-          <End Type="dbTransporteDRModel.DocumentoViaje" Role="DocumentoViaje" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Cliente">
-              <PropertyRef Name="RUC" />
-            </Principal>
-            <Dependent Role="DocumentoViaje">
-              <PropertyRef Name="RUC" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Viaje_Conductor">
-          <End Type="dbTransporteDRModel.Conductor" Role="Conductor" Multiplicity="0..1" />
-          <End Type="dbTransporteDRModel.Viaje" Role="Viaje" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Conductor">
-              <PropertyRef Name="DNI" />
-            </Principal>
-            <Dependent Role="Viaje">
-              <PropertyRef Name="DNI_Conductor" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_CuentasXRendir_Viaje">
-          <End Type="dbTransporteDRModel.Viaje" Role="Viaje" Multiplicity="0..1" />
-          <End Type="dbTransporteDRModel.CuentasXRendir" Role="CuentasXRendir" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Viaje">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="CuentasXRendir">
-              <PropertyRef Name="ID_Viaje" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Viaje_CuentasXRendir">
-          <End Type="dbTransporteDRModel.CuentasXRendir" Role="CuentasXRendir" Multiplicity="0..1" />
-          <End Type="dbTransporteDRModel.Viaje" Role="Viaje" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="CuentasXRendir">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Viaje">
-              <PropertyRef Name="ID_CuentasXRendir" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_DocumentoViaje_Viaje">
-          <End Type="dbTransporteDRModel.Viaje" Role="Viaje" Multiplicity="0..1" />
-          <End Type="dbTransporteDRModel.DocumentoViaje" Role="DocumentoViaje" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Viaje">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="DocumentoViaje">
-              <PropertyRef Name="ID_Viaje" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Viaje_DocumentoViaje">
-          <End Type="dbTransporteDRModel.DocumentoViaje" Role="DocumentoViaje" Multiplicity="0..1" />
-          <End Type="dbTransporteDRModel.Viaje" Role="Viaje" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="DocumentoViaje">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Viaje">
-              <PropertyRef Name="ID_Documento" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Flete_Viaje">
-          <End Type="dbTransporteDRModel.Viaje" Role="Viaje" Multiplicity="0..1" />
-          <End Type="dbTransporteDRModel.Flete" Role="Flete" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Viaje">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Flete">
-              <PropertyRef Name="ID_Viaje" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Viaje_Flete">
-          <End Type="dbTransporteDRModel.Flete" Role="Flete" Multiplicity="0..1" />
-          <End Type="dbTransporteDRModel.Viaje" Role="Viaje" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Flete">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Viaje">
-              <PropertyRef Name="ID_Flete" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Gasto_Gasto">
-          <End Type="dbTransporteDRModel.Viaje" Role="Viaje" Multiplicity="0..1" />
-          <End Type="dbTransporteDRModel.Gasto" Role="Gasto" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Viaje">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Gasto">
-              <PropertyRef Name="ID_Viaje" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_GastoV_Viaje">
-          <End Type="dbTransporteDRModel.Viaje" Role="Viaje" Multiplicity="0..1" />
-          <End Type="dbTransporteDRModel.GastoV" Role="GastoV" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Viaje">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="GastoV">
-              <PropertyRef Name="ID_Viaje" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Mercaderia_Viaje">
-          <End Type="dbTransporteDRModel.Viaje" Role="Viaje" Multiplicity="0..1" />
-          <End Type="dbTransporteDRModel.Mercaderia" Role="Mercaderia" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Viaje">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Mercaderia">
-              <PropertyRef Name="ID_Viaje" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Viaje_Mercaderia">
-          <End Type="dbTransporteDRModel.Mercaderia" Role="Mercaderia" Multiplicity="0..1" />
-          <End Type="dbTransporteDRModel.Viaje" Role="Viaje" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Mercaderia">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Viaje">
-              <PropertyRef Name="ID_Mercaderia" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Resumen_Resumen">
-          <End Type="dbTransporteDRModel.Viaje" Role="Viaje" Multiplicity="0..1" />
-          <End Type="dbTransporteDRModel.Resumen" Role="Resumen" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Viaje">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Resumen">
-              <PropertyRef Name="ID_Viaje" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Viaje_Resumen">
-          <End Type="dbTransporteDRModel.Resumen" Role="Resumen" Multiplicity="0..1" />
-          <End Type="dbTransporteDRModel.Viaje" Role="Viaje" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Resumen">
-              <PropertyRef Name="ID" />
-            </Principal>
-            <Dependent Role="Viaje">
-              <PropertyRef Name="ID_Resumen" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <EntityType Name="Unidad_Vehicular">
           <Key>
             <PropertyRef Name="Placa" />
@@ -1083,7 +362,6 @@
           <Property Name="Serie_Chasis" Type="String" MaxLength="25" FixedLength="false" Unicode="false" />
           <Property Name="Y_Fabricacion" Type="Int32" />
           <NavigationProperty Name="Historial" Relationship="dbTransporteDRModel.FK_Historial_Unidad_Vehicular" FromRole="Unidad_Vehicular" ToRole="Historial" />
-          <NavigationProperty Name="Viaje" Relationship="dbTransporteDRModel.FK_Viaje_Unidad_Vehicular" FromRole="Unidad_Vehicular" ToRole="Viaje" />
         </EntityType>
         <Association Name="FK_Historial_Unidad_Vehicular">
           <End Type="dbTransporteDRModel.Unidad_Vehicular" Role="Unidad_Vehicular" Multiplicity="0..1" />
@@ -1094,18 +372,6 @@
             </Principal>
             <Dependent Role="Historial">
               <PropertyRef Name="ID_Unidad" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_Viaje_Unidad_Vehicular">
-          <End Type="dbTransporteDRModel.Unidad_Vehicular" Role="Unidad_Vehicular" Multiplicity="0..1" />
-          <End Type="dbTransporteDRModel.Viaje" Role="Viaje" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Unidad_Vehicular">
-              <PropertyRef Name="Placa" />
-            </Principal>
-            <Dependent Role="Viaje">
-              <PropertyRef Name="PlacaVehiculo" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1181,118 +447,6 @@
               <MappingFragment StoreEntitySet="Telefono">
                 <ScalarProperty Name="Numero" ColumnName="Numero" />
                 <ScalarProperty Name="DNI" ColumnName="DNI" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="CuentasXRendir">
-            <EntityTypeMapping TypeName="dbTransporteDRModel.CuentasXRendir">
-              <MappingFragment StoreEntitySet="CuentasXRendir">
-                <ScalarProperty Name="ID_Viaje" ColumnName="ID_Viaje" />
-                <ScalarProperty Name="Lugar" ColumnName="Lugar" />
-                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
-                <ScalarProperty Name="FleteEntregadoA" ColumnName="FleteEntregadoA" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="DocumentoViaje">
-            <EntityTypeMapping TypeName="dbTransporteDRModel.DocumentoViaje">
-              <MappingFragment StoreEntitySet="DocumentoViaje">
-                <ScalarProperty Name="ID_Viaje" ColumnName="ID_Viaje" />
-                <ScalarProperty Name="Factura" ColumnName="Factura" />
-                <ScalarProperty Name="RUC" ColumnName="RUC" />
-                <ScalarProperty Name="GRT" ColumnName="GRT" />
-                <ScalarProperty Name="GRR" ColumnName="GRR" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Flete">
-            <EntityTypeMapping TypeName="dbTransporteDRModel.Flete">
-              <MappingFragment StoreEntitySet="Flete">
-                <ScalarProperty Name="ID_Viaje" ColumnName="ID_Viaje" />
-                <ScalarProperty Name="Saldo" ColumnName="Saldo" />
-                <ScalarProperty Name="Adelanto" ColumnName="Adelanto" />
-                <ScalarProperty Name="Importe" ColumnName="Importe" />
-                <ScalarProperty Name="Valor" ColumnName="Valor" />
-                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Gasto">
-            <EntityTypeMapping TypeName="dbTransporteDRModel.Gasto">
-              <MappingFragment StoreEntitySet="Gasto">
-                <ScalarProperty Name="ID_Viaje" ColumnName="ID_Viaje" />
-                <ScalarProperty Name="Importe" ColumnName="Importe" />
-                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
-                <ScalarProperty Name="Categoria" ColumnName="Categoria" />
-                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="GastoV">
-            <EntityTypeMapping TypeName="dbTransporteDRModel.GastoV">
-              <MappingFragment StoreEntitySet="GastoV">
-                <ScalarProperty Name="ID_Viaje" ColumnName="ID_Viaje" />
-                <ScalarProperty Name="Importe" ColumnName="Importe" />
-                <ScalarProperty Name="Razon_Social" ColumnName="Razon_Social" />
-                <ScalarProperty Name="Documento" ColumnName="Documento" />
-                <ScalarProperty Name="KM" ColumnName="KM" />
-                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
-                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Mercaderia">
-            <EntityTypeMapping TypeName="dbTransporteDRModel.Mercaderia">
-              <MappingFragment StoreEntitySet="Mercaderia">
-                <ScalarProperty Name="ID_Viaje" ColumnName="ID_Viaje" />
-                <ScalarProperty Name="Unidad" ColumnName="Unidad" />
-                <ScalarProperty Name="Peso" ColumnName="Peso" />
-                <ScalarProperty Name="Bultos" ColumnName="Bultos" />
-                <ScalarProperty Name="Producto" ColumnName="Producto" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Resumen">
-            <EntityTypeMapping TypeName="dbTransporteDRModel.Resumen">
-              <MappingFragment StoreEntitySet="Resumen">
-                <ScalarProperty Name="ID_Viaje" ColumnName="ID_Viaje" />
-                <ScalarProperty Name="DeudaAntFavorD" ColumnName="DeudaAntFavorD" />
-                <ScalarProperty Name="DeudaAntFavor" ColumnName="DeudaAntFavor" />
-                <ScalarProperty Name="SaldoFavorD" ColumnName="SaldoFavorD" />
-                <ScalarProperty Name="SaldoFavor" ColumnName="SaldoFavor" />
-                <ScalarProperty Name="GastoTotal" ColumnName="GastoTotal" />
-                <ScalarProperty Name="BolsaViajeD" ColumnName="BolsaViajeD" />
-                <ScalarProperty Name="BolsaViaje" ColumnName="BolsaViaje" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="Viaje">
-            <EntityTypeMapping TypeName="dbTransporteDRModel.Viaje">
-              <MappingFragment StoreEntitySet="Viaje">
-                <ScalarProperty Name="DNI_Conductor" ColumnName="DNI_Conductor" />
-                <ScalarProperty Name="PlacaVehiculo" ColumnName="PlacaVehiculo" />
-                <ScalarProperty Name="ID_CuentasXRendir" ColumnName="ID_CuentasXRendir" />
-                <ScalarProperty Name="ID_Resumen" ColumnName="ID_Resumen" />
-                <ScalarProperty Name="ID_Flete" ColumnName="ID_Flete" />
-                <ScalarProperty Name="ID_Mercaderia" ColumnName="ID_Mercaderia" />
-                <ScalarProperty Name="ID_Documento" ColumnName="ID_Documento" />
-                <ScalarProperty Name="Encargado" ColumnName="Encargado" />
-                <ScalarProperty Name="Nota" ColumnName="Nota" />
-                <ScalarProperty Name="KM_Destino" ColumnName="KM_Destino" />
-                <ScalarProperty Name="Lugar_Destino" ColumnName="Lugar_Destino" />
-                <ScalarProperty Name="Fecha_Llegada" ColumnName="Fecha_Llegada" />
-                <ScalarProperty Name="KM_Origen" ColumnName="KM_Origen" />
-                <ScalarProperty Name="Lugar_Origen" ColumnName="Lugar_Origen" />
-                <ScalarProperty Name="Fecha_Salida" ColumnName="Fecha_Salida" />
-                <ScalarProperty Name="Fecha_Inicio" ColumnName="Fecha_Inicio" />
-                <ScalarProperty Name="ID" ColumnName="ID" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

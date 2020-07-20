@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="98eb0d1c5802450e8832a1b7d80cb6c2" Name="Diagram1">
+      <Diagram DiagramId="98eb0d1c5802450e8832a1b7d80cb6c2" Name="Diagram1" ZoomLevel="64">
         <EntityTypeShape EntityType="dbTransporteDRModel.Cliente" Width="1.5" PointX="3" PointY="1.375" IsExpanded="true" />
         <EntityTypeShape EntityType="dbTransporteDRModel.Conductor" Width="1.5" PointX="3" PointY="4.25" IsExpanded="true" />
         <EntityTypeShape EntityType="dbTransporteDRModel.Historial" Width="1.5" PointX="5.25" PointY="4.25" IsExpanded="true" />
@@ -16,32 +16,9 @@
         <AssociationConnector Association="dbTransporteDRModel.FK_Historial_Conductor" ManuallyRouted="false" />
         <AssociationConnector Association="dbTransporteDRModel.FK_Proveedor_Persona" ManuallyRouted="false" />
         <AssociationConnector Association="dbTransporteDRModel.FK_Telefono_Persona" ManuallyRouted="false" />
-        <EntityTypeShape EntityType="dbTransporteDRModel.CuentasXRendir" Width="1.5" PointX="9.75" PointY="29.75" />
-        <EntityTypeShape EntityType="dbTransporteDRModel.DocumentoViaje" Width="1.5" PointX="5.25" PointY="0.75" />
-        <EntityTypeShape EntityType="dbTransporteDRModel.Flete" Width="1.5" PointX="9.75" PointY="19.75" />
-        <EntityTypeShape EntityType="dbTransporteDRModel.Gasto" Width="1.5" PointX="9.75" PointY="26.75" />
-        <EntityTypeShape EntityType="dbTransporteDRModel.GastoV" Width="1.5" PointX="9.75" PointY="23.25" />
-        <EntityTypeShape EntityType="dbTransporteDRModel.Mercaderia" Width="1.5" PointX="9.75" PointY="16.375" />
-        <EntityTypeShape EntityType="dbTransporteDRModel.Resumen" Width="1.5" PointX="9.75" PointY="12.5" />
-        <EntityTypeShape EntityType="dbTransporteDRModel.Viaje" Width="1.5" PointX="7.5" PointY="5.125" />
-        <AssociationConnector Association="dbTransporteDRModel.FK_DocumentoViaje_Cliente" />
-        <AssociationConnector Association="dbTransporteDRModel.FK_Viaje_Conductor" />
-        <AssociationConnector Association="dbTransporteDRModel.FK_CuentasXRendir_Viaje" />
-        <AssociationConnector Association="dbTransporteDRModel.FK_Viaje_CuentasXRendir" />
-        <AssociationConnector Association="dbTransporteDRModel.FK_DocumentoViaje_Viaje" />
-        <AssociationConnector Association="dbTransporteDRModel.FK_Viaje_DocumentoViaje" />
-        <AssociationConnector Association="dbTransporteDRModel.FK_Flete_Viaje" />
-        <AssociationConnector Association="dbTransporteDRModel.FK_Viaje_Flete" />
-        <AssociationConnector Association="dbTransporteDRModel.FK_Gasto_Gasto" />
-        <AssociationConnector Association="dbTransporteDRModel.FK_GastoV_Viaje" />
-        <AssociationConnector Association="dbTransporteDRModel.FK_Mercaderia_Viaje" />
-        <AssociationConnector Association="dbTransporteDRModel.FK_Viaje_Mercaderia" />
-        <AssociationConnector Association="dbTransporteDRModel.FK_Resumen_Resumen" />
-        <AssociationConnector Association="dbTransporteDRModel.FK_Viaje_Resumen" />
         <EntityTypeShape EntityType="dbTransporteDRModel.Unidad_Vehicular" Width="1.5" PointX="7.375" PointY="0.875" />
         <AssociationConnector Association="dbTransporteDRModel.FK_Historial_Unidad_Vehicular" />
-        <AssociationConnector Association="dbTransporteDRModel.FK_Viaje_Unidad_Vehicular" />
-      </Diagram>
+        </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

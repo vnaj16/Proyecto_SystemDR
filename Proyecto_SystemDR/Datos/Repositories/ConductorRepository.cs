@@ -67,7 +67,7 @@ namespace Datos.Repositories
         {
             using (dbTransporteDRContext db = new dbTransporteDRContext())
             {
-                return db.Conductor.Include("Persona.Telefono").ToList();
+                return db.Conductor.Include("Persona.Telefono").Include("Historial").ToList();
             }
         }
 

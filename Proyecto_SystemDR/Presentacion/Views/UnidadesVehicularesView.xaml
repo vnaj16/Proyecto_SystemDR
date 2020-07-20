@@ -48,10 +48,10 @@
 
             <DataGrid ItemsSource="{Binding ListaUnidadesVehiculares}" SelectedItem="{Binding CurrentUnidadVehicular}" AutoGenerateColumns="False" VerticalScrollBarVisibility="Auto" Grid.Row="1" MinWidth="500" MaxWidth="1000" HorizontalAlignment="Left" Margin="20,10,0,10">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="Placa" Binding="{Binding Placa}" Width="100"/>
-                    <DataGridTextColumn Header="Marca" Binding="{Binding Marca}" Width="150"/>
-                    <DataGridTextColumn Header="Año de Fabricacion" Binding="{Binding Y_Fabricacion, StringFormat=d}" Width="150"/>
-                    <DataGridTextColumn Header="Serie de Chasis" Binding="{Binding Serie_Chasis}" Width="150"/>
+                    <DataGridTextColumn Header="Placa" Binding="{Binding Placa}" Width="100" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Marca" Binding="{Binding Marca}" Width="150" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Año de Fabricacion" Binding="{Binding Y_Fabricacion, StringFormat=d}" Width="150" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Serie de Chasis" Binding="{Binding Serie_Chasis}" Width="150" IsReadOnly="True"/>
                 </DataGrid.Columns>
             </DataGrid>
 

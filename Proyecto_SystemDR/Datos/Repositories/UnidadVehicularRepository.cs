@@ -40,7 +40,7 @@ namespace Datos.Repositories
         {
             using (dbTransporteDRContext db = new dbTransporteDRContext())
             {
-                return db.Unidad_Vehicular.ToList();
+                return db.Unidad_Vehicular.Include("Historial").ToList();
             }
         }
 

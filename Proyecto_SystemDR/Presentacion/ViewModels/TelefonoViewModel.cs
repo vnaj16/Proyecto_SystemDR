@@ -41,6 +41,7 @@ namespace Presentacion.ViewModels
 
             ListaTelefonos = new ObservableCollection<Telefono>(CurrentPersona.Telefono);
 
+            //AgregarCommand = new DelegateCommand(Execute_AgregarCommand, CanExecute_AgregarCommand).ObservesProperty(()=>NewTelefono.Numero);
             AgregarCommand = new DelegateCommand(Execute_AgregarCommand);
             DeleteCommand = new DelegateCommand(Execute_DeleteCommand, CanExecute_DeleteCommand).ObservesProperty(() => CurrentTelefono);
         }
@@ -80,6 +81,10 @@ namespace Presentacion.ViewModels
         #region COMMANDS
         public ICommand AgregarCommand { get; set; }
 
+        /*private bool CanExecute_AgregarCommand()
+        {
+            return !(String.IsNullOrEmpty(NewTelefono.Numero));
+        }*/
         private void Execute_AgregarCommand()
         {
             if (!(String.IsNullOrWhiteSpace(NewTelefono.Numero)))

@@ -155,8 +155,18 @@ namespace Presentacion.ViewModels
                         case MessageBoxResult.Yes:
                             if (TransporteDR.HistorialBO.Eliminar(CurrentHistorial.ID))
                             {
-                                CurrentHistorial.Conductor?.Historial.Remove(CurrentHistorial);
-                                CurrentHistorial.Unidad_Vehicular?.Historial.Remove(CurrentHistorial);
+                                try
+                                {
+                                    ConductoresViewModel.Instance.ListaConductores.FirstOrDefault(x => x.DNI == CurrentHistorial.DNI).Historial.ToList().RemoveAll(x => x.ID == CurrentHistorial.ID);
+                                    UnidadVehicularViewModel.Instance.ListaUnidadesVehiculares.FirstOrDefault(x => x.Placa == CurrentHistorial.ID_Unidad).Historial.ToList().RemoveAll(x => x.ID == CurrentHistorial.ID);
+                                }
+                                catch(Exception ex)
+                                {
+                                    MessageBox.Show(ex.Message);
+                                    MessageBox.Show(ex.InnerException.Message);
+                                }
+                                // CurrentHistorial.Conductor?.Historial.Remove(CurrentHistorial);
+                                //CurrentHistorial.Unidad_Vehicular?.Historial.Remove(CurrentHistorial);
 
                                 ListaHistoriales.Remove(CurrentHistorial);
 

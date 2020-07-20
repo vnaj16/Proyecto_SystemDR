@@ -56,25 +56,7 @@
       <DependentUpon>TransporteDRModel.tt</DependentUpon>
     </Compile>
     <Compile Include="ConductorExt.cs" />
-    <Compile Include="CuentasXRendir.cs">
-      <DependentUpon>TransporteDRModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="DocumentoViaje.cs">
-      <DependentUpon>TransporteDRModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Flete.cs">
-      <DependentUpon>TransporteDRModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Gasto.cs">
-      <DependentUpon>TransporteDRModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="GastoV.cs">
-      <DependentUpon>TransporteDRModel.tt</DependentUpon>
-    </Compile>
     <Compile Include="Historial.cs">
-      <DependentUpon>TransporteDRModel.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Mercaderia.cs">
       <DependentUpon>TransporteDRModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Persona.cs">
@@ -85,37 +67,32 @@
     <Compile Include="Proveedor.cs">
       <DependentUpon>TransporteDRModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Resumen.cs">
-      <DependentUpon>TransporteDRModel.tt</DependentUpon>
-    </Compile>
+    <Compile Include="ProveedorExt.cs" />
     <Compile Include="Telefono.cs">
       <DependentUpon>TransporteDRModel.tt</DependentUpon>
     </Compile>
     <Compile Include="TelefonoExt.cs" />
     <Compile Include="TransporteDRModel.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
       <DependentUpon>TransporteDRModel.tt</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
     </Compile>
+    <Compile Include="UnidadVehiculaExt.cs" />
     <Compile Include="Unidad_Vehicular.cs">
       <DependentUpon>TransporteDRModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="Unidad_VehicularExt.cs" />
-    <Compile Include="Viaje.cs">
-      <DependentUpon>TransporteDRModel.tt</DependentUpon>
-    </Compile>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="TransporteDRModel.tt">
-      <Generator>TextTemplatingFileGenerator</Generator>
-      <LastGenOutput>TransporteDRModel.cs</LastGenOutput>
-    </Content>
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="TransporteDRModel.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>TransporteDRModel.cs</LastGenOutput>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

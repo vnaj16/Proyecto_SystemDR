@@ -96,9 +96,9 @@ namespace Presentacion.Views.HistorialV
 
         private void Guardar_Click(object sender, RoutedEventArgs e)
         {
-            if (!(conductorSelected is null)) { newHistorial.Conductor = conductorSelected; newHistorial.DNI = newHistorial.Conductor.DNI; }
+            if (!(conductorSelected is null)) { newHistorial.Conductor = conductorSelected; newHistorial.Conductor.Historial.Add(newHistorial); newHistorial.DNI = newHistorial.Conductor.DNI; }
 
-            if (!(VehiculoSelected is null)) { newHistorial.Unidad_Vehicular = VehiculoSelected; newHistorial.ID_Unidad = newHistorial.Unidad_Vehicular.Placa; }
+            if (!(VehiculoSelected is null)) { newHistorial.Unidad_Vehicular = VehiculoSelected; newHistorial.Unidad_Vehicular.Historial.Add(newHistorial); newHistorial.ID_Unidad = newHistorial.Unidad_Vehicular.Placa; }
 
             var MyTuple = MyValidator.TryValidateObject(newHistorial);
             if (MyTuple.Item1)

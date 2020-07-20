@@ -9,81 +9,25 @@
 
 namespace Entidades
 {
-    using Prism.Mvvm;
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-
-    public partial class Cliente : BindableBase
+    
+    public partial class Cliente
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Cliente()
         {
-            this.DocumentoViaje = new HashSet<DocumentoViaje>();
+            //this.DocumentoViaje = new HashSet<DocumentoViaje>();
         }
-
-        private string ruc;
-
-        [Required(ErrorMessage = "El campo RUC es obligatorio")]
-        [StringLength(maximumLength: 20, MinimumLength = 6, ErrorMessage = "El RUC debe tener 10 digitos")]
-        [RegularExpression("^[0-9]+$", ErrorMessage = "Solo números")]
-        public string RUC
-        {
-            get { return ruc; }
-            set { SetProperty(ref ruc, value); }
-        }
-
-
-
-        private string razon_Social;
-
-        public string Razon_Social
-        {
-            get => razon_Social;
-            set => SetProperty(ref razon_Social, value);
-        }
-
-
-        private string direccion;
-        public string Direccion
-        {
-            get => direccion;
-            set => SetProperty(ref direccion, value);
-        }
-
-
-        private string tipo;
-        public string Tipo
-        {
-            get => tipo;
-            set => SetProperty(ref tipo, value);
-        }
-
-
-
-        private string dni;
-        public string DNI
-        {
-            get => dni;
-            set
-            {
-                SetProperty(ref dni, value);
-            }
-        }
-
-
-
-        private Persona persona;
-        public virtual Persona Persona
-        {
-            get => persona;
-            set
-            {
-                SetProperty(ref persona, value);
-            }
-        }
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<DocumentoViaje> DocumentoViaje { get; set; }
+    
+        public string RUC { get; set; }
+        public string Razon_Social { get; set; }
+        public string Direccion { get; set; }
+        public string Tipo { get; set; }
+        public string DNI { get; set; }
+    
+        public virtual Persona Persona { get; set; }
+        //[System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        //public virtual ICollection<DocumentoViaje> DocumentoViaje { get; set; }
     }
 }

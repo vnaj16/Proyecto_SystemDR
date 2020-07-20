@@ -48,11 +48,11 @@
 
             <DataGrid ItemsSource="{Binding ListaClientes}" SelectedItem="{Binding CurrentCliente}" AutoGenerateColumns="False" VerticalScrollBarVisibility="Auto" Grid.Row="1" HorizontalAlignment="Left" Margin="20,10,0,10">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="RUC" Binding="{Binding RUC}" Width="100"/>
-                    <DataGridTextColumn Header="Razón Social" Binding="{Binding Razon_Social}" Width="170"/>
-                    <DataGridTextColumn Header="Dirección" Binding="{Binding Direccion}" Width="200"/>
-                    <DataGridTextColumn Header="Tipo" Binding="{Binding Tipo}"/>
-                    <DataGridTextColumn Header="DNI" Binding="{Binding DNI}" Width="100"/>
+                    <DataGridTextColumn Header="RUC" Binding="{Binding RUC}" Width="100" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Razón Social" Binding="{Binding Razon_Social}" Width="170" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Dirección" Binding="{Binding Direccion}" Width="200" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Tipo" Binding="{Binding Tipo}" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="DNI" Binding="{Binding DNI}" Width="100" IsReadOnly="True"/>
                 </DataGrid.Columns>
             </DataGrid>
 
@@ -158,10 +158,10 @@
                             <TextBlock Text="{Binding CurrentCliente.Persona.Nacionalidad}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
                         </StackPanel>
                     </Label>
-                    <Label Foreground="{StaticResource MainColorForeground}" Grid.Row="2" Grid.Column="0">
+                    <Label Foreground="{StaticResource MainColorForeground}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Telefonos: " Style="{StaticResource h3-w}"/>
-                            <ComboBox ItemsSource="{Binding CurrentCliente.Persona.Telefono}" SelectedIndex="0" DisplayMemberPath="Numero"/>
+                            <TextBlock Text="{Binding CurrentCliente.Persona.ListTelefonos}" Style="{StaticResource h3-w}"/>
                         </StackPanel>
                     </Label>
                 </Grid>
