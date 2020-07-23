@@ -91,7 +91,7 @@ namespace Presentacion.Views
             if (!(ConductoresViewModel.Instance.CurrentConductor is null))
             {
                 //Crear una nueva ventana, que solo muestre esos Historiales
-                CustomHistorialesView customHistorialesView = new CustomHistorialesView(ConductoresViewModel.Instance.CurrentConductor.DNI, FilterTypeSearchHistorial.DNI);
+                CustomHistorialesView customHistorialesView = new CustomHistorialesView(ConductoresViewModel.Instance.CurrentConductor.Dni, FilterTypeSearchHistorial.DNI);
                 customHistorialesView.ShowDialog();
             }
         }

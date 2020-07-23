@@ -29,7 +29,7 @@ namespace DataLayer_UnitTest
 
             //OBJETOS A PROBAR (3/3)
             //Cliente obj1 = new Cliente() { RUC = "1234", Razon_Social = "Mi Rz Sc 1", DNI = "71" };
-            Cliente obj1 = new Cliente() { RUC = "1235", Razon_Social = "Mi Rz Sc 1", DNI = "72", Persona = new Persona() { DNI = "72"} };
+            Cliente obj1 = new Cliente() { RUC = "1235", Razon_Social = "Mi Rz Sc 1", DNI_RL= "72", Persona = new Persona() { DNI = "72"} };
 
 
             Assert.IsTrue(clienteRepository.Update(obj1));

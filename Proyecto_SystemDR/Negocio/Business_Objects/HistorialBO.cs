@@ -43,9 +43,9 @@ namespace Negocio.Business_Objects
 
         public bool Registrar(Historial obj)
         {
-            if (obj.ID>=0)//EVALUO CAMPOS OBLIGATORIOS
+            if (obj.Id>=0)//EVALUO CAMPOS OBLIGATORIOS
             {
-                if (!listaHistoriales.Exists(x => x.ID == obj.ID))//EVALUO SI YA EXISTE
+                if (!listaHistoriales.Exists(x => x.Id == obj.Id))//EVALUO SI YA EXISTE
                 {
                     try
                     {
@@ -74,11 +74,11 @@ namespace Negocio.Business_Objects
         {
             if (ID !=0)//EVALUO CAMPOS OBLIGATORIOS
             {
-                if (listaHistoriales.Exists(x => x.ID == ID))
+                if (listaHistoriales.Exists(x => x.Id == ID))
                 {
                     var result = historialRepository.Delete(ID.ToString());
 
-                    if (result) listaHistoriales.Remove(listaHistoriales.FirstOrDefault(x => x.ID == ID));
+                    if (result) listaHistoriales.Remove(listaHistoriales.FirstOrDefault(x => x.Id == ID));
 
                     return result;
                 }
@@ -95,9 +95,9 @@ namespace Negocio.Business_Objects
 
         public bool Actualizar(Historial obj)
         {
-            if (obj.ID !=0)//EVALUO CAMPOS OBLIGATORIOS
+            if (obj.Id != 0)//EVALUO CAMPOS OBLIGATORIOS
             {
-                var current = listaHistoriales.FirstOrDefault(x => x.ID == obj.ID);
+                var current = listaHistoriales.FirstOrDefault(x => x.Id == obj.Id);
                 if (!(current is null))//EVALUO SI YA EXISTE
                 {
 

@@ -5,27 +5,29 @@ using System.Text;
 using System.Threading.Tasks;
 using Datos.Interfaces;
 using Entidades;
-using System.Data.Entity;
+
+using Datos.ModelsEFCore;
+using Microsoft.EntityFrameworkCore;
 
 namespace Datos.Repositories
 {
     public class HistorialRepository : IHistorialRepository
     {
-        public bool Delete(string _ID)
+        public bool Delete(string _Id)
         {
-            int ID = int.Parse(_ID);
+            int Id = int.Parse(_Id);
             using (dbTransporteDRContext db = new dbTransporteDRContext())
             {
                 try
                 {
-                    var historial_db = db.Historial.FirstOrDefault(x => x.ID == ID);
+                    var historial_db = db.Historial.FirstOrDefault(x => x.Id == Id);
 
                     if (historial_db == null)
                     {
                         return false;
                     }
 
-                    db.Entry(historial_db).State = System.Data.Entity.EntityState.Deleted;
+                    db.Historial.Remove(historial_db);
 
                     db.SaveChanges();
 
@@ -42,7 +44,7 @@ namespace Datos.Repositories
         {
             using (dbTransporteDRContext db = new dbTransporteDRContext())
             {
-                return db.Historial.Include(x => x.Conductor.Persona).Include(x => x.Unidad_Vehicular).ToList();
+                return db.Historial.Include(x => x.DniConductorNavigation).ThenInclude(x=>x.DniNavigation).Include(x => x.IdUnidadNavigation).ToList();
             }
         }
 
@@ -52,27 +54,27 @@ namespace Datos.Repositories
             {
                 try
                 {
-                    if (obj.ID >= 0)
+                    if (obj.Id >= 0)
                     {
-                        if (!db.Historial.ToList().Exists(x => x.ID == obj.ID))
+                        if (!db.Historial.ToList().Exists(x => x.Id == obj.Id))
                         {
                             /*
                            Hago bakcup de Conductor y UV, para que el contexto no las trackee
                              */
 
-                            var conductor = obj.Conductor; obj.Conductor = null;
-                            var vehiculo = obj.Unidad_Vehicular; obj.Unidad_Vehicular = null;
+                            var conductor = obj.DniConductorNavigation; obj.DniConductorNavigation = null;
+                            var vehiculo = obj.IdUnidadNavigation; obj.IdUnidadNavigation = null;
 
                             db.Historial.Add(obj);
 
                             /*db.Entry(obj.Conductor).State = System.Data.Entity.EntityState.Unchanged;
                             db.Entry(obj.Conductor.Persona).State = System.Data.Entity.EntityState.Unchanged;
-                            db.Entry(obj.Unidad_Vehicular).State = System.Data.Entity.EntityState.Unchanged;*/
+                            db.Entry(obj.UnIdad_Vehicular).State = System.Data.Entity.EntityState.Unchanged;*/
 
                             db.SaveChanges();
 
-                            obj.Unidad_Vehicular = vehiculo;
-                            obj.Conductor = conductor;
+                            obj.IdUnidadNavigation = vehiculo;
+                            obj.DniConductorNavigation = conductor;
 
                             return true;
                         }
@@ -97,9 +99,9 @@ namespace Datos.Repositories
             {
                 try
                 {
-                    if (obj.ID != 0)
+                    if (obj.Id != 0)
                     {
-                        var obj_db = db.Historial.FirstOrDefault(x => x.ID == obj.ID);
+                        var obj_db = db.Historial.FirstOrDefault(x => x.Id == obj.Id);
                         System.Threading.Thread.Sleep(500);
                         if (!(obj_db is null))
                         {

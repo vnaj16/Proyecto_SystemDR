@@ -43,9 +43,9 @@ namespace Presentacion.Views.ClientesV
                 newCliente = obj;
                 copyCliente_Updated = new Cliente();
 
-                if (!(obj.Persona is null))
+                if (!(obj.DniRlNavigation is null))
                 {
-                    copyCliente_Updated.Persona = new Persona();
+                    copyCliente_Updated.DniRlNavigation = new Persona();
                 }
 
                 CopyInstance(newCliente, copyCliente_Updated);
@@ -84,9 +84,9 @@ namespace Presentacion.Views.ClientesV
             {
                 if (!isUpdate)
                 {
-                    if (String.IsNullOrWhiteSpace(newCliente.DNI))
+                    if (String.IsNullOrWhiteSpace(newCliente.DniRl))
                     {
-                        newCliente.Persona = null;
+                        newCliente.DniRlNavigation = null;
                     }
 
                     isRegistered = true;
@@ -121,18 +121,18 @@ namespace Presentacion.Views.ClientesV
 
         private void TextBox_DNI_LostFocus(object sender, RoutedEventArgs e)
         {
-            if (!String.IsNullOrWhiteSpace(TextBox_DNI.Text/*newCliente.DNI*/))
+            if (!String.IsNullOrWhiteSpace(TextBox_DNI.Text/*newCliente.Dni*/))
             {
-                newCliente.DNI = TextBox_DNI.Text;
-                if (newCliente.Persona is null)
+                newCliente.DniRl = TextBox_DNI.Text;
+                if (newCliente.DniRlNavigation is null)
                 {
-                    newCliente.Persona = new Persona() { DNI = newCliente.DNI };
+                    newCliente.DniRlNavigation = new Persona() { Dni = newCliente.DniRl };
                 }
                 else
                 {
-                    if (newCliente.Persona.DNI != newCliente.DNI)
+                    if (newCliente.DniRlNavigation.Dni != newCliente.DniRl)
                     {
-                        newCliente.Persona.DNI = newCliente.DNI;
+                        newCliente.DniRlNavigation.Dni = newCliente.DniRl;
                     }
                 }
             }
@@ -141,19 +141,19 @@ namespace Presentacion.Views.ClientesV
 
         private void CopyInstance(Cliente fuente, Cliente destino)
         {
-            destino.RUC = fuente.RUC;
-            destino.Razon_Social = fuente.Razon_Social;
+            destino.Ruc = fuente.Ruc;
+            destino.RazonSocial = fuente.RazonSocial;
             destino.Direccion = fuente.Direccion;
-            destino.DNI = fuente.DNI;
+            destino.DniRl = fuente.DniRl;
             destino.Tipo = fuente.Tipo;
 
-            if (!(fuente.Persona is null))
+            if (!(fuente.DniRlNavigation is null))
             {
-                destino.Persona.DNI = fuente.Persona?.DNI;
-                destino.Persona.Nombre = fuente.Persona?.Nombre;
-                destino.Persona.Apellido = fuente.Persona?.Apellido;
-                destino.Persona.Fecha_Nac = fuente.Persona?.Fecha_Nac;
-                destino.Persona.Nacionalidad = fuente.Persona?.Nacionalidad;
+                destino.DniRlNavigation.Dni = fuente.DniRlNavigation?.Dni;
+                destino.DniRlNavigation.Nombre = fuente.DniRlNavigation?.Nombre;
+                destino.DniRlNavigation.Apellido = fuente.DniRlNavigation?.Apellido;
+                destino.DniRlNavigation.FechaNac = fuente.DniRlNavigation?.FechaNac;
+                destino.DniRlNavigation.Nacionalidad = fuente.DniRlNavigation?.Nacionalidad;
             }
         }
 

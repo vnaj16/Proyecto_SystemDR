@@ -36,7 +36,7 @@ namespace Presentacion.Views.ConductoresV
             if (!isUpdate)
             {
                 newConductor = new Conductor() { 
-                    Persona = new Persona()
+                    DniNavigation = new Persona()
                 };
             }
             else
@@ -44,9 +44,9 @@ namespace Presentacion.Views.ConductoresV
                 newConductor = obj;
                 copyConductor_Updated = new Conductor();
 
-                if (!(obj.Persona is null))
+                if (!(obj.DniNavigation is null))
                 {
-                    copyConductor_Updated.Persona = new Persona();
+                    copyConductor_Updated.DniNavigation = new Persona();
                 }
 
                 CopyInstance(newConductor, copyConductor_Updated);
@@ -85,9 +85,9 @@ namespace Presentacion.Views.ConductoresV
             {
                 if (!isUpdate)
                 {
-                    if (String.IsNullOrWhiteSpace(newConductor.Persona.DNI))
+                    if (String.IsNullOrWhiteSpace(newConductor.DniNavigation.Dni))
                     {
-                        newConductor.Persona.DNI = newConductor.DNI;
+                        newConductor.DniNavigation.Dni = newConductor.Dni;
                     }
 
                     isRegistered = true;
@@ -124,20 +124,20 @@ namespace Presentacion.Views.ConductoresV
         private void CopyInstance(Conductor fuente, Conductor destino)
         {
             destino.Brevete = fuente.Brevete;
-            destino.Fecha_Inicio = fuente.Fecha_Inicio;
+            destino.FechaInicio = fuente.FechaInicio;
             destino.Direccion = fuente.Direccion;
-            destino.DNI = fuente.DNI;
-            destino.Grado_Instruccion = fuente.Grado_Instruccion;
-            destino.Lugar_Nac = fuente.Lugar_Nac;
-            destino.Personalidad = fuente.Personalidad;
+            destino.Dni = fuente.Dni;
+            destino.GradoInstruccion = fuente.GradoInstruccion;
+            destino.LugarNac = fuente.LugarNac;
+            destino.DniNavigation.Nacionalidad = fuente.DniNavigation.Nacionalidad;
 
-            if (!(fuente.Persona is null))
+            if (!(fuente.DniNavigation is null))
             {
-                destino.Persona.DNI = fuente.Persona?.DNI;
-                destino.Persona.Nombre = fuente.Persona?.Nombre;
-                destino.Persona.Apellido = fuente.Persona?.Apellido;
-                destino.Persona.Fecha_Nac = fuente.Persona?.Fecha_Nac;
-                destino.Persona.Nacionalidad = fuente.Persona?.Nacionalidad;
+                destino.DniNavigation.Dni = fuente.DniNavigation?.Dni;
+                destino.DniNavigation.Nombre = fuente.DniNavigation?.Nombre;
+                destino.DniNavigation.Apellido = fuente.DniNavigation?.Apellido;
+                destino.DniNavigation.FechaNac = fuente.DniNavigation?.FechaNac;
+                destino.DniNavigation.Nacionalidad = fuente.DniNavigation?.Nacionalidad;
             }
         }
 

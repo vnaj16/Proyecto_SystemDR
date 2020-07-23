@@ -42,9 +42,9 @@ namespace Presentacion.Views.ProveedoresV
                 newProveedor = obj;
                 copyProveedor_Updated = new Proveedor();
 
-                if (!(obj.Persona is null))
+                if (!(obj.DniRlNavigation is null))
                 {
-                    copyProveedor_Updated.Persona = new Persona();
+                    copyProveedor_Updated.DniRlNavigation = new Persona();
                 }
 
                 CopyInstance(newProveedor, copyProveedor_Updated);
@@ -83,9 +83,9 @@ namespace Presentacion.Views.ProveedoresV
             {
                 if (!isUpdate)
                 {
-                    if (String.IsNullOrWhiteSpace(newProveedor.DNI))
+                    if (String.IsNullOrWhiteSpace(newProveedor.DniRl))
                     {
-                        newProveedor.Persona = null;
+                        newProveedor.DniRlNavigation = null;
                     }
 
                     isRegistered = true;
@@ -122,16 +122,16 @@ namespace Presentacion.Views.ProveedoresV
         {
             if (!String.IsNullOrWhiteSpace(TextBox_DNI.Text/*newProveedor.DNI*/))
             {
-                newProveedor.DNI = TextBox_DNI.Text;
-                if (newProveedor.Persona is null)
+                newProveedor.DniRl = TextBox_DNI.Text;
+                if (newProveedor.DniRlNavigation is null)
                 {
-                    newProveedor.Persona = new Persona() { DNI = newProveedor.DNI };
+                    newProveedor.DniRlNavigation = new Persona() { Dni = newProveedor.DniRl };
                 }
                 else
                 {
-                    if (newProveedor.Persona.DNI != newProveedor.DNI)
+                    if (newProveedor.DniRlNavigation.Dni != newProveedor.DniRl)
                     {
-                        newProveedor.Persona.DNI = newProveedor.DNI;
+                        newProveedor.DniRlNavigation.Dni = newProveedor.DniRl;
                     }
                 }
             }
@@ -140,19 +140,19 @@ namespace Presentacion.Views.ProveedoresV
 
         private void CopyInstance(Proveedor fuente, Proveedor destino)
         {
-            destino.RUC = fuente.RUC;
-            destino.Razon_Social = fuente.Razon_Social;
+            destino.Ruc = fuente.Ruc;
+            destino.RazonSocial = fuente.RazonSocial;
             destino.Direccion = fuente.Direccion;
-            destino.DNI = fuente.DNI;
+            destino.DniRl = fuente.DniRl;
             destino.Tipo = fuente.Tipo;
 
-            if (!(fuente.Persona is null))
+            if (!(fuente.DniRlNavigation is null))
             {
-                destino.Persona.DNI = fuente.Persona?.DNI;
-                destino.Persona.Nombre = fuente.Persona?.Nombre;
-                destino.Persona.Apellido = fuente.Persona?.Apellido;
-                destino.Persona.Fecha_Nac = fuente.Persona?.Fecha_Nac;
-                destino.Persona.Nacionalidad = fuente.Persona?.Nacionalidad;
+                destino.DniRlNavigation.Dni = fuente.DniRlNavigation?.Dni;
+                destino.DniRlNavigation.Nombre = fuente.DniRlNavigation?.Nombre;
+                destino.DniRlNavigation.Apellido = fuente.DniRlNavigation?.Apellido;
+                destino.DniRlNavigation.FechaNac = fuente.DniRlNavigation?.FechaNac;
+                destino.DniRlNavigation.Nacionalidad = fuente.DniRlNavigation?.Nacionalidad;
             }
         }
 

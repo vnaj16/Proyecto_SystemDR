@@ -4,7 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Datos.Interfaces;
+using Datos.ModelsEFCore;
 using Entidades;
+using Microsoft.EntityFrameworkCore;
 
 namespace Datos.Repositories
 {
@@ -13,44 +15,43 @@ namespace Datos.Repositories
         /// <summary>
         /// 1. Obtiene la Entidad de la DB en base al obj recibido
         /// 2. Verifica que no sea null
-        /// 3. Obtiene la Entidad Persona
-        /// 4. Pone el estado de esa entidad persona como eliminado
+        /// 3. Obtiene la Entidad DniNavigation
+        /// 4. Pone el estado de esa entidad DniNavigation como eliminado
         /// 5. Verifico si tiene telefonos y los borro
         /// 6. Luego pone a la entidad principal su estado en eliminado
         /// 7. Guarda cambios y retorna true
         /// </summary>
         /// <param name="obj"></param>
         /// <returns></returns>
-        public bool Delete(string DNI)
+        public bool Delete(string Dni)
         {
             using (dbTransporteDRContext db = new dbTransporteDRContext())
             {
                 try
                 {
-                    var conductor_db = db.Conductor.FirstOrDefault(x => x.DNI == DNI);
+                    var conductor_db = db.Conductor.FirstOrDefault(x => x.Dni == Dni);
 
                     if (conductor_db == null)
                     {
                         return false;
                     }
 
-                    var persona_db = conductor_db.Persona;
+                    var DniNavigation_db = conductor_db.DniNavigation;
 
-                    if (persona_db is null)
+                    if (DniNavigation_db is null)
                     {
                         return false;
                     }
 
-                    var telefonos_db = persona_db.Telefono;
+                    var telefonos_db = DniNavigation_db.Telefono;
 
                     if (telefonos_db != null)
                     {
                         db.Telefono.RemoveRange(telefonos_db);
                     }
 
-                    db.Entry(persona_db).State = System.Data.Entity.EntityState.Deleted;
-
-                    db.Entry(conductor_db).State = System.Data.Entity.EntityState.Deleted;
+                    db.Persona.Remove(DniNavigation_db);
+                    db.Conductor.Remove(conductor_db);
 
                     db.SaveChanges();
 
@@ -67,7 +68,7 @@ namespace Datos.Repositories
         {
             using (dbTransporteDRContext db = new dbTransporteDRContext())
             {
-                return db.Conductor.Include("Persona.Telefono").Include("Historial").ToList();
+                return db.Conductor.Include(x=>x.DniNavigation).ThenInclude(x=>x.Telefono).Include(x=>x.Historial).ToList();
             }
         }
 
@@ -75,7 +76,7 @@ namespace Datos.Repositories
         /// 1. Verifico que el obj pasado tenga su PK
         /// 2. Verifico que ese obj con ese PK no exista en la DB, o sea que sea nuevo
         /// 3. Agrego el objeto al contexto del Conductor
-        /// 4. Verifico que su objeto persona no sea nulo (si es nulo, creo uno) y lo agrego al contexto de Persona
+        /// 4. Verifico que su objeto DniNavigation no sea nulo (si es nulo, creo uno) y lo agrego al contexto de DniNavigation
         /// 5. Guarda cambios y retorna true
         /// </summary>
         /// <param name="obj"></param>
@@ -86,20 +87,20 @@ namespace Datos.Repositories
             {
                 try
                 {
-                    if (!String.IsNullOrWhiteSpace(obj.DNI))
+                    if (!String.IsNullOrWhiteSpace(obj.Dni))
                     {
-                        if (!db.Conductor.ToList().Exists(x => x.DNI == obj.DNI))
+                        if (!db.Conductor.ToList().Exists(x => x.Dni == obj.Dni))
                         {
                             db.Conductor.Add(obj);
 
-                            if (obj.Persona != null)
+                            if (obj.DniNavigation != null)
                             {
-                                db.Persona.Add(obj.Persona);
+                                db.Persona.Add(obj.DniNavigation);
                             }
                             else
                             {
-                                obj.Persona = new Persona() { DNI = obj.DNI, Tipo = "con" };
-                                db.Persona.Add(obj.Persona);
+                                obj.DniNavigation = new Persona() { Dni = obj.Dni, Tipo = "con" };
+                                db.Persona.Add(obj.DniNavigation);
                             }
 
                             db.SaveChanges();
@@ -126,7 +127,7 @@ namespace Datos.Repositories
         /// 1. Verifico que el obj pasado tenga su PK
         /// 2. Obtengo la Entidad Conductor con ese PK de la DB
         /// 3. si no es null (es decir si existe ese objeto en la db), mapeo la el obj pasado con la entidad obtenida de la db
-        /// 4. Obtengo la Entidad Persona con ese PK de la DB
+        /// 4. Obtengo la Entidad DniNavigation con ese PK de la DB
         /// 5. mapeo la el obj pasado con la entidad obtenida de la db
         /// 6. Guarda cambios y retorna true
         /// </summary>
@@ -138,9 +139,9 @@ namespace Datos.Repositories
             {
                 try
                 {
-                    if (!String.IsNullOrWhiteSpace(obj.DNI))
+                    if (!String.IsNullOrWhiteSpace(obj.Dni))
                     {
-                        var obj_db = db.Conductor.FirstOrDefault(x => x.DNI == obj.DNI);
+                        var obj_db = db.Conductor.FirstOrDefault(x => x.Dni == obj.Dni);
 
                         if(obj_db is null) return false;
 
@@ -150,22 +151,22 @@ namespace Datos.Repositories
                         
                         if (!String.IsNullOrWhiteSpace(obj.Direccion)) obj_db.Direccion = obj.Direccion;
 
-                        if (!String.IsNullOrWhiteSpace(obj.Fecha_Inicio.ToString())) obj_db.Fecha_Inicio = obj.Fecha_Inicio;
+                        if (!String.IsNullOrWhiteSpace(obj.FechaInicio.ToString())) obj_db.FechaInicio = obj.FechaInicio;
 
-                        if (!String.IsNullOrWhiteSpace(obj.Grado_Instruccion)) obj_db.Grado_Instruccion = obj.Grado_Instruccion;
+                        if (!String.IsNullOrWhiteSpace(obj.GradoInstruccion)) obj_db.GradoInstruccion = obj.GradoInstruccion;
 
-                        if (!String.IsNullOrWhiteSpace(obj.Lugar_Nac)) obj_db.Lugar_Nac = obj.Lugar_Nac;
+                        if (!String.IsNullOrWhiteSpace(obj.LugarNac)) obj_db.LugarNac = obj.LugarNac;
 
-                        if (!String.IsNullOrWhiteSpace(obj.Personalidad)) obj_db.Personalidad = obj.Personalidad;
+                        if (!String.IsNullOrWhiteSpace(obj.DniNavigation.Nacionalidad)) obj_db.DniNavigation.Nacionalidad = obj.DniNavigation.Nacionalidad;
 
-                        //MAPEO PERSONA
-                        if (!String.IsNullOrWhiteSpace(obj.Persona.Nombre)) obj_db.Persona.Nombre = obj.Persona.Nombre;
+                        //MAPEO Persona
+                        if (!String.IsNullOrWhiteSpace(obj.DniNavigation.Nombre)) obj_db.DniNavigation.Nombre = obj.DniNavigation.Nombre;
 
-                        if (!String.IsNullOrWhiteSpace(obj.Persona.Apellido)) obj_db.Persona.Apellido = obj.Persona.Apellido;
+                        if (!String.IsNullOrWhiteSpace(obj.DniNavigation.Apellido)) obj_db.DniNavigation.Apellido = obj.DniNavigation.Apellido;
 
-                        if (!String.IsNullOrWhiteSpace(obj.Persona.Fecha_Nac.ToString())) obj_db.Persona.Fecha_Nac = obj.Persona.Fecha_Nac;
+                        if (!String.IsNullOrWhiteSpace(obj.DniNavigation.FechaNac.ToString())) obj_db.DniNavigation.FechaNac = obj.DniNavigation.FechaNac;
 
-                        if (!String.IsNullOrWhiteSpace(obj.Persona.Nacionalidad)) obj_db.Persona.Nacionalidad = obj.Persona.Nacionalidad;
+                        if (!String.IsNullOrWhiteSpace(obj.DniNavigation.Nacionalidad)) obj_db.DniNavigation.Nacionalidad = obj.DniNavigation.Nacionalidad;
 
 
                         db.SaveChanges();

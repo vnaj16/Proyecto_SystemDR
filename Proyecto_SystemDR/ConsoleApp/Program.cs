@@ -3,11 +3,47 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Datos.Repositories;
-using Datos.Interfaces;
-using Negocio.Core;
-using Entidades;
 
+using Datos.Interfaces;
+//using Negocio.Core;
+using Entidades;
+using Datos.ModelsEFCore;
+using Microsoft.EntityFrameworkCore;
+
+namespace ConsoleApp
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Viaje viaje;
+            try
+            {
+                using (var db = new dbTransporteDRContext())
+                {
+                    var xx = db.Cliente.ToList();
+                    foreach (var x in xx)
+                    {
+                        Console.WriteLine(x.Ruc + " " + x.RazonSocial + " " + x.DniRl);
+                    }
+
+                    /*viaje = db.Viaje.Include(x => x.DniConductorNavigation).
+                        Include(x => x.PlacaVehiculoNavigation).
+                        Include(x => x.Gasto).FirstOrDefault();*/
+                }
+            }
+            catch (Exception ex)
+            {
+
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.InnerException?.Message);
+            }
+
+
+            Console.ReadLine();
+        }
+    }
+}
 
 ///*namespace ConsoleApp
 //{

@@ -37,9 +37,9 @@
         <DataGrid ItemsSource="{Binding ListaHistoriales}" SelectedItem="{Binding CurrentHistorial}" AutoGenerateColumns="False" 
                   VerticalScrollBarVisibility="Auto" Grid.Row="2" Grid.Column="0" MaxWidth="1000" MinHeight="300" MaxHeight="500" HorizontalAlignment="Left" Margin="20,10,0,10">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="DNI" Binding="{Binding Conductor.DNI}" Width="100" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Nombre Conductor" Binding="{Binding Conductor.Persona.FullName}" Width="170" IsReadOnly="True"/>
-                <DataGridTextColumn Header="Placa" Binding="{Binding Unidad_Vehicular.Placa}" Width="80" IsReadOnly="True"/>
+                <DataGridTextColumn Header="DNI" Binding="{Binding DniConductorNavigation.Dni}" Width="100" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Nombre Conductor" Binding="{Binding DniConductorNavigation.DniNavigation.FullName}" Width="170" IsReadOnly="True"/>
+                <DataGridTextColumn Header="Placa" Binding="{Binding IdUnidadNavigation.Placa}" Width="80" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Fecha" Binding="{Binding Fecha, StringFormat=d}" Width="100" IsReadOnly="True"/>
             </DataGrid.Columns>
         </DataGrid>
@@ -61,7 +61,7 @@
             <Label Grid.Row="0" Margin="20,10,0,10" MaxWidth="250" HorizontalAlignment="Left" >
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Historial Seleccionado: " Style="{StaticResource h2-w}"/>
-                    <TextBlock Text="{Binding CurrentHistorial.ID}" Style="{StaticResource h2-w}"/>
+                    <TextBlock Text="{Binding CurrentHistorial.Id}" Style="{StaticResource h2-w}"/>
                 </StackPanel>
             </Label>
 
@@ -80,14 +80,14 @@
                 <Label Grid.Row="0" Margin="20,10,0,10" HorizontalAlignment="Left" Grid.ColumnSpan="2" >
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Datos del conductor con DNI " Style="{StaticResource h3-w}"/>
-                        <TextBlock Text="{Binding CurrentHistorial.Conductor.Persona.DNI}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
+                        <TextBlock Text="{Binding CurrentHistorial.DniConductorNavigation.DniNavigation.Dni}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
                     </StackPanel>
                 </Label>
 
                 <Label Grid.Row="1" Margin="40,10,0,10"  HorizontalAlignment="Left"  Grid.ColumnSpan="2" >
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Nombre: " Style="{StaticResource h3-w}"/>
-                        <TextBlock Text="{Binding CurrentHistorial.Conductor.Persona.FullName}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
+                        <TextBlock Text="{Binding CurrentHistorial.DniConductorNavigation.DniNavigation.FullName}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
                     </StackPanel>
                 </Label>
 
@@ -95,14 +95,14 @@
                 <Label Grid.Row="2" Margin="40,10,0,10"  HorizontalAlignment="Left" Grid.Column="0">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Nacionalidad: " Style="{StaticResource h3-w}"/>
-                        <TextBlock Text="{Binding CurrentHistorial.Conductor.Persona.Nacionalidad}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
+                        <TextBlock Text="{Binding CurrentHistorial.DniConductorNavigation.DniNavigation.Nacionalidad}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
                     </StackPanel>
                 </Label>
 
                 <Label Grid.Row="2" Margin="40,10,0,10" MaxWidth="250" HorizontalAlignment="Left" Grid.Column="1">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Brevete: " Style="{StaticResource h3-w}"/>
-                        <TextBlock Text="{Binding CurrentHistorial.Conductor.Brevete}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
+                        <TextBlock Text="{Binding CurrentHistorial.DniConductorNavigation.Brevete}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
                     </StackPanel>
                 </Label>
 
@@ -123,14 +123,14 @@
                 <Label Grid.Row="0" Margin="20,10,0,10" HorizontalAlignment="Left" Grid.ColumnSpan="2" >
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Datos de la Unidad Vehicular con placa " Style="{StaticResource h3-w}"/>
-                        <TextBlock Text="{Binding CurrentHistorial.Unidad_Vehicular.Placa}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
+                        <TextBlock Text="{Binding CurrentHistorial.IdUnidadNavigation.Placa}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
                     </StackPanel>
                 </Label>
 
                 <Label Grid.Row="1" Margin="40,10,0,10" MaxWidth="250" HorizontalAlignment="Left"  Grid.ColumnSpan="2" >
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Marca: " Style="{StaticResource h3-w}"/>
-                        <TextBlock Text="{Binding CurrentHistorial.Unidad_Vehicular.Placa}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
+                        <TextBlock Text="{Binding CurrentHistorial.IdUnidadNavigation.Placa}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
                     </StackPanel>
                 </Label>
 
@@ -138,7 +138,7 @@
                 <Label Grid.Row="2" Margin="40,10,0,10" MaxWidth="250" HorizontalAlignment="Left" Grid.Column="0">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Serie de Chasis: " Style="{StaticResource h3-w}"/>
-                        <TextBlock Text="{Binding CurrentHistorial.Unidad_Vehicular.SerieChasis}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
+                        <TextBlock Text="{Binding CurrentHistorial.IdUnidadNavigation.SerieChasis}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
                     </StackPanel>
                 </Label>
             </Grid>
@@ -160,7 +160,7 @@
                 <Label Grid.Row="0" Margin="20,10,0,10" MaxWidth="250" HorizontalAlignment="Left" Grid.ColumnSpan="2" >
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Text="Datos del Evento" Style="{StaticResource h3-w}"/>
-                        <TextBlock Text="{Binding CurrentHistorial.Unidad_Vehicular.Placa}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
+                        <TextBlock Text="{Binding CurrentHistorial.Id}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
                     </StackPanel>
                 </Label>
 

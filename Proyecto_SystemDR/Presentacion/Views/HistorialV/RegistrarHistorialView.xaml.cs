@@ -28,14 +28,14 @@ namespace Presentacion.Views.HistorialV
         public bool isUpdated = false;
 
         private Conductor conductorSelected;
-        private Unidad_Vehicular VehiculoSelected;
+        private UnidadVehicular VehiculoSelected;
 
-        public RegistrarHistorialView(bool isUpdate = false, Historial obj = null, IEnumerable<Conductor> listaConductores = null, IEnumerable<Unidad_Vehicular> listaVehiculos = null)
+        public RegistrarHistorialView(bool isUpdate = false, Historial obj = null, IEnumerable<Conductor> listaConductores = null, IEnumerable<UnidadVehicular> listaVehiculos = null)
         {
             InitializeComponent();
 
             this.ComboBox_Conductor.ItemsSource = listaConductores;
-            this.ComboBox_Conductor.DisplayMemberPath = "Persona.FullName";
+            this.ComboBox_Conductor.DisplayMemberPath = "DniNavigation.FullName";
             this.ComboBox_Vehiculo.ItemsSource = listaVehiculos;
             this.ComboBox_Vehiculo.DisplayMemberPath = "FullName";
 
@@ -51,8 +51,8 @@ namespace Presentacion.Views.HistorialV
                 newHistorial = obj;
                 copyHistorial_Updated = new Historial();
 
-                conductorSelected = listaConductores?.ToList().Find(x => x.DNI == newHistorial.Conductor.DNI);
-                VehiculoSelected = listaVehiculos?.ToList().Find(x => x.Placa == newHistorial.Unidad_Vehicular?.Placa);
+                conductorSelected = listaConductores?.ToList().Find(x => x.Dni == newHistorial.DniConductorNavigation.Dni);
+                VehiculoSelected = listaVehiculos?.ToList().Find(x => x.Placa == newHistorial.IdUnidadNavigation?.Placa);
                 CopyInstance(newHistorial, copyHistorial_Updated);
                 //ButtonState = "Actualizar";*/
             }
@@ -96,9 +96,9 @@ namespace Presentacion.Views.HistorialV
 
         private void Guardar_Click(object sender, RoutedEventArgs e)
         {
-            if (!(conductorSelected is null)) { newHistorial.Conductor = conductorSelected; newHistorial.Conductor.Historial.Add(newHistorial); newHistorial.DNI = newHistorial.Conductor.DNI; }
+            if (!(conductorSelected is null)) { newHistorial.DniConductorNavigation = conductorSelected; newHistorial.DniConductorNavigation.Historial.Add(newHistorial); newHistorial.DniConductor = newHistorial.DniConductorNavigation.Dni; }
 
-            if (!(VehiculoSelected is null)) { newHistorial.Unidad_Vehicular = VehiculoSelected; newHistorial.Unidad_Vehicular.Historial.Add(newHistorial); newHistorial.ID_Unidad = newHistorial.Unidad_Vehicular.Placa; }
+            if (!(VehiculoSelected is null)) { newHistorial.IdUnidadNavigation = VehiculoSelected; newHistorial.IdUnidadNavigation.Historial.Add(newHistorial); newHistorial.IdUnidad = newHistorial.IdUnidadNavigation.Placa; }
 
             var MyTuple = MyValidator.TryValidateObject(newHistorial);
             if (MyTuple.Item1)
@@ -155,7 +155,7 @@ namespace Presentacion.Views.HistorialV
 
         private void ComboBox_Vehiculo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            VehiculoSelected = ComboBox_Vehiculo.SelectedItem as Unidad_Vehicular;
+            VehiculoSelected = ComboBox_Vehiculo.SelectedItem as UnidadVehicular;
         }
     }
 }

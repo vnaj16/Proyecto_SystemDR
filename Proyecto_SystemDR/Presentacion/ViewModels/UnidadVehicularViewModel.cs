@@ -22,7 +22,7 @@ namespace Presentacion.ViewModels
 
         private UnidadVehicularViewModel()
         {
-            listaUnidadesVehiculares = new ObservableCollection<Unidad_Vehicular>(TransporteDR.UnidadVehicularBO.GetAll());
+            listaUnidadesVehiculares = new ObservableCollection<UnidadVehicular>(TransporteDR.UnidadVehicularBO.GetAll());
 
             ListaUnidadesVehicularesAux = ListaUnidadesVehiculares; //Este es otra referencia a la Lista que traigo de la DB, me sirve para cuando tenga que cambiar la lista que se muestra
 
@@ -43,17 +43,17 @@ namespace Presentacion.ViewModels
         }
         #endregion
 
-        private Unidad_Vehicular currentUnidadVehicular;
+        private UnidadVehicular currentUnidadVehicular;
 
-        public Unidad_Vehicular CurrentUnidadVehicular
+        public UnidadVehicular CurrentUnidadVehicular
         {
             get { return currentUnidadVehicular; }
             set { SetProperty(ref currentUnidadVehicular, value); }
         }
 
-        private ObservableCollection<Unidad_Vehicular> listaUnidadesVehiculares;
+        private ObservableCollection<UnidadVehicular> listaUnidadesVehiculares;
 
-        public ObservableCollection<Unidad_Vehicular> ListaUnidadesVehiculares
+        public ObservableCollection<UnidadVehicular> ListaUnidadesVehiculares
         {
             get { return listaUnidadesVehiculares; }
             set { SetProperty(ref listaUnidadesVehiculares, value); }
@@ -172,7 +172,7 @@ namespace Presentacion.ViewModels
         #endregion
 
         #region METHODS
-        ObservableCollection<Unidad_Vehicular> ListaUnidadesVehicularesAux;
+        ObservableCollection<UnidadVehicular> ListaUnidadesVehicularesAux;
         public void ChangeCollection(string Filter, FilterTypeSearchVehiculo filterType)
         {
             if (String.IsNullOrWhiteSpace(Filter))
@@ -184,11 +184,11 @@ namespace Presentacion.ViewModels
                 switch (filterType)
                 {
                     case FilterTypeSearchVehiculo.Marca:
-                        ListaUnidadesVehiculares = new ObservableCollection<Unidad_Vehicular>(ListaUnidadesVehicularesAux.Where(x => x.Marca.ToLower().StartsWith(Filter.ToLower())));
+                        ListaUnidadesVehiculares = new ObservableCollection<UnidadVehicular>(ListaUnidadesVehicularesAux.Where(x => x.Marca.ToLower().StartsWith(Filter.ToLower())));
                         break;
 
                     case FilterTypeSearchVehiculo.Placa:
-                        ListaUnidadesVehiculares = new ObservableCollection<Unidad_Vehicular>(ListaUnidadesVehicularesAux.Where(x => x.Placa.ToLower().StartsWith(Filter.ToLower())));
+                        ListaUnidadesVehiculares = new ObservableCollection<UnidadVehicular>(ListaUnidadesVehicularesAux.Where(x => x.Placa.ToLower().StartsWith(Filter.ToLower())));
                         break;
                     default:
                         break;

@@ -48,8 +48,8 @@
 
             <DataGrid ItemsSource="{Binding ListaProveedores}" SelectedItem="{Binding CurrentProveedor}" AutoGenerateColumns="False" VerticalScrollBarVisibility="Auto" Grid.Row="1" MinWidth="500" MaxWidth="1000" HorizontalAlignment="Left" Margin="20,10,0,10">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="RUC" Binding="{Binding RUC}" Width="100" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Razón Social" Binding="{Binding Razon_Social}" Width="170" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="RUC" Binding="{Binding Ruc}" Width="100" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Razón Social" Binding="{Binding RazonSocial}" Width="170" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Productos" Binding="{Binding Productos}" Width="200" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Dirección" Binding="{Binding Direccion}" Width="200" IsReadOnly="True"/>
                 </DataGrid.Columns>
@@ -87,13 +87,13 @@
                     <Label Foreground="{StaticResource MainColorForeground}" Margin="0 0 0 5">
                         <StackPanel Orientation="Horizontal" >
                             <TextBlock Text="Ruc: " Style="{StaticResource h3-w}"/>
-                            <TextBlock Text="{Binding CurrentProveedor.RUC}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
+                            <TextBlock Text="{Binding CurrentProveedor.Ruc}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
                         </StackPanel>
                     </Label>
                     <Label  Foreground="{StaticResource MainColorForeground}">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Razon Social: "  Style="{StaticResource h3-w}"/>
-                            <TextBlock Text="{Binding CurrentProveedor.Razon_Social}"  Margin="0 0 0 5" FontWeight="Bold" Style="{StaticResource h3-w}"/>
+                            <TextBlock Text="{Binding CurrentProveedor.RazonSocial}"  Margin="0 0 0 5" FontWeight="Bold" Style="{StaticResource h3-w}"/>
                         </StackPanel>
                     </Label>
                     <Label Foreground="{StaticResource MainColorForeground}">
@@ -130,37 +130,37 @@
                     <Label Foreground="{StaticResource MainColorForeground}" Grid.Row="0" Grid.Column="0">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="DNI: " Style="{StaticResource h3-w}"/>
-                            <TextBlock Text="{Binding CurrentProveedor.Persona.DNI}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
+                            <TextBlock Text="{Binding CurrentProveedor.DniRlNavigation.Dni}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
                         </StackPanel>
                     </Label>
                     <Label Foreground="{StaticResource MainColorForeground}" Grid.Row="0" Grid.Column="1">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Nombre: " Style="{StaticResource h3-w}"/>
-                            <TextBlock Text="{Binding CurrentProveedor.Persona.Nombre}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
+                            <TextBlock Text="{Binding CurrentProveedor.DniRlNavigation.Nombre}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
                         </StackPanel>
                     </Label>
                     <Label Foreground="{StaticResource MainColorForeground}" Grid.Row="0" Grid.Column="2">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Apellido: " Style="{StaticResource h3-w}"/>
-                            <TextBlock Text="{Binding CurrentProveedor.Persona.Apellido}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
+                            <TextBlock Text="{Binding CurrentProveedor.DniRlNavigation.Apellido}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
                         </StackPanel>
                     </Label>
                     <Label Foreground="{StaticResource MainColorForeground}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Fecha Nacimiento: " Style="{StaticResource h3-w}"/>
-                            <TextBlock Text="{Binding CurrentProveedor.Persona.Fecha_Nac, StringFormat=d}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
+                            <TextBlock Text="{Binding CurrentProveedor.DniRlNavigation.FechaNac, StringFormat=d}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
                         </StackPanel>
                     </Label>
                     <Label Foreground="{StaticResource MainColorForeground}" Grid.Row="1" Grid.Column="2">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Nacionalidad: " Style="{StaticResource h3-w}"/>
-                            <TextBlock Text="{Binding CurrentProveedor.Persona.Nacionalidad}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
+                            <TextBlock Text="{Binding CurrentProveedor.DniRlNavigation.Nacionalidad}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
                         </StackPanel>
                     </Label>
                     <Label Foreground="{StaticResource MainColorForeground}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Telefonos: " Style="{StaticResource h3-w}"/>
-                            <TextBlock Text="{Binding CurrentProveedor.Persona.ListTelefonos}" Style="{StaticResource h3-w}"/>
+                            <TextBlock Text="{Binding CurrentProveedor.DniRlNavigation.ListTelefonos}" Style="{StaticResource h3-w}"/>
                         </StackPanel>
                     </Label>
                 </Grid>

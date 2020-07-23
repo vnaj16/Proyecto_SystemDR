@@ -1,5 +1,7 @@
 ﻿using Datos.Interfaces;
+using Datos.ModelsEFCore;
 using Entidades;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,14 +18,14 @@ namespace Datos.Repositories
             {
                 try
                 {
-                    var vehiculo_db = db.Unidad_Vehicular.FirstOrDefault(x => x.Placa == Placa);
+                    var vehiculo_db = db.UnidadVehicular.FirstOrDefault(x => x.Placa == Placa);
 
                     if (vehiculo_db == null)
                     {
                         return false;
                     }
 
-                    db.Entry(vehiculo_db).State = System.Data.Entity.EntityState.Deleted;
+                    db.UnidadVehicular.Remove(vehiculo_db);
 
                     db.SaveChanges();
 
@@ -36,15 +38,15 @@ namespace Datos.Repositories
             }
         }
 
-        public IEnumerable<Unidad_Vehicular> GetAll()
+        public IEnumerable<UnidadVehicular> GetAll()
         {
             using (dbTransporteDRContext db = new dbTransporteDRContext())
             {
-                return db.Unidad_Vehicular.Include("Historial").ToList();
+                return db.UnidadVehicular.Include(x=>x.Historial).ToList();
             }
         }
 
-        public bool Insert(Unidad_Vehicular obj)
+        public bool Insert(UnidadVehicular obj)
         {
             using (dbTransporteDRContext db = new dbTransporteDRContext())
             {
@@ -52,9 +54,9 @@ namespace Datos.Repositories
                 {
                     if (!String.IsNullOrWhiteSpace(obj.Placa))
                     {
-                        if (!db.Unidad_Vehicular.ToList().Exists(x => x.Placa == obj.Placa))
+                        if (!db.UnidadVehicular.ToList().Exists(x => x.Placa == obj.Placa))
                         {
-                            db.Unidad_Vehicular.Add(obj);
+                            db.UnidadVehicular.Add(obj);
 
                             db.SaveChanges();
 
@@ -76,7 +78,7 @@ namespace Datos.Repositories
             }
         }
 
-        public bool Update(Unidad_Vehicular obj)
+        public bool Update(UnidadVehicular obj)
         {
             using (dbTransporteDRContext db = new dbTransporteDRContext())
             {
@@ -84,15 +86,15 @@ namespace Datos.Repositories
                 {
                     if (!String.IsNullOrWhiteSpace(obj.Placa))
                     {
-                        var obj_db = db.Unidad_Vehicular.FirstOrDefault(x => x.Placa == obj.Placa);
+                        var obj_db = db.UnidadVehicular.FirstOrDefault(x => x.Placa == obj.Placa);
 
                         if (obj_db is null) return false;
 
                         if (!String.IsNullOrWhiteSpace(obj.Marca)) obj_db.Marca = obj.Marca;
 
-                        if (!String.IsNullOrWhiteSpace(obj.Serie_Chasis)) obj_db.Serie_Chasis = obj.Serie_Chasis;
+                        if (!String.IsNullOrWhiteSpace(obj.SerieChasis)) obj_db.SerieChasis = obj.SerieChasis;
 
-                        if (!String.IsNullOrWhiteSpace(obj.Y_Fabricacion.ToString())) obj_db.Y_Fabricacion = obj.Y_Fabricacion;
+                        if (!String.IsNullOrWhiteSpace(obj.YFabricacion.ToString())) obj_db.YFabricacion = obj.YFabricacion;
 
 
                         db.SaveChanges();

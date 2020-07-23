@@ -48,11 +48,11 @@
 
             <DataGrid ItemsSource="{Binding ListaConductores}" SelectedItem="{Binding CurrentConductor}" AutoGenerateColumns="False" VerticalScrollBarVisibility="Auto" Grid.Row="1" MinWidth="500" MaxWidth="1000" HorizontalAlignment="Left" Margin="20,10,0,10">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="DNI" Binding="{Binding DNI}" Width="100" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Nombres" Binding="{Binding Persona.Nombre}" Width="170" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Apellidos" Binding="{Binding Persona.Apellido}" Width="170" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="DNI" Binding="{Binding Dni}" Width="100" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Nombres" Binding="{Binding DniNavigation.Nombre}" Width="170" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Apellidos" Binding="{Binding DniNavigation.Apellido}" Width="170" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Brevete" Binding="{Binding Brevete}" Width="100" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Fecha de Inicio" Binding="{Binding Fecha_Inicio, StringFormat=d}" Width="120" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Fecha de Inicio" Binding="{Binding FechaInicio, StringFormat=d}" Width="120" IsReadOnly="True"/>
                 </DataGrid.Columns>
             </DataGrid>
 
@@ -68,7 +68,7 @@
             <Label  Margin="20,10,0,10" MaxWidth="350" HorizontalAlignment="Left">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Conductor Seleccionado: " Style="{StaticResource h2-b}"/>
-                    <TextBlock Text="{Binding CurrentConductor.DNI}" Style="{StaticResource h2-b}" FontWeight="Bold"/>
+                    <TextBlock Text="{Binding CurrentConductor.Dni}" Style="{StaticResource h2-b}" FontWeight="Bold"/>
                 </StackPanel>
             </Label>
 
@@ -106,25 +106,25 @@
                     <Label Foreground="{StaticResource MainColorForeground}" Grid.Row="0" Grid.Column="0" Margin="2 0 2 0">
                         <StackPanel Orientation="Horizontal" >
                             <TextBlock Text="DNI: " Style="{StaticResource h3-w}"/>
-                            <TextBlock Text="{Binding CurrentConductor.DNI}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
+                            <TextBlock Text="{Binding CurrentConductor.Dni}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
                         </StackPanel>
                     </Label>
                     <Label Foreground="{StaticResource MainColorForeground}" Grid.Row="0" Grid.Column="1" MinWidth="100" Margin="2 0 2 0">
                         <StackPanel Orientation="Horizontal" >
                             <TextBlock Text="Nombre: " Style="{StaticResource h3-w}"/>
-                            <TextBlock Text="{Binding CurrentConductor.Persona.Nombre}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
+                            <TextBlock Text="{Binding CurrentConductor.DniNavigation.Nombre}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
                         </StackPanel>
                     </Label>
                     <Label Foreground="{StaticResource MainColorForeground}" Grid.Row="0" Grid.Column="2" MinWidth="100" Margin="2 0 2 0">
                         <StackPanel Orientation="Horizontal" >
                             <TextBlock Text="Apellido: " Style="{StaticResource h3-w}"/>
-                            <TextBlock Text="{Binding CurrentConductor.Persona.Apellido}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
+                            <TextBlock Text="{Binding CurrentConductor.DniNavigation.Apellido}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
                         </StackPanel>
                     </Label>
                     <Label Foreground="{StaticResource MainColorForeground}" Grid.Row="0" Grid.Column="3" Margin="2 0 2 0">
                         <StackPanel Orientation="Horizontal" >
                             <TextBlock Text="Nacionalidad: " Style="{StaticResource h3-w}"/>
-                            <TextBlock Text="{Binding CurrentConductor.Persona.Nacionalidad}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
+                            <TextBlock Text="{Binding CurrentConductor.DniNavigation.Nacionalidad}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
                         </StackPanel>
                     </Label>
 
@@ -137,13 +137,13 @@
                     <Label Foreground="{StaticResource MainColorForeground}" Grid.Row="1" Grid.Column="1" MinWidth="100" Margin="2 0 2 0">
                         <StackPanel Orientation="Horizontal" >
                             <TextBlock Text="Fecha de Inicio: " Style="{StaticResource h3-w}"/>
-                            <TextBlock Text="{Binding CurrentConductor.Fecha_Inicio, StringFormat=d}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
+                            <TextBlock Text="{Binding CurrentConductor.FechaInicio, StringFormat=d}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
                         </StackPanel>
                     </Label>
                     <Label Foreground="{StaticResource MainColorForeground}" Grid.Row="1" Grid.Column="2" MinWidth="100" Margin="2 0 2 0">
                         <StackPanel Orientation="Horizontal" >
                             <TextBlock Text="Grado de Instruccion: " Style="{StaticResource h3-w}"/>
-                            <TextBlock Text="{Binding CurrentConductor.Grado_Instruccion}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
+                            <TextBlock Text="{Binding CurrentConductor.GradoInstruccion}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
                         </StackPanel>
                     </Label>
                     <Label Foreground="{StaticResource MainColorForeground}" Grid.Row="1" Grid.Column="3" Margin="2 0 2 0">
@@ -156,13 +156,13 @@
                     <Label Foreground="{StaticResource MainColorForeground}" Grid.Row="2" Grid.Column="0" Margin="2 0 2 0">
                         <StackPanel Orientation="Horizontal" >
                             <TextBlock Text="Fecha de Nacimiento: " Style="{StaticResource h3-w}"/>
-                            <TextBlock Text="{Binding CurrentConductor.Persona.Fecha_Nac, StringFormat=d}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
+                            <TextBlock Text="{Binding CurrentConductor.DniNavigation.FechaNac, StringFormat=d}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
                         </StackPanel>
                     </Label>
                     <Label Foreground="{StaticResource MainColorForeground}" Grid.Row="2" Grid.Column="1" MinWidth="100" Margin="2 0 2 0">
                         <StackPanel Orientation="Horizontal" >
                             <TextBlock Text="Lugar de Nacimiento: " Style="{StaticResource h3-w}"/>
-                            <TextBlock Text="{Binding CurrentConductor.Lugar_Nac}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
+                            <TextBlock Text="{Binding CurrentConductor.LugarNac}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
                         </StackPanel>
                     </Label>
                     <Label Foreground="{StaticResource MainColorForeground}" Grid.Row="2" Grid.Column="2" MinWidth="100" Grid.ColumnSpan="2" Margin="2 0 2 0">

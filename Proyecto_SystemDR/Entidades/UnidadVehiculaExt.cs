@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Entidades
 {
-    public partial class Unidad_Vehicular
+    public partial class UnidadVehicular
     {
+        [NotMapped]
         public string FullName
         {
             get

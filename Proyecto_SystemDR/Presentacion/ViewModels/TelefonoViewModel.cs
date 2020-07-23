@@ -22,7 +22,7 @@ namespace Presentacion.ViewModels
             set { SetProperty(ref textHidden, value); }
         }
 
-        public TelefonoViewModel(Persona persona, string RazonSocial = null)
+        public TelefonoViewModel(Persona DniNavigation, string RazonSocial = null)
         {
             if (!(RazonSocial is null))
             {
@@ -30,28 +30,28 @@ namespace Presentacion.ViewModels
             }
 
 
-            CurrentPersona = persona;
+            CurrentDniNavigation = DniNavigation;
 
-            if (CurrentPersona.Telefono is null)
+            if (CurrentDniNavigation.Telefono is null)
             {
-                CurrentPersona.Telefono = new List<Telefono>();
+                CurrentDniNavigation.Telefono = new List<Telefono>();
             }
 
-            newTelefono = new Telefono() { DNI = persona.DNI, Persona = persona };
+            newTelefono = new Telefono() { Dni = DniNavigation.Dni, DniNavigation = DniNavigation };
 
-            ListaTelefonos = new ObservableCollection<Telefono>(CurrentPersona.Telefono);
+            ListaTelefonos = new ObservableCollection<Telefono>(CurrentDniNavigation.Telefono);
 
             //AgregarCommand = new DelegateCommand(Execute_AgregarCommand, CanExecute_AgregarCommand).ObservesProperty(()=>NewTelefono.Numero);
             AgregarCommand = new DelegateCommand(Execute_AgregarCommand);
             DeleteCommand = new DelegateCommand(Execute_DeleteCommand, CanExecute_DeleteCommand).ObservesProperty(() => CurrentTelefono);
         }
 
-        private Persona currentPersona;
+        private Persona currentDniNavigation;
 
-        public Persona CurrentPersona
+        public Persona CurrentDniNavigation
         {
-            get { return currentPersona; }
-            set { SetProperty(ref currentPersona, value); }
+            get { return currentDniNavigation; }
+            set { SetProperty(ref currentDniNavigation, value); }
         }
 
         private Telefono newTelefono;
@@ -95,7 +95,7 @@ namespace Presentacion.ViewModels
 
                     MessageBox.Show($"{NewTelefono.Numero} Registrado");
 
-                    NewTelefono = new Telefono() { DNI = CurrentPersona.DNI, Persona = CurrentPersona };
+                    NewTelefono = new Telefono() { Dni = CurrentDniNavigation.Dni, DniNavigation = CurrentDniNavigation };
                 }
                 else
                 {
@@ -103,7 +103,7 @@ namespace Presentacion.ViewModels
                 }
             }
 
-            //MessageBox.Show("Agregar persona View");*/
+            //MessageBox.Show("Agregar DniNavigation View");*/
         }
 
 
@@ -116,7 +116,7 @@ namespace Presentacion.ViewModels
 
         private void Execute_DeleteCommand()
         {//MORALEJA APRENDIDA: Eliminar primera todas las referencias al objeto actual, para que luego el GB lo recoja
-            //CurrentPersona.Ciudad.Habitantes.Remove(CurrentPersona);
+            //CurrentDniNavigation.Ciudad.Habitantes.Remove(CurrentDniNavigation);
             var Numero = CurrentTelefono.Numero;
 
             var result = MessageBox.Show("Por favor, confirmar que va a eliminar el numero" + Numero, "Eliminar Telefono", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
@@ -133,7 +133,7 @@ namespace Presentacion.ViewModels
                                 ListaTelefonos.Remove(CurrentTelefono);
 
                                 CurrentTelefono = null;
-                                NewTelefono = new Telefono() { DNI = CurrentPersona.DNI, Persona = CurrentPersona };
+                                NewTelefono = new Telefono() { Dni = CurrentDniNavigation.Dni, DniNavigation = CurrentDniNavigation };
 
                                 MessageBox.Show($"{Numero} Eliminado con exito");
                             }

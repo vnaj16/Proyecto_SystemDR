@@ -97,7 +97,7 @@ namespace Presentacion.ViewModels
                         ListaProveedores.Add(newProveedor);
                         CurrentProveedor = newProveedor;
 
-                        MessageBox.Show($"{newProveedor.RUC} Registrado con exito");
+                        MessageBox.Show($"{newProveedor.Ruc} Registrado con exito");
                     }
                     else
                     {
@@ -137,7 +137,7 @@ namespace Presentacion.ViewModels
                     //Primero se lo paso a la capa negocio para que lo registre, si lo registra, lo pongo en la capa Presentacion
                     if (TransporteDR.ProveedorBO.Actualizar(CurrentProveedor))
                     {
-                        MessageBox.Show($"{CurrentProveedor.RUC} Actualizado con exito");
+                        MessageBox.Show($"{CurrentProveedor.Ruc} Actualizado con exito");
                     }
                     else
                     {
@@ -171,7 +171,7 @@ namespace Presentacion.ViewModels
         private void Execute_DeleteCommand()
         {//MORALEJA APRENDIDA: Eliminar primera todas las referencias al objeto actual, para que luego el GB lo recoja
             //CurrentPersona.Ciudad.Habitantes.Remove(CurrentPersona);
-            var RUC = CurrentProveedor.RUC;
+            var RUC = CurrentProveedor.Ruc;
 
             var result = MessageBox.Show("Por favor, confirmar que va a eliminar el Proveedor con RUC " + RUC, "Eliminar Proveedor", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
 
@@ -184,7 +184,7 @@ namespace Presentacion.ViewModels
                         case MessageBoxResult.Yes:
                             try
                             {
-                                if (TransporteDR.ProveedorBO.Eliminar(CurrentProveedor.RUC))
+                                if (TransporteDR.ProveedorBO.Eliminar(CurrentProveedor.Ruc))
                                 {
                                     ListaProveedores.Remove(CurrentProveedor);
 
@@ -220,7 +220,7 @@ namespace Presentacion.ViewModels
         {
             if (!(CurrentProveedor is null))
             {
-                return !(CurrentProveedor.Persona is null);
+                return !(CurrentProveedor.DniRlNavigation is null);
             }
             else
             {
@@ -230,7 +230,7 @@ namespace Presentacion.ViewModels
 
         private void Execute_VerTelefonosCommand()
         {
-            TelefonoView telefonoView = new TelefonoView(CurrentProveedor.Persona);
+            TelefonoView telefonoView = new TelefonoView(CurrentProveedor.DniRlNavigation);
             telefonoView.ShowDialog();
         }
 
@@ -249,20 +249,20 @@ namespace Presentacion.ViewModels
                 switch (filterType)
                 {
                     case FilterTypeSearchProveedor.RUC:
-                        ListaProveedores = new ObservableCollection<Proveedor>(ListaProveedoresAux.Where(x => x.RUC.StartsWith(Filter)));
+                        ListaProveedores = new ObservableCollection<Proveedor>(ListaProveedoresAux.Where(x => x.Ruc.StartsWith(Filter)));
                         break;
 
                     case FilterTypeSearchProveedor.RazonSocial:
-                        ListaProveedores = new ObservableCollection<Proveedor>(ListaProveedoresAux.Where(x => x.Razon_Social.ToLower().StartsWith(Filter.ToLower())));
+                        ListaProveedores = new ObservableCollection<Proveedor>(ListaProveedoresAux.Where(x => x.RazonSocial.ToLower().StartsWith(Filter.ToLower())));
                         break;
                     case FilterTypeSearchProveedor.DNI:
                         var listAux = new ObservableCollection<Proveedor>();
 
                         foreach (var x in ListaProveedoresAux)
                         {
-                            if (!(x.Persona is null))
+                            if (!(x.DniRlNavigation is null))
                             {
-                                if (x.Persona.DNI.StartsWith(Filter))
+                                if (x.DniRlNavigation.Dni.StartsWith(Filter))
                                 {
                                     listAux.Add(x);
                                 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -8,8 +9,10 @@ namespace Entidades
 {
     public partial class Persona
     {
+        [NotMapped]
         public string FullName { get { return Nombre + ' ' + Apellido; } }
 
+        [NotMapped]
         public string ListTelefonos
         {
             get

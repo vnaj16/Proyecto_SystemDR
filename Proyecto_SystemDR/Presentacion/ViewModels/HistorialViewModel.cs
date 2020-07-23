@@ -1,4 +1,4 @@
-﻿using Entidades;
+﻿
 using Negocio.Core;
 using Presentacion.Helpers;
 using Presentacion.Views.HistorialV;
@@ -12,6 +12,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using Microsoft.EntityFrameworkCore.Design;
+using Entidades;
 
 namespace Presentacion.ViewModels
 {
@@ -71,7 +73,7 @@ namespace Presentacion.ViewModels
             {
                 var newHistorial = registrarHistorialView.GetHistorial();
 
-                //newHistorial.ID = ListaHistoriales.
+                //newHistorial.Id = ListaHistoriales.
 
                 try
                 {
@@ -81,11 +83,11 @@ namespace Presentacion.ViewModels
                         ListaHistoriales.Add(newHistorial);
                         CurrentHistorial = newHistorial;
 
-                        MessageBox.Show($"{newHistorial.ID} Registrado con exito");
+                        MessageBox.Show($"{newHistorial.Id} Registrado con exito");
                     }
                     else
                     {
-                        MessageBox.Show("Algo ha ocurrido con el proceso de registro, por favor intentar de nuevo o reiniciar el computador.\nSi el problema persiste, contactar con el encargado del Sistema");
+                        MessageBox.Show("Algo ha ocurrIdo con el proceso de registro, por favor intentar de nuevo o reiniciar el computador.\nSi el problema persiste, contactar con el encargado del Sistema");
                     }
                 }
                 catch(Exception ex)
@@ -115,13 +117,13 @@ namespace Presentacion.ViewModels
                 //Primero se lo paso a la capa negocio para que lo registre, si lo registra, lo pongo en la capa Presentacion
                 if (TransporteDR.HistorialBO.Actualizar(CurrentHistorial))
                 {
-                    MessageBox.Show($"{CurrentHistorial.ID} Actualizado con exito");
+                    MessageBox.Show($"{CurrentHistorial.Id} Actualizado con exito");
                 }
                 else
                 {
                     registrarHistorialView.ToDefaultHistorial(CurrentHistorial);
 
-                    MessageBox.Show("Algo ha ocurrido con el proceso de actualizacion, por favor intentar de nuevo o reiniciar el computador.\nSi el problema persiste, contactar con el encargado del Sistema");
+                    MessageBox.Show("Algo ha ocurrIdo con el proceso de actualizacion, por favor intentar de nuevo o reiniciar el computador.\nSi el problema persiste, contactar con el encargado del Sistema");
                 }
             }
         }
@@ -140,11 +142,11 @@ namespace Presentacion.ViewModels
         }
 
         private void Execute_DeleteCommand()
-        {//MORALEJA APRENDIDA: Eliminar primera todas las referencias al objeto actual, para que luego el GB lo recoja
+        {//MORALEJA APRENDIdA: Eliminar primera todas las referencias al objeto actual, para que luego el GB lo recoja
             //CurrentPersona.Ciudad.Habitantes.Remove(CurrentPersona);
-            var ID = CurrentHistorial.ID;
+            var Id = CurrentHistorial.Id;
 
-            var result = MessageBox.Show("Por favor, confirmar que va a eliminar el historial con ID " + ID, "Eliminar Historial", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+            var result = MessageBox.Show("Por favor, confirmar que va a eliminar el historial con Id " + Id, "Eliminar Historial", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
 
             switch (result)
             {
@@ -153,12 +155,12 @@ namespace Presentacion.ViewModels
                     switch (MessageBox.Show("Estás seguro?", "Confirmación", MessageBoxButton.YesNo, MessageBoxImage.Exclamation))
                     {
                         case MessageBoxResult.Yes:
-                            if (TransporteDR.HistorialBO.Eliminar(CurrentHistorial.ID))
+                            if (TransporteDR.HistorialBO.Eliminar(CurrentHistorial.Id))
                             {
                                 try
                                 {
-                                    ConductoresViewModel.Instance.ListaConductores.FirstOrDefault(x => x.DNI == CurrentHistorial.DNI).Historial.ToList().RemoveAll(x => x.ID == CurrentHistorial.ID);
-                                    UnidadVehicularViewModel.Instance.ListaUnidadesVehiculares.FirstOrDefault(x => x.Placa == CurrentHistorial.ID_Unidad).Historial.ToList().RemoveAll(x => x.ID == CurrentHistorial.ID);
+                                    ConductoresViewModel.Instance.ListaConductores.FirstOrDefault(x => x.Dni == CurrentHistorial.DniConductor).Historial.ToList().RemoveAll(x => x.Id == CurrentHistorial.Id);
+                                    UnidadVehicularViewModel.Instance.ListaUnidadesVehiculares.FirstOrDefault(x => x.Placa == CurrentHistorial.IdUnidad).Historial.ToList().RemoveAll(x => x.Id == CurrentHistorial.Id);
                                 }
                                 catch(Exception ex)
                                 {
@@ -166,17 +168,17 @@ namespace Presentacion.ViewModels
                                     MessageBox.Show(ex.InnerException.Message);
                                 }
                                 // CurrentHistorial.Conductor?.Historial.Remove(CurrentHistorial);
-                                //CurrentHistorial.Unidad_Vehicular?.Historial.Remove(CurrentHistorial);
+                                //CurrentHistorial.UnIdad_Vehicular?.Historial.Remove(CurrentHistorial);
 
                                 ListaHistoriales.Remove(CurrentHistorial);
 
                                 CurrentHistorial = null;
 
-                                MessageBox.Show($"Historial {ID} Eliminado con exito");
+                                MessageBox.Show($"Historial {Id} Eliminado con exito");
                             }
                             else
                             {
-                                MessageBox.Show("Algo ha ocurrido con el proceso de eliminacion, por favor intentar de nuevo o reiniciar el computador.\nSi el problema persiste, contactar con el encargado del Sistema");
+                                MessageBox.Show("Algo ha ocurrIdo con el proceso de eliminacion, por favor intentar de nuevo o reiniciar el computador.\nSi el problema persiste, contactar con el encargado del Sistema");
                             }
                             break;
                         case MessageBoxResult.No:
@@ -208,9 +210,9 @@ namespace Presentacion.ViewModels
 
                         foreach (var x in ListaHistorialesAux)
                         {
-                            if (!(x.Conductor is null))
+                            if (!(x.DniConductorNavigation is null))
                             {
-                                if (x.Conductor.DNI.StartsWith(Filter))
+                                if (x.DniConductorNavigation.Dni.StartsWith(Filter))
                                 {
                                     listAux.Add(x);
                                 }
@@ -232,9 +234,9 @@ namespace Presentacion.ViewModels
 
                         foreach (var x in ListaHistorialesAux)
                         {
-                            if (!(x.Unidad_Vehicular is null))
+                            if (!(x.IdUnidadNavigation is null))
                             {
-                                if (x.Unidad_Vehicular.Placa.ToLower().StartsWith(Filter.ToLower()))
+                                if (x.IdUnidadNavigation.Placa.ToLower().StartsWith(Filter.ToLower()))
                                 {
                                     listAux1.Add(x);
                                 }

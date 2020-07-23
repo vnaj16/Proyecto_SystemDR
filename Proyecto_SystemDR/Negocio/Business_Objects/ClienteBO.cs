@@ -43,20 +43,20 @@ namespace Negocio.Business_Objects
 
         public bool Registrar(Cliente obj)
         {
-            if (!String.IsNullOrWhiteSpace(obj.RUC))//EVALUO CAMPOS OBLIGATORIOS
+            if (!String.IsNullOrWhiteSpace(obj.Ruc))//EVALUO CAMPOS OBLIGATORIOS
             {
-                if (!listaClientes.Exists(x => x.RUC == obj.RUC))//EVALUO SI YA EXISTE
+                if (!listaClientes.Exists(x => x.Ruc == obj.Ruc))//EVALUO SI YA EXISTE
                 {
                     //Si tiene DNI, debe tener persona, sino tiene, la creo
-                    if (!String.IsNullOrWhiteSpace(obj.DNI))
+                    if (!String.IsNullOrWhiteSpace(obj.DniRl))
                     {
-                        if(obj.Persona is null)
+                        if(obj.DniRlNavigation is null)
                         {
-                            obj.Persona = new Persona() { DNI = obj.DNI };
+                            obj.DniRlNavigation = new Persona() { Dni = obj.DniRl };
                         }
                         else
                         {
-                            obj.Persona.DNI = obj.DNI;
+                            obj.DniRlNavigation.Dni = obj.DniRl;
                         }
                     }
 
@@ -80,7 +80,7 @@ namespace Negocio.Business_Objects
 
         /// <summary>
         /// 1. Veo que la PK este
-        /// 2. Obtengo el cliente con ese RUC
+        /// 2. Obtengo el cliente con ese Ruc
         /// 3. Verifico que si exista ese cliente
         /// 4. Mapeo los datos de cliente (siempre y cuando el dato que venga no este vacio ni null, para no sobreescribir en caso la data existente)
         /// 5. Si el cliente actual no tiene DNI, se lo asigno del objeto nuevo
@@ -95,9 +95,9 @@ namespace Negocio.Business_Objects
         /// <returns></returns>
         public bool Actualizar(Cliente obj)
         {
-            if (!String.IsNullOrWhiteSpace(obj.RUC))//EVALUO CAMPOS OBLIGATORIOS
+            if (!String.IsNullOrWhiteSpace(obj.Ruc))//EVALUO CAMPOS OBLIGATORIOS
             {
-                Cliente current = listaClientes.FirstOrDefault(x => x.RUC == obj.RUC);
+                Cliente current = listaClientes.FirstOrDefault(x => x.Ruc == obj.Ruc);
                 if (!(current is null))//EVALUO SI YA EXISTE
                 {
 
@@ -106,53 +106,53 @@ namespace Negocio.Business_Objects
                         current.Direccion = obj.Direccion;
                     }
 
-                    if (!String.IsNullOrWhiteSpace(obj.Razon_Social))
+                    if (!String.IsNullOrWhiteSpace(obj.RazonSocial))
                     {
-                        current.Razon_Social = obj.Razon_Social;
+                        current.RazonSocial = obj.RazonSocial;
                     }
 
 
-                    if (String.IsNullOrWhiteSpace(current.DNI))
+                    if (String.IsNullOrWhiteSpace(current.DniRl))
                     {
-                        current.DNI = obj.DNI;
+                        current.DniRl = obj.DniRl;
                     }
 
 
                     //Si tiene DNI, debe tener persona, sino tiene, la creo
-                    if (!String.IsNullOrWhiteSpace(obj.DNI))
+                    if (!String.IsNullOrWhiteSpace(obj.DniRl))
                     {
-                        if (obj.Persona is null)
+                        if (obj.DniRlNavigation is null)
                         {
-                            if (current.Persona is null)
-                                current.Persona = new Persona() { DNI = current.DNI, Tipo = "cli" };
+                            if (current.DniRlNavigation is null)
+                                current.DniRlNavigation = new Persona() { Dni = current.DniRl, Tipo = "cli" };
                         }
                         else
                         {
-                            if(current.Persona is null)
+                            if(current.DniRlNavigation is null)
                             {
-                                current.Persona = obj.Persona;
+                                current.DniRlNavigation = obj.DniRlNavigation;
                             }
                             else
                             {
                                 //MAPEO
-                                if (!String.IsNullOrWhiteSpace(obj.Persona.Nombre))
+                                if (!String.IsNullOrWhiteSpace(obj.DniRlNavigation.Nombre))
                                 {
-                                    current.Persona.Nombre = obj.Persona.Nombre;
+                                    current.DniRlNavigation.Nombre = obj.DniRlNavigation.Nombre;
                                 }
 
-                                if (!String.IsNullOrWhiteSpace(obj.Persona.Apellido))
+                                if (!String.IsNullOrWhiteSpace(obj.DniRlNavigation.Apellido))
                                 {
-                                    current.Persona.Apellido = obj.Persona.Apellido;
+                                    current.DniRlNavigation.Apellido = obj.DniRlNavigation.Apellido;
                                 }
 
-                                if (!String.IsNullOrWhiteSpace(obj.Persona.Fecha_Nac.ToString()))
+                                if (!String.IsNullOrWhiteSpace(obj.DniRlNavigation.FechaNac.ToString()))
                                 {
-                                    current.Persona.Fecha_Nac = obj.Persona.Fecha_Nac;
+                                    current.DniRlNavigation.FechaNac = obj.DniRlNavigation.FechaNac;
                                 }
 
-                                if (!String.IsNullOrWhiteSpace(obj.Persona.Nacionalidad))
+                                if (!String.IsNullOrWhiteSpace(obj.DniRlNavigation.Nacionalidad))
                                 {
-                                    current.Persona.Nacionalidad = obj.Persona.Nacionalidad;
+                                    current.DniRlNavigation.Nacionalidad = obj.DniRlNavigation.Nacionalidad;
                                 }
 
                             }
@@ -174,22 +174,22 @@ namespace Negocio.Business_Objects
         }
 
         /// <summary>
-        /// 1. Verifico que haya RUC
-        /// 2. Verifico que exista ese RUC en la lista
+        /// 1. Verifico que haya Ruc
+        /// 2. Verifico que exista ese Ruc en la lista
         /// 3. Si existe, lo elimino de la lista in Memory
         /// 4. lo mando el ID a la DB para que lo borre
         /// </summary>
-        /// <param name="RUC"></param>
+        /// <param name="Ruc"></param>
         /// <returns></returns>
-        public bool Eliminar(string RUC)
+        public bool Eliminar(string Ruc)
         {
-            if (!String.IsNullOrWhiteSpace(RUC))//EVALUO CAMPOS OBLIGATORIOS
+            if (!String.IsNullOrWhiteSpace(Ruc))//EVALUO CAMPOS OBLIGATORIOS
             {
-                if (listaClientes.Exists(x => x.RUC == RUC))
+                if (listaClientes.Exists(x => x.Ruc == Ruc))
                 {
-                    var result = clienteRepository.Delete(RUC);
+                    var result = clienteRepository.Delete(Ruc);
 
-                    if (result) listaClientes.Remove(listaClientes.FirstOrDefault(x => x.RUC == RUC));
+                    if (result) listaClientes.Remove(listaClientes.FirstOrDefault(x => x.Ruc == Ruc));
                
                     return result;
                 }

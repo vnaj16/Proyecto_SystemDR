@@ -48,11 +48,11 @@
 
             <DataGrid ItemsSource="{Binding ListaClientes}" SelectedItem="{Binding CurrentCliente}" AutoGenerateColumns="False" VerticalScrollBarVisibility="Auto" Grid.Row="1" HorizontalAlignment="Left" Margin="20,10,0,10">
                 <DataGrid.Columns>
-                    <DataGridTextColumn Header="RUC" Binding="{Binding RUC}" Width="100" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Razón Social" Binding="{Binding Razon_Social}" Width="170" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="RUC" Binding="{Binding Ruc}" Width="100" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Razón Social" Binding="{Binding RazonSocial}" Width="170" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Dirección" Binding="{Binding Direccion}" Width="200" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Tipo" Binding="{Binding Tipo}" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="DNI" Binding="{Binding DNI}" Width="100" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="DNI" Binding="{Binding DniRl}" Width="100" IsReadOnly="True"/>
                 </DataGrid.Columns>
             </DataGrid>
 
@@ -67,7 +67,7 @@
         <Label Grid.Row="2" Margin="20,10,0,10" HorizontalAlignment="Left" >
             <StackPanel Orientation="Horizontal">
                 <TextBlock Text="Cliente Seleccionado: " Style="{StaticResource h2-b}"/>
-                <TextBlock Text="{Binding CurrentCliente.RUC}" FontWeight="Bold" Style="{StaticResource h2-b}"/>
+                <TextBlock Text="{Binding CurrentCliente.Ruc}" FontWeight="Bold" Style="{StaticResource h2-b}"/>
             </StackPanel>
         </Label>
 
@@ -88,13 +88,13 @@
                     <Label Foreground="{StaticResource MainColorForeground}" Margin="0,0,0,5">
                         <StackPanel Orientation="Horizontal" >
                             <TextBlock Text="Ruc: " Style="{StaticResource h3-w}"/>
-                            <TextBlock Text="{Binding CurrentCliente.RUC}" FontWeight="Bold" Margin="0,0,0,5" Style="{StaticResource h3-w}"/>
+                            <TextBlock Text="{Binding CurrentCliente.Ruc}" FontWeight="Bold" Margin="0,0,0,5" Style="{StaticResource h3-w}"/>
                         </StackPanel>
                     </Label>
                     <Label  Foreground="{StaticResource MainColorForeground}">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Razon Social: "  Style="{StaticResource h3-w}"/>
-                            <TextBlock Text="{Binding CurrentCliente.Razon_Social}" FontWeight="Bold" Margin="0,0,0,5" Style="{StaticResource h3-w}"/>
+                            <TextBlock Text="{Binding CurrentCliente.RazonSocial}" FontWeight="Bold" Margin="0,0,0,5" Style="{StaticResource h3-w}"/>
                         </StackPanel>
                     </Label>
                     <Label Foreground="{StaticResource MainColorForeground}">
@@ -131,37 +131,37 @@
                     <Label Foreground="{StaticResource MainColorForeground}" Grid.Row="0" Grid.Column="0">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="DNI: " Style="{StaticResource h3-w}"/>
-                            <TextBlock Text="{Binding CurrentCliente.Persona.DNI}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
+                            <TextBlock Text="{Binding CurrentCliente.DniRlNavigation.Dni}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
                         </StackPanel>
                     </Label>
                     <Label Foreground="{StaticResource MainColorForeground}" Grid.Row="0" Grid.Column="1">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Nombre: " Style="{StaticResource h3-w}"/>
-                            <TextBlock Text="{Binding CurrentCliente.Persona.Nombre}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
+                            <TextBlock Text="{Binding CurrentCliente.DniRlNavigation.Nombre}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
                         </StackPanel>
                     </Label>
                     <Label Foreground="{StaticResource MainColorForeground}" Grid.Row="0" Grid.Column="2">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Apellido: " Style="{StaticResource h3-w}"/>
-                            <TextBlock Text="{Binding CurrentCliente.Persona.Apellido}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
+                            <TextBlock Text="{Binding CurrentCliente.DniRlNavigation.Apellido}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
                         </StackPanel>
                     </Label>
                     <Label Foreground="{StaticResource MainColorForeground}" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="2">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Fecha Nacimiento: " Style="{StaticResource h3-w}"/>
-                            <TextBlock Text="{Binding CurrentCliente.Persona.Fecha_Nac, StringFormat=d}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
+                            <TextBlock Text="{Binding CurrentCliente.DniRlNavigation.FechaNac, StringFormat=d}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
                         </StackPanel>
                     </Label>
                     <Label Foreground="{StaticResource MainColorForeground}" Grid.Row="1" Grid.Column="2">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Nacionalidad: " Style="{StaticResource h3-w}"/>
-                            <TextBlock Text="{Binding CurrentCliente.Persona.Nacionalidad}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
+                            <TextBlock Text="{Binding CurrentCliente.DniRlNavigation.Nacionalidad}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
                         </StackPanel>
                     </Label>
                     <Label Foreground="{StaticResource MainColorForeground}" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">
                         <StackPanel Orientation="Horizontal">
                             <TextBlock Text="Telefonos: " Style="{StaticResource h3-w}"/>
-                            <TextBlock Text="{Binding CurrentCliente.Persona.ListTelefonos}" Style="{StaticResource h3-w}"/>
+                            <TextBlock Text="{Binding CurrentCliente.DniRlNavigation.ListTelefonos}" Style="{StaticResource h3-w}"/>
                         </StackPanel>
                     </Label>
                 </Grid>

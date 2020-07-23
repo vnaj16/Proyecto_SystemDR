@@ -80,7 +80,7 @@ namespace Presentacion.ViewModels
                     ListaConductores.Add(newConductor);
                     CurrentConductor = newConductor;
 
-                    MessageBox.Show($"{newConductor.DNI} Registrado con exito");
+                    MessageBox.Show($"{newConductor.Dni} Registrado con exito");
                 }
                 else
                 {
@@ -90,12 +90,12 @@ namespace Presentacion.ViewModels
 
 
             }
-            /*if (registrarPersonaView.isRegistered)
+            /*if (registrarDniNavigationView.isRegistered)
             {
-                listaPersonas.Add(registrarPersonaView.GetPersona());
+                listaDniNavigations.Add(registrarDniNavigationView.GetDniNavigation());
             }*/
 
-            //MessageBox.Show("Agregar persona View");
+            //MessageBox.Show("Agregar DniNavigation View");
         }
 
 
@@ -111,7 +111,7 @@ namespace Presentacion.ViewModels
                 //Primero se lo paso a la capa negocio para que lo registre, si lo registra, lo pongo en la capa Presentacion
                 if (TransporteDR.ConductorBO.Actualizar(CurrentConductor))
                 {
-                    MessageBox.Show($"{CurrentConductor.DNI} Actualizado con exito");
+                    MessageBox.Show($"{CurrentConductor.Dni} Actualizado con exito");
                 }
                 else
                 {
@@ -137,10 +137,10 @@ namespace Presentacion.ViewModels
 
         private void Execute_DeleteCommand()
         {//MORALEJA APRENDIDA: Eliminar primera todas las referencias al objeto actual, para que luego el GB lo recoja
-            //CurrentPersona.Ciudad.Habitantes.Remove(CurrentPersona);
-            var dni = CurrentConductor.DNI;
+            //CurrentDniNavigation.Ciudad.Habitantes.Remove(CurrentDniNavigation);
+            var Dni = CurrentConductor.Dni;
 
-            var result = MessageBox.Show("Por favor, confirmar que va a eliminar el Conductor con DNI " + dni, "Eliminar Conductor", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
+            var result = MessageBox.Show("Por favor, confirmar que va a eliminar el Conductor con Dni " + Dni, "Eliminar Conductor", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
 
             switch (result)
             {
@@ -149,13 +149,13 @@ namespace Presentacion.ViewModels
                     switch (MessageBox.Show("Estás seguro?", "Confirmación", MessageBoxButton.YesNo, MessageBoxImage.Exclamation))
                     {
                         case MessageBoxResult.Yes:
-                            if (TransporteDR.ConductorBO.Eliminar(CurrentConductor.DNI))
+                            if (TransporteDR.ConductorBO.Eliminar(CurrentConductor.Dni))
                             {
                                 ListaConductores.Remove(CurrentConductor);
 
                                 CurrentConductor = null;
 
-                                MessageBox.Show($"{dni} Eliminado con exito");
+                                MessageBox.Show($"{Dni} Eliminado con exito");
                             }
                             else
                             {
@@ -178,7 +178,7 @@ namespace Presentacion.ViewModels
         {
             if (!(CurrentConductor is null))
             {
-                return !(CurrentConductor.Persona is null);
+                return !(CurrentConductor.DniNavigation is null);
             }
             else
             {
@@ -188,7 +188,7 @@ namespace Presentacion.ViewModels
 
         private void Execute_VerTelefonosCommand()
         {
-            TelefonoView telefonoView = new TelefonoView(CurrentConductor.Persona);
+            TelefonoView telefonoView = new TelefonoView(CurrentConductor.DniNavigation);
             telefonoView.ShowDialog();
         }
 
@@ -211,9 +211,9 @@ namespace Presentacion.ViewModels
 
                         foreach (var x in ListaConductoresAux)
                         {
-                            if (!(x.Persona is null))
+                            if (!(x.DniNavigation is null))
                             {
-                                if (x.Persona.DNI.StartsWith(Filter))
+                                if (x.DniNavigation.Dni.StartsWith(Filter))
                                 {
                                     listAux.Add(x);
                                 }
@@ -231,9 +231,9 @@ namespace Presentacion.ViewModels
 
                         foreach (var x in ListaConductoresAux)
                         {
-                            if (!(x.Persona is null))
+                            if (!(x.DniNavigation is null))
                             {
-                                if (x.Persona.Nombre.ToLower().StartsWith(Filter.ToLower()))
+                                if (x.DniNavigation.Nombre.ToLower().StartsWith(Filter.ToLower()))
                                 {
                                     listAux1.Add(x);
                                 }
@@ -247,9 +247,9 @@ namespace Presentacion.ViewModels
 
                         foreach (var x in ListaConductoresAux)
                         {
-                            if (!(x.Persona is null))
+                            if (!(x.DniNavigation is null))
                             {
-                                if (x.Persona.Apellido.ToLower().StartsWith(Filter.ToLower()))
+                                if (x.DniNavigation.Apellido.ToLower().StartsWith(Filter.ToLower()))
                                 {
                                     listAux2.Add(x);
                                 }

@@ -36,18 +36,18 @@ namespace Negocio.Business_Objects
 
         public bool Registrar(Conductor obj)
         {
-            if (!String.IsNullOrWhiteSpace(obj.DNI))
+            if (!String.IsNullOrWhiteSpace(obj.Dni))
             {
-                if(!listaConductores.Exists(x=>x.DNI == obj.DNI))
+                if(!listaConductores.Exists(x=>x.Dni == obj.Dni))
                 {
-                    if (obj.Persona is null)
+                    if (obj.DniNavigation is null)
                     {
-                        obj.Persona = new Persona() { DNI = obj.DNI, Tipo = "con" };
+                        obj.DniNavigation = new Persona() { Dni = obj.Dni, Tipo = "con" };
                     }
                     else
                     {
-                        obj.Persona.DNI = obj.DNI;
-                        obj.Persona.Tipo = "con";
+                        obj.DniNavigation.Dni = obj.Dni;
+                        obj.DniNavigation.Tipo = "con";
                     }
 
                     //Primero verifico si se agrego de manera correcta a la DB, luego lo agrego a la Lista in Memory
@@ -70,9 +70,9 @@ namespace Negocio.Business_Objects
 
         public bool Actualizar(Conductor obj)
         {
-            if (!String.IsNullOrWhiteSpace(obj.DNI))
+            if (!String.IsNullOrWhiteSpace(obj.Dni))
             {
-                Conductor current = listaConductores.FirstOrDefault(x => x.DNI == obj.DNI);
+                Conductor current = listaConductores.FirstOrDefault(x => x.Dni == obj.Dni);
 
                 if(!(current is null))
                 {
@@ -81,46 +81,46 @@ namespace Negocio.Business_Objects
 
                     if (!String.IsNullOrWhiteSpace(obj.Direccion)) current.Direccion = obj.Direccion;
 
-                    if (!String.IsNullOrWhiteSpace(obj.Fecha_Inicio.ToString())) current.Fecha_Inicio = obj.Fecha_Inicio;
+                    if (!String.IsNullOrWhiteSpace(obj.FechaInicio.ToString())) current.FechaInicio = obj.FechaInicio;
 
-                    if (!String.IsNullOrWhiteSpace(obj.Grado_Instruccion)) current.Grado_Instruccion = obj.Grado_Instruccion;
+                    if (!String.IsNullOrWhiteSpace(obj.GradoInstruccion)) current.GradoInstruccion = obj.GradoInstruccion;
 
-                    if (!String.IsNullOrWhiteSpace(obj.Lugar_Nac)) current.Lugar_Nac = obj.Lugar_Nac;
+                    if (!String.IsNullOrWhiteSpace(obj.LugarNac)) current.LugarNac = obj.LugarNac;
 
                     if (!String.IsNullOrWhiteSpace(obj.Personalidad)) current.Personalidad = obj.Personalidad;
 
-                    if(obj.Persona is null)
+                    if(obj.DniNavigation is null)
                     {
-                        if (current.Persona is null)
-                            current.Persona = new Persona() { DNI = current.DNI, Tipo = "con" };
+                        if (current.DniNavigation is null)
+                            current.DniNavigation = new Persona() { Dni = current.Dni, Tipo = "con" };
                     }
                     else
                     {
-                        if (current.Persona is null)
+                        if (current.DniNavigation is null)
                         {
-                            current.Persona = obj.Persona;
+                            current.DniNavigation = obj.DniNavigation;
                         }
                         else
                         {
                             //MAPEO
-                            if (!String.IsNullOrWhiteSpace(obj.Persona.Nombre))
+                            if (!String.IsNullOrWhiteSpace(obj.DniNavigation.Nombre))
                             {
-                                current.Persona.Nombre = obj.Persona.Nombre;
+                                current.DniNavigation.Nombre = obj.DniNavigation.Nombre;
                             }
 
-                            if (!String.IsNullOrWhiteSpace(obj.Persona.Apellido))
+                            if (!String.IsNullOrWhiteSpace(obj.DniNavigation.Apellido))
                             {
-                                current.Persona.Apellido = obj.Persona.Apellido;
+                                current.DniNavigation.Apellido = obj.DniNavigation.Apellido;
                             }
 
-                            if (!String.IsNullOrWhiteSpace(obj.Persona.Fecha_Nac.ToString()))
+                            if (!String.IsNullOrWhiteSpace(obj.DniNavigation.FechaNac.ToString()))
                             {
-                                current.Persona.Fecha_Nac = obj.Persona.Fecha_Nac;
+                                current.DniNavigation.FechaNac = obj.DniNavigation.FechaNac;
                             }
 
-                            if (!String.IsNullOrWhiteSpace(obj.Persona.Nacionalidad))
+                            if (!String.IsNullOrWhiteSpace(obj.DniNavigation.Nacionalidad))
                             {
-                                current.Persona.Nacionalidad = obj.Persona.Nacionalidad;
+                                current.DniNavigation.Nacionalidad = obj.DniNavigation.Nacionalidad;
                             }
 
                         }
@@ -144,11 +144,11 @@ namespace Negocio.Business_Objects
         {
             if (!String.IsNullOrWhiteSpace(DNI))
             {
-                if(listaConductores.Exists(x=>x.DNI == DNI))
+                if(listaConductores.Exists(x=>x.Dni == DNI))
                 {
                     var result = conductorRepository.Delete(DNI);
 
-                    if (result) listaConductores.Remove(listaConductores.FirstOrDefault(x => x.DNI == DNI));
+                    if (result) listaConductores.Remove(listaConductores.FirstOrDefault(x => x.Dni == DNI));
 
                     return result;
                 }

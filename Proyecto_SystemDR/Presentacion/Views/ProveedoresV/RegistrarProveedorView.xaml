@@ -37,13 +37,13 @@
                 <Label Foreground="{StaticResource MainColorForeground}" Margin="10">
                     <StackPanel>
                         <TextBlock Text="RUC" Style="{StaticResource h3-w}" Margin="0 0 0 2"/>
-                        <TextBox MinWidth="80" Style="{StaticResource StyleTextBox}" TabIndex="0" Text="{Binding RUC, Mode=TwoWay}"/>
+                        <TextBox MinWidth="80" Style="{StaticResource StyleTextBox}" TabIndex="0" Text="{Binding Ruc, Mode=TwoWay}"/>
                     </StackPanel>
                 </Label>
                 <Label Foreground="{StaticResource MainColorForeground}" Margin="10">
                     <StackPanel>
                         <TextBlock Text="Razón Social" Margin="0 0 0 2" Style="{StaticResource h3-w}"/>
-                        <TextBox MinWidth="150" Style="{StaticResource StyleTextBox}" TabIndex="1" Text="{Binding Razon_Social, Mode=TwoWay}"/>
+                        <TextBox MinWidth="150" Style="{StaticResource StyleTextBox}" TabIndex="1" Text="{Binding RazonSocial, Mode=TwoWay}"/>
                     </StackPanel>
                 </Label>
                 <Label Foreground="{StaticResource MainColorForeground}" Margin="10">
@@ -80,31 +80,31 @@
                 <Label Foreground="{StaticResource MainColorForeground}" Margin="10" Grid.Column="0">
                     <StackPanel>
                         <TextBlock Text="DNI" Margin="0 0 0 2" Style="{StaticResource h3-w}"/>
-                        <TextBox x:Name="TextBox_DNI" MinWidth="80" Style="{StaticResource StyleTextBox}" TabIndex="4" Text="{Binding DNI, Mode=TwoWay}" LostFocus="TextBox_DNI_LostFocus" />
+                        <TextBox x:Name="TextBox_DNI" MinWidth="80" Style="{StaticResource StyleTextBox}" TabIndex="4" Text="{Binding Dni, Mode=TwoWay}" LostFocus="TextBox_DNI_LostFocus" />
                     </StackPanel>
                 </Label>
                 <Label Foreground="{StaticResource MainColorForeground}" Margin="10" Grid.Row="1" Grid.Column="0">
                     <StackPanel>
                         <TextBlock Text="Nombre" Margin="0 0 0 2" Style="{StaticResource h3-w}"/>
-                        <TextBox MinWidth="120" Style="{StaticResource StyleTextBox}" TabIndex="5" Text="{Binding Persona.Nombre, Mode=TwoWay}"/>
+                        <TextBox MinWidth="120" Style="{StaticResource StyleTextBox}" TabIndex="5" Text="{Binding DniRlNavigation.Nombre, Mode=TwoWay}"/>
                     </StackPanel>
                 </Label>
                 <Label Foreground="{StaticResource MainColorForeground}" Margin="10" Grid.Row="2" Grid.Column="0">
                     <StackPanel>
                         <TextBlock Text="Apellidos" Margin="0 0 0 2" Style="{StaticResource h3-w}"/>
-                        <TextBox MinWidth="120" Style="{StaticResource StyleTextBox}" TabIndex="6" Text="{Binding Persona.Apellido, Mode=TwoWay}"/>
+                        <TextBox MinWidth="120" Style="{StaticResource StyleTextBox}" TabIndex="6" Text="{Binding DniRlNavigation.Apellido, Mode=TwoWay}"/>
                     </StackPanel>
                 </Label>
                 <Label Foreground="{StaticResource MainColorForeground}" Margin="10" Grid.Row="0" Grid.Column="1">
                     <StackPanel>
                         <TextBlock Text="Fecha de Nacimiento" Style="{StaticResource h3-w}" Margin="0 0 0 2"/>
-                        <DatePicker MinWidth="120" Background="White"  Foreground="Black" TabIndex="7" SelectedDate="{Binding Persona.Fecha_Nac, Mode=TwoWay}"/>
+                        <DatePicker MinWidth="120" Background="White"  Foreground="Black" TabIndex="7" SelectedDate="{Binding DniRlNavigation.FechaNac, Mode=TwoWay}"/>
                     </StackPanel>
                 </Label>
                 <Label Foreground="{StaticResource MainColorForeground}" Margin="10" Grid.Row="1" Grid.Column="1">
                     <StackPanel>
                         <TextBlock Text="Nacionalidad" Margin="0 0 0 2" Style="{StaticResource h3-w}"/>
-                        <TextBox MinWidth="120" Style="{StaticResource StyleTextBox}" TabIndex="8" Text="{Binding Persona.Nacionalidad, Mode=TwoWay}"/>
+                        <TextBox MinWidth="120" Style="{StaticResource StyleTextBox}" TabIndex="8" Text="{Binding DniRlNavigation.Nacionalidad, Mode=TwoWay}"/>
                     </StackPanel>
                 </Label>
             </Grid>

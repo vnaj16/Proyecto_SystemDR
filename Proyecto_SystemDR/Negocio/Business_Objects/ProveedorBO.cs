@@ -43,20 +43,20 @@ namespace Negocio.Business_Objects
 
         public bool Registrar(Proveedor obj)
         {
-            if (!String.IsNullOrWhiteSpace(obj.RUC))//EVALUO CAMPOS OBLIGATORIOS
+            if (!String.IsNullOrWhiteSpace(obj.Ruc))//EVALUO CAMPOS OBLIGATORIOS
             {
-                if (!listaProveedores.Exists(x => x.RUC == obj.RUC))//EVALUO SI YA EXISTE
+                if (!listaProveedores.Exists(x => x.Ruc == obj.Ruc))//EVALUO SI YA EXISTE
                 {
                     //Si tiene DNI, debe tener persona, sino tiene, la creo
-                    if (!String.IsNullOrWhiteSpace(obj.DNI))
+                    if (!String.IsNullOrWhiteSpace(obj.DniRl))
                     {
-                        if (obj.Persona is null)
+                        if (obj.DniRlNavigation is null)
                         {
-                            obj.Persona = new Persona() { DNI = obj.DNI };
+                            obj.DniRlNavigation = new Persona() { Dni = obj.DniRl };
                         }
                         else
                         {
-                            obj.Persona.DNI = obj.DNI;
+                            obj.DniRlNavigation.Dni = obj.DniRl;
                         }
                     }
 
@@ -88,9 +88,9 @@ namespace Negocio.Business_Objects
 
         public bool Actualizar(Proveedor obj)
         {
-            if (!String.IsNullOrWhiteSpace(obj.RUC))//EVALUO CAMPOS OBLIGATORIOS
+            if (!String.IsNullOrWhiteSpace(obj.Ruc))//EVALUO CAMPOS OBLIGATORIOS
             {
-                Proveedor current = listaProveedores.FirstOrDefault(x => x.RUC == obj.RUC);
+                Proveedor current = listaProveedores.FirstOrDefault(x => x.Ruc == obj.Ruc);
                 if (!(current is null))//EVALUO SI YA EXISTE
                 {
 
@@ -99,53 +99,53 @@ namespace Negocio.Business_Objects
                         current.Direccion = obj.Direccion;
                     }
 
-                    if (!String.IsNullOrWhiteSpace(obj.Razon_Social))
+                    if (!String.IsNullOrWhiteSpace(obj.RazonSocial))
                     {
-                        current.Razon_Social = obj.Razon_Social;
+                        current.RazonSocial = obj.RazonSocial;
                     }
 
 
-                    if (String.IsNullOrWhiteSpace(current.DNI))
+                    if (String.IsNullOrWhiteSpace(current.DniRl))
                     {
-                        current.DNI = obj.DNI;
+                        current.DniRl = obj.DniRl;
                     }
 
 
                     //Si tiene DNI, debe tener persona, sino tiene, la creo
-                    if (!String.IsNullOrWhiteSpace(obj.DNI))
+                    if (!String.IsNullOrWhiteSpace(obj.DniRl))
                     {
-                        if (obj.Persona is null)
+                        if (obj.DniRlNavigation is null)
                         {
-                            if (current.Persona is null)
-                                current.Persona = new Persona() { DNI = current.DNI, Tipo = "pro" };
+                            if (current.DniRlNavigation is null)
+                                current.DniRlNavigation = new Persona() { Dni = current.DniRl, Tipo = "pro" };
                         }
                         else
                         {
-                            if (current.Persona is null)
+                            if (current.DniRlNavigation is null)
                             {
-                                current.Persona = obj.Persona;
+                                current.DniRlNavigation = obj.DniRlNavigation;
                             }
                             else
                             {
                                 //MAPEO
-                                if (!String.IsNullOrWhiteSpace(obj.Persona.Nombre))
+                                if (!String.IsNullOrWhiteSpace(obj.DniRlNavigation.Nombre))
                                 {
-                                    current.Persona.Nombre = obj.Persona.Nombre;
+                                    current.DniRlNavigation.Nombre = obj.DniRlNavigation.Nombre;
                                 }
 
-                                if (!String.IsNullOrWhiteSpace(obj.Persona.Apellido))
+                                if (!String.IsNullOrWhiteSpace(obj.DniRlNavigation.Apellido))
                                 {
-                                    current.Persona.Apellido = obj.Persona.Apellido;
+                                    current.DniRlNavigation.Apellido = obj.DniRlNavigation.Apellido;
                                 }
 
-                                if (!String.IsNullOrWhiteSpace(obj.Persona.Fecha_Nac.ToString()))
+                                if (!String.IsNullOrWhiteSpace(obj.DniRlNavigation.FechaNac.ToString()))
                                 {
-                                    current.Persona.Fecha_Nac = obj.Persona.Fecha_Nac;
+                                    current.DniRlNavigation.FechaNac = obj.DniRlNavigation.FechaNac;
                                 }
 
-                                if (!String.IsNullOrWhiteSpace(obj.Persona.Nacionalidad))
+                                if (!String.IsNullOrWhiteSpace(obj.DniRlNavigation.Nacionalidad))
                                 {
-                                    current.Persona.Nacionalidad = obj.Persona.Nacionalidad;
+                                    current.DniRlNavigation.Nacionalidad = obj.DniRlNavigation.Nacionalidad;
                                 }
 
                             }
@@ -179,13 +179,13 @@ namespace Negocio.Business_Objects
         {
             if (!String.IsNullOrWhiteSpace(RUC))//EVALUO CAMPOS OBLIGATORIOS
             {
-                if (listaProveedores.Exists(x => x.RUC == RUC))
+                if (listaProveedores.Exists(x => x.Ruc == RUC))
                 {
                     try
                     {
                         var result = proveedorRepository.Delete(RUC);
 
-                        if (result) listaProveedores.Remove(listaProveedores.FirstOrDefault(x => x.RUC == RUC));
+                        if (result) listaProveedores.Remove(listaProveedores.FirstOrDefault(x => x.Ruc == RUC));
 
                         return result;
                     }

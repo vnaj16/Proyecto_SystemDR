@@ -11,7 +11,7 @@ namespace Negocio.Business_Objects
     public class UnidadVehicularBO
     {
         private IUnidadVehicularRepository unidadVehicularRepository;
-        private List<Unidad_Vehicular> listaVehiculos;
+        private List<UnidadVehicular> listaVehiculos;
 
         public UnidadVehicularBO(IUnidadVehicularRepository unidadVehicularRepository)
         {
@@ -19,7 +19,7 @@ namespace Negocio.Business_Objects
             GetAll();
         }
 
-        public List<Unidad_Vehicular> GetAll() //READ
+        public List<UnidadVehicular> GetAll() //READ
         {
             if (listaVehiculos != null && listaVehiculos.Count != 0)
             {
@@ -40,7 +40,7 @@ namespace Negocio.Business_Objects
             }
         }
 
-        public bool Registrar(Unidad_Vehicular obj)
+        public bool Registrar(UnidadVehicular obj)
         {
             if (!String.IsNullOrWhiteSpace(obj.Placa))//EVALUO CAMPOS OBLIGATORIOS
             {
@@ -65,11 +65,11 @@ namespace Negocio.Business_Objects
         }
 
 
-        public bool Actualizar(Unidad_Vehicular obj)
+        public bool Actualizar(UnidadVehicular obj)
         {
             if (!String.IsNullOrWhiteSpace(obj.Placa))//EVALUO CAMPOS OBLIGATORIOS
             {
-                Unidad_Vehicular current = listaVehiculos.FirstOrDefault(x => x.Placa == obj.Placa);
+                UnidadVehicular current = listaVehiculos.FirstOrDefault(x => x.Placa == obj.Placa);
                 if (!(current is null))//EVALUO SI YA EXISTE
                 {
 
@@ -78,15 +78,15 @@ namespace Negocio.Business_Objects
                         current.Marca = obj.Marca;
                     }
 
-                    if (!String.IsNullOrWhiteSpace(obj.Serie_Chasis))
+                    if (!String.IsNullOrWhiteSpace(obj.SerieChasis))
                     {
-                        current.Serie_Chasis = obj.Serie_Chasis;
+                        current.SerieChasis = obj.SerieChasis;
                     }
 
 
-                    if (!String.IsNullOrWhiteSpace(current.Y_Fabricacion.ToString()))
+                    if (!String.IsNullOrWhiteSpace(current.YFabricacion.ToString()))
                     {
-                        current.Y_Fabricacion = obj.Y_Fabricacion;
+                        current.YFabricacion = obj.YFabricacion;
                     }
 
                     //Lo agrego a la lista en memoria, luego a la DB

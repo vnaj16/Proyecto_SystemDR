@@ -20,9 +20,9 @@ namespace Negocio.Business_Objects
 
         public bool Registrar(Telefono obj)
         {
-            if (!String.IsNullOrWhiteSpace(obj.Numero) && !String.IsNullOrWhiteSpace(obj.DNI))
+            if (!String.IsNullOrWhiteSpace(obj.Numero) && !String.IsNullOrWhiteSpace(obj.Dni))
             {
-                var persona = obj.Persona;
+                var persona = obj.DniNavigation;
                 //Persona persona;
                 ////Primero jalo a ver si es cliente, luego si es proveedor, o sino por ultimo si es conductor
                 //if (TransporteDR.ClienteBO.GetAll().Exists(x => x.DNI == obj.DNI))
@@ -63,7 +63,7 @@ namespace Negocio.Business_Objects
             if (!String.IsNullOrWhiteSpace(obj.Numero))
             {
                 //Primero jalo a ver si es cliente, luego si es proveedor, o sino por ultimo si es conductor
-                var persona = obj.Persona;
+                var persona = obj.DniNavigation;
 
 
                 if (persona.Telefono.ToList().Exists(x => x.Numero == obj.Numero))
@@ -88,10 +88,10 @@ namespace Negocio.Business_Objects
 
         public bool Actualizar(Telefono obj)
         {
-            if (!String.IsNullOrWhiteSpace(obj.Numero) && !String.IsNullOrWhiteSpace(obj.DNI) && !String.IsNullOrWhiteSpace(obj.NumeroAntiguo))
+            if (!String.IsNullOrWhiteSpace(obj.Numero) && !String.IsNullOrWhiteSpace(obj.Dni) && !String.IsNullOrWhiteSpace(obj.Numero))
             {
                 //Primero jalo a ver si es cliente, luego si es proveedor, o sino por ultimo si es conductor
-                var persona = TransporteDR.ClienteBO.GetAll().FirstOrDefault(x => x.DNI == obj.DNI).Persona;
+                var persona = TransporteDR.ClienteBO.GetAll().FirstOrDefault(x => x.DniRl == obj.Dni).DniRlNavigation;
 
                 if (persona is null)
                 {
@@ -103,9 +103,9 @@ namespace Negocio.Business_Objects
                     //persona = TransporteDR.ClienteBO.GetAll().Find(x => x.DNI == obj.DNI).Persona;
                 }
 
-                if (persona.Telefono.ToList().Exists(x => x.Numero == obj.NumeroAntiguo))
+                if (persona.Telefono.ToList().Exists(x => x.Numero == obj.Numero))
                 {
-                    persona.Telefono.FirstOrDefault(x => x.Numero == obj.NumeroAntiguo).Numero = obj.Numero;
+                    persona.Telefono.FirstOrDefault(x => x.Numero == obj.Numero).Numero = obj.Numero;
 
                     return telefonoRepository.Update(obj);
                 }

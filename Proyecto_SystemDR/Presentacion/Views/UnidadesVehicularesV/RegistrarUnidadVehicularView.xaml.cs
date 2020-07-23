@@ -21,13 +21,13 @@ namespace Presentacion.Views.UnidadesVehicularesV
     /// </summary>
     public partial class RegistrarUnidadVehicularView : Window
     {
-        private Unidad_Vehicular newUnidadVehicular;
-        private Unidad_Vehicular copyUnidadVehicular_Updated;
+        private UnidadVehicular newUnidadVehicular;
+        private UnidadVehicular copyUnidadVehicular_Updated;
         public bool isRegistered = false;
         private bool isUpdate;
         public bool isUpdated = false;
 
-        public RegistrarUnidadVehicularView(bool isUpdate = false, Unidad_Vehicular obj = null)
+        public RegistrarUnidadVehicularView(bool isUpdate = false, UnidadVehicular obj = null)
         {
             InitializeComponent();
 
@@ -35,12 +35,12 @@ namespace Presentacion.Views.UnidadesVehicularesV
 
             if (!isUpdate)
             {
-                newUnidadVehicular = new Unidad_Vehicular();
+                newUnidadVehicular = new UnidadVehicular();
             }
             else
             {
                 newUnidadVehicular = obj;
-                copyUnidadVehicular_Updated = new Unidad_Vehicular();
+                copyUnidadVehicular_Updated = new UnidadVehicular();
 
                 CopyInstance(newUnidadVehicular, copyUnidadVehicular_Updated);
                 //ButtonState = "Actualizar";*/
@@ -51,7 +51,7 @@ namespace Presentacion.Views.UnidadesVehicularesV
             //this.isUpdate = isUpdate;
         }
 
-        public Unidad_Vehicular GetUnidadVehicular()
+        public UnidadVehicular GetUnidadVehicular()
         {
             if (!(newUnidadVehicular is null) && isRegistered)
             {
@@ -61,7 +61,7 @@ namespace Presentacion.Views.UnidadesVehicularesV
             return null;
         }
 
-        public Unidad_Vehicular GetUnidadVehicularBackup()
+        public UnidadVehicular GetUnidadVehicularBackup()
         {
             if (!(copyUnidadVehicular_Updated is null) && isUpdated)
             {
@@ -108,15 +108,15 @@ namespace Presentacion.Views.UnidadesVehicularesV
             this.Close();
         }
 
-        private void CopyInstance(Unidad_Vehicular fuente, Unidad_Vehicular destino)
+        private void CopyInstance(UnidadVehicular fuente, UnidadVehicular destino)
         {
             destino.Marca = fuente.Marca;
             destino.Placa = fuente.Placa;
-            destino.Serie_Chasis = fuente.Serie_Chasis;
-            destino.Y_Fabricacion = fuente.Y_Fabricacion;
+            destino.SerieChasis = fuente.SerieChasis;
+            destino.YFabricacion = fuente.YFabricacion;
         }
 
-        public void ToDefaultUnidadVehicular(Unidad_Vehicular UnidadVehicular)
+        public void ToDefaultUnidadVehicular(UnidadVehicular UnidadVehicular)
         {
             CopyInstance(copyUnidadVehicular_Updated, UnidadVehicular);
         }

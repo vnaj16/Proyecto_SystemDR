@@ -1,4 +1,5 @@
 ﻿using Datos.Interfaces;
+using Datos.ModelsEFCore;
 using Entidades;
 using System;
 using System.Collections.Generic;
@@ -21,7 +22,7 @@ namespace Datos.Repositories
                         Telefono obj = db.Telefono.FirstOrDefault(x => x.Numero == Numero);
                         if (!(obj is null))
                         {
-                            db.Entry(obj).State = System.Data.Entity.EntityState.Deleted;
+                            db.Telefono.Remove(obj);
 
                             db.SaveChanges();
 
@@ -62,19 +63,19 @@ namespace Datos.Repositories
             {
                 try
                 {
-                    if(!String.IsNullOrWhiteSpace(obj.Numero) && !String.IsNullOrWhiteSpace(obj.DNI))
+                    if(!String.IsNullOrWhiteSpace(obj.Numero) && !String.IsNullOrWhiteSpace(obj.Dni))
                     {
                         if (!db.Telefono.ToList().Exists(x => x.Numero == obj.Numero))
                         {
-                            var persona = obj.Persona;
+                            var DniNavigation = obj.DniNavigation;
 
-                            obj.Persona = null;
+                            obj.DniNavigation = null;
 
                             db.Telefono.Add(obj);
 
                             db.SaveChanges();
 
-                            obj.Persona = persona;
+                            obj.DniNavigation = DniNavigation;
 
                             return true;
                         }
@@ -110,7 +111,8 @@ namespace Datos.Repositories
             {
                 try
                 {
-                    if (!String.IsNullOrWhiteSpace(obj.Numero) && !String.IsNullOrWhiteSpace(obj.DNI) && !String.IsNullOrWhiteSpace(obj.NumeroAntiguo))
+                    /*
+                    if (!String.IsNullOrWhiteSpace(obj.Numero) && !String.IsNullOrWhiteSpace(obj.Dni) && !String.IsNullOrWhiteSpace(obj.NumeroAntiguo))
                     {
                         //Telefono tlfAntiguo = db.Telefono.FirstOrDefault(x => x.Numero == obj.NumeroAntiguo);
                         if (Delete(obj.NumeroAntiguo))
@@ -126,6 +128,9 @@ namespace Datos.Repositories
                     {
                         return false;
                     }
+                    */
+
+                    return false;
                 }
                 catch (Exception ex)
                 {

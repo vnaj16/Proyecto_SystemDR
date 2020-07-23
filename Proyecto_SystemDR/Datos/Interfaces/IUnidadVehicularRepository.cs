@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Datos.Interfaces
 {
-    public interface IUnidadVehicularRepository : IRepository<Unidad_Vehicular>
+    public interface IUnidadVehicularRepository : IRepository<UnidadVehicular>
     {
     }
 }

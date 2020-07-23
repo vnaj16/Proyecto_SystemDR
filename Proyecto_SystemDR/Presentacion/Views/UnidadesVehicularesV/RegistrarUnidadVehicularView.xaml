@@ -39,13 +39,13 @@
             <Label Foreground="{StaticResource MainColorForeground}" Margin="10">
                 <StackPanel>
                     <TextBlock Text="Año de Fabricación" Margin="0 0 0 2" Style="{StaticResource h3-w}"/>
-                    <TextBox MinWidth="150" Name="TextBox_YFabri" Style="{StaticResource StyleTextBox}" TabIndex="2" Text="{Binding Y_Fabricacion, Mode=TwoWay}"/>
+                    <TextBox MinWidth="150" Name="TextBox_YFabri" Style="{StaticResource StyleTextBox}" TabIndex="2" Text="{Binding YFabricacion, Mode=TwoWay}"/>
                 </StackPanel>
             </Label>
             <Label Foreground="{StaticResource MainColorForeground}" Margin="10">
                 <StackPanel>
                     <TextBlock Text="Serie de Chasis" Margin="0 0 0 2" Style="{StaticResource h3-w}"/>
-                    <TextBox MinWidth="80" Style="{StaticResource StyleTextBox}" TabIndex="3" Text="{Binding Serie_Chasis, Mode=TwoWay}"/>
+                    <TextBox MinWidth="80" Style="{StaticResource StyleTextBox}" TabIndex="3" Text="{Binding SerieChasis, Mode=TwoWay}"/>
                 </StackPanel>
             </Label>
         </StackPanel>

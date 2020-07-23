@@ -50,8 +50,8 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Placa" Binding="{Binding Placa}" Width="100" IsReadOnly="True"/>
                     <DataGridTextColumn Header="Marca" Binding="{Binding Marca}" Width="150" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Año de Fabricacion" Binding="{Binding Y_Fabricacion, StringFormat=d}" Width="150" IsReadOnly="True"/>
-                    <DataGridTextColumn Header="Serie de Chasis" Binding="{Binding Serie_Chasis}" Width="150" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Año de Fabricacion" Binding="{Binding YFabricacion, StringFormat=d}" Width="150" IsReadOnly="True"/>
+                    <DataGridTextColumn Header="Serie de Chasis" Binding="{Binding SerieChasis}" Width="150" IsReadOnly="True"/>
                 </DataGrid.Columns>
             </DataGrid>
 
@@ -108,13 +108,13 @@
                     <Label Foreground="{StaticResource MainColorForeground}">
                         <StackPanel Orientation="Horizontal" >
                             <TextBlock Text="Año de Fabricación: " Style="{StaticResource h3-w}"/>
-                            <TextBlock Text="{Binding CurrentUnidadVehicular.Y_Fabricacion}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
+                            <TextBlock Text="{Binding CurrentUnidadVehicular.YFabricacion}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
                         </StackPanel>
                     </Label>
                     <Label Foreground="{StaticResource MainColorForeground}">
                         <StackPanel Orientation="Horizontal" >
                             <TextBlock Text="Serie de Chasis: " Style="{StaticResource h3-w}"/>
-                            <TextBlock Text="{Binding CurrentUnidadVehicular.Serie_Chasis}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
+                            <TextBlock Text="{Binding CurrentUnidadVehicular.SerieChasis}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
                         </StackPanel>
                     </Label>
                 </StackPanel>

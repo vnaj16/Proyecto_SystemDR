@@ -80,7 +80,7 @@ namespace Presentacion.ViewModels
                     ListaClientes.Add(newCliente);
                     CurrentCliente = newCliente;
 
-                    MessageBox.Show($"{newCliente.RUC} Registrado con exito");
+                    MessageBox.Show($"{newCliente.Ruc} Registrado con exito");
                 }
                 else
                 {
@@ -111,7 +111,7 @@ namespace Presentacion.ViewModels
                 //Primero se lo paso a la capa negocio para que lo registre, si lo registra, lo pongo en la capa Presentacion
                 if (TransporteDR.ClienteBO.Actualizar(CurrentCliente))
                 {
-                    MessageBox.Show($"{CurrentCliente.RUC} Actualizado con exito");
+                    MessageBox.Show($"{CurrentCliente.Ruc} Actualizado con exito");
                 }
                 else
                 {
@@ -138,7 +138,7 @@ namespace Presentacion.ViewModels
         private void Execute_DeleteCommand()
         {//MORALEJA APRENDIDA: Eliminar primera todas las referencias al objeto actual, para que luego el GB lo recoja
             //CurrentPersona.Ciudad.Habitantes.Remove(CurrentPersona);
-            var RUC = CurrentCliente.RUC;
+            var RUC = CurrentCliente.Ruc;
 
             var result = MessageBox.Show("Por favor, confirmar que va a eliminar el cliente con RUC " + RUC, "Eliminar Cliente", MessageBoxButton.OKCancel, MessageBoxImage.Warning);
 
@@ -149,7 +149,7 @@ namespace Presentacion.ViewModels
                     switch (MessageBox.Show("Estás seguro?", "Confirmación", MessageBoxButton.YesNo, MessageBoxImage.Exclamation))
                     {
                         case MessageBoxResult.Yes:
-                            if (TransporteDR.ClienteBO.Eliminar(CurrentCliente.RUC))
+                            if (TransporteDR.ClienteBO.Eliminar(CurrentCliente.Ruc))
                             {
                                 ListaClientes.Remove(CurrentCliente);
 
@@ -178,7 +178,7 @@ namespace Presentacion.ViewModels
         {
             if(!(CurrentCliente is null))
             {
-                return !(CurrentCliente.Persona is null);
+                return !(CurrentCliente.DniRlNavigation is null);
             }
             else
             {
@@ -188,7 +188,7 @@ namespace Presentacion.ViewModels
 
         private void Execute_VerTelefonosCommand()
         {
-            TelefonoView telefonoView = new TelefonoView(CurrentCliente.Persona, CurrentCliente.Razon_Social);
+            TelefonoView telefonoView = new TelefonoView(CurrentCliente.DniRlNavigation, CurrentCliente.RazonSocial);
             telefonoView.ShowDialog();
         }
 
@@ -208,20 +208,20 @@ namespace Presentacion.ViewModels
                 switch (filterType)
                 {
                     case FilterTypeSearchCliente.RUC:
-                        ListaClientes = new ObservableCollection<Cliente>(ListaClientesAux.Where(x => x.RUC.StartsWith(Filter)));
+                        ListaClientes = new ObservableCollection<Cliente>(ListaClientesAux.Where(x => x.Ruc.StartsWith(Filter)));
                         break;
 
                     case FilterTypeSearchCliente.RazonSocial:
-                        ListaClientes = new ObservableCollection<Cliente>(ListaClientesAux.Where(x => x.Razon_Social.ToLower().StartsWith(Filter.ToLower())));
+                        ListaClientes = new ObservableCollection<Cliente>(ListaClientesAux.Where(x => x.RazonSocial.ToLower().StartsWith(Filter.ToLower())));
                         break;
                     case FilterTypeSearchCliente.DNI:
                         var listAux = new ObservableCollection<Cliente>();
 
                         foreach(var x in ListaClientesAux)
                         {
-                            if(!(x.Persona is null))
+                            if(!(x.DniRlNavigation is null))
                             {
-                                if (x.Persona.DNI.StartsWith(Filter))
+                                if (x.DniRlNavigation.Dni.StartsWith(Filter))
                                 {
                                     listAux.Add(x);
                                 }
