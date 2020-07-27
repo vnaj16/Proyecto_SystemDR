@@ -25,51 +25,60 @@ namespace Datos.Repositories
         /// <returns></returns>
         public bool Delete(string Dni)
         {
-            using (dbTransporteDRContext db = new dbTransporteDRContext())
+            try
             {
-                try
+                using (dbTransporteDRContext db = new dbTransporteDRContext())
                 {
+
                     var conductor_db = db.Conductor.FirstOrDefault(x => x.Dni == Dni);
 
                     if (conductor_db == null)
                     {
-                        return false;
+                        throw new Exception($"El conductor con dni {Dni} no existe en la base de datos");
                     }
 
-                    var DniNavigation_db = conductor_db.DniNavigation;
-
-                    if (DniNavigation_db is null)
-                    {
-                        return false;
-                    }
-
-                    var telefonos_db = DniNavigation_db.Telefono;
-
-                    if (telefonos_db != null)
-                    {
-                        db.Telefono.RemoveRange(telefonos_db);
-                    }
-
-                    db.Persona.Remove(DniNavigation_db);
                     db.Conductor.Remove(conductor_db);
 
                     db.SaveChanges();
 
                     return true;
                 }
-                catch (Exception ex)
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public bool Exists(string Dni)
+        {
+            try
+            {
+                using (dbTransporteDRContext db = new dbTransporteDRContext())
                 {
-                    return false;
+                    return db.Conductor.ToList().Exists(x => x.Dni == Dni);
                 }
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
 
         public IEnumerable<Conductor> GetAll()
         {
-            using (dbTransporteDRContext db = new dbTransporteDRContext())
+            try
             {
-                return db.Conductor.Include(x=>x.DniNavigation).ThenInclude(x=>x.Telefono).Include(x=>x.Historial).ToList();
+                using (dbTransporteDRContext db = new dbTransporteDRContext())
+                {
+                    return db.Conductor.Include(x => x.DniNavigation).ThenInclude(x => x.Telefono).Include(x => x.Historial).ToList();
+                }
             }
+            catch (Exception)
+            {
+                throw;
+            }
+
         }
 
         /// <summary>
@@ -83,44 +92,32 @@ namespace Datos.Repositories
         /// <returns></returns>
         public bool Insert(Conductor obj)
         {
-            using (dbTransporteDRContext db = new dbTransporteDRContext())
+            try
             {
-                try
+                using (dbTransporteDRContext db = new dbTransporteDRContext())
                 {
-                    if (!String.IsNullOrWhiteSpace(obj.Dni))
+                    Persona personaAux = null;
+                    if (!(obj.DniNavigation is null))
                     {
-                        if (!db.Conductor.ToList().Exists(x => x.Dni == obj.Dni))
-                        {
-                            db.Conductor.Add(obj);
-
-                            if (obj.DniNavigation != null)
-                            {
-                                db.Persona.Add(obj.DniNavigation);
-                            }
-                            else
-                            {
-                                obj.DniNavigation = new Persona() { Dni = obj.Dni, Tipo = "con" };
-                                db.Persona.Add(obj.DniNavigation);
-                            }
-
-                            db.SaveChanges();
-
-                            return true;
-
-                        }
-                        else
-                        {
-                            return false;
-                        }
-                    }
-                    else
-                    {
-                        return false;
+                        personaAux = obj.DniNavigation;
+                        obj.DniNavigation = null;
                     }
 
+                    db.Conductor.Add(obj);
+
+                    db.SaveChanges();
+
+
+                    obj.DniNavigation = personaAux;
+
+                    return true;
                 }
-                catch (Exception ex) { return false; }
             }
+            catch (Exception)
+            {
+                throw;
+            }
+
         }
 
         /// <summary>
@@ -135,52 +132,38 @@ namespace Datos.Repositories
         /// <returns></returns>
         public bool Update(Conductor obj)
         {
-            using (dbTransporteDRContext db = new dbTransporteDRContext())
+            try
             {
-                try
+                using (dbTransporteDRContext db = new dbTransporteDRContext())
                 {
-                    if (!String.IsNullOrWhiteSpace(obj.Dni))
+                    var obj_db = db.Conductor.FirstOrDefault(x => x.Dni == obj.Dni);
+
+                    if (obj_db is null)
                     {
-                        var obj_db = db.Conductor.FirstOrDefault(x => x.Dni == obj.Dni);
-
-                        if(obj_db is null) return false;
-
-                        if (!String.IsNullOrWhiteSpace(obj.Brevete)) obj_db.Brevete = obj.Brevete;
-
-                        if (!String.IsNullOrWhiteSpace(obj.Direccion)) obj_db.Direccion = obj.Direccion;
-                        
-                        if (!String.IsNullOrWhiteSpace(obj.Direccion)) obj_db.Direccion = obj.Direccion;
-
-                        if (!String.IsNullOrWhiteSpace(obj.FechaInicio.ToString())) obj_db.FechaInicio = obj.FechaInicio;
-
-                        if (!String.IsNullOrWhiteSpace(obj.GradoInstruccion)) obj_db.GradoInstruccion = obj.GradoInstruccion;
-
-                        if (!String.IsNullOrWhiteSpace(obj.LugarNac)) obj_db.LugarNac = obj.LugarNac;
-
-                        if (!String.IsNullOrWhiteSpace(obj.DniNavigation.Nacionalidad)) obj_db.DniNavigation.Nacionalidad = obj.DniNavigation.Nacionalidad;
-
-                        //MAPEO Persona
-                        if (!String.IsNullOrWhiteSpace(obj.DniNavigation.Nombre)) obj_db.DniNavigation.Nombre = obj.DniNavigation.Nombre;
-
-                        if (!String.IsNullOrWhiteSpace(obj.DniNavigation.Apellido)) obj_db.DniNavigation.Apellido = obj.DniNavigation.Apellido;
-
-                        if (!String.IsNullOrWhiteSpace(obj.DniNavigation.FechaNac.ToString())) obj_db.DniNavigation.FechaNac = obj.DniNavigation.FechaNac;
-
-                        if (!String.IsNullOrWhiteSpace(obj.DniNavigation.Nacionalidad)) obj_db.DniNavigation.Nacionalidad = obj.DniNavigation.Nacionalidad;
-
-
-                        db.SaveChanges();
-
-                        return true;
+                        throw new Exception($"El conductor con Dni {obj.Dni} no existe en la Base de Datos");
                     }
-                    else
-                    {
-                        return false;
-                    }
+
+                    if (!String.IsNullOrWhiteSpace(obj.Brevete)) obj_db.Brevete = obj.Brevete;
+
+                    if (!String.IsNullOrWhiteSpace(obj.Direccion)) obj_db.Direccion = obj.Direccion;
+
+                    if (!String.IsNullOrWhiteSpace(obj.Direccion)) obj_db.Direccion = obj.Direccion;
+
+                    if (!String.IsNullOrWhiteSpace(obj.FechaInicio.ToString())) obj_db.FechaInicio = obj.FechaInicio;
+
+                    if (!String.IsNullOrWhiteSpace(obj.GradoInstruccion)) obj_db.GradoInstruccion = obj.GradoInstruccion;
+
+                    if (!String.IsNullOrWhiteSpace(obj.LugarNac)) obj_db.LugarNac = obj.LugarNac;
+
+                    db.SaveChanges();
+
+                    return true;
                 }
-                catch (Exception ex) { return false; }
             }
-
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

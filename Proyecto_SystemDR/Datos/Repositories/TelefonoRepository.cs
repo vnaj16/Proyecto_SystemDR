@@ -13,41 +13,60 @@ namespace Datos.Repositories
     {
         public bool Delete(string Numero)
         {
-            using (dbTransporteDRContext db = new dbTransporteDRContext())
+            try
             {
-                try
+                using (dbTransporteDRContext db = new dbTransporteDRContext())
                 {
-                    if (!String.IsNullOrWhiteSpace(Numero))
-                    {
-                        Telefono obj = db.Telefono.FirstOrDefault(x => x.Numero == Numero);
-                        if (!(obj is null))
-                        {
-                            db.Telefono.Remove(obj);
 
-                            db.SaveChanges();
+                    Telefono telefono_db = db.Telefono.FirstOrDefault(x => x.Numero == Numero);
 
-                            return true;
-                        }
-                        else
-                        {
-                            return false;
-                        }
-                    }
-                    else
+                    if (telefono_db == null)
                     {
-                        return false;
+                        throw new Exception($"El telefono con numero {Numero} no existe en la base de datos");
                     }
+
+                    db.Telefono.Remove(telefono_db);
+
+                    db.SaveChanges();
+
+                    return true;
                 }
-                catch (Exception ex)
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
+
+        public bool Exists(string Numero)
+        {
+            try
+            {
+                using (dbTransporteDRContext db = new dbTransporteDRContext())
                 {
-                    return false;
+                    return db.Telefono.ToList().Exists(x => x.Numero == Numero);
                 }
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
 
         public IEnumerable<Telefono> GetAll()
         {
-            throw new NotImplementedException();
+            try
+            {
+                using (dbTransporteDRContext db = new dbTransporteDRContext())
+                {
+                    return db.Telefono.ToList();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
 
         /// <summary>
@@ -59,42 +78,33 @@ namespace Datos.Repositories
         /// <returns></returns>
         public bool Insert(Telefono obj)
         {
-            using (dbTransporteDRContext db = new dbTransporteDRContext())
+            try
             {
-                try
+                using (dbTransporteDRContext db = new dbTransporteDRContext())
                 {
-                    if(!String.IsNullOrWhiteSpace(obj.Numero) && !String.IsNullOrWhiteSpace(obj.Dni))
+                    Persona personaAux = null;
+
+                    if (!(obj.DniNavigation is null))
                     {
-                        if (!db.Telefono.ToList().Exists(x => x.Numero == obj.Numero))
-                        {
-                            var DniNavigation = obj.DniNavigation;
-
-                            obj.DniNavigation = null;
-
-                            db.Telefono.Add(obj);
-
-                            db.SaveChanges();
-
-                            obj.DniNavigation = DniNavigation;
-
-                            return true;
-                        }
-                        else
-                        {
-                            return false;
-                        }
-
+                        personaAux = obj.DniNavigation;
+                        obj.DniNavigation = null;
                     }
-                    else
-                    {
-                        return false;
-                    }
-                }
-                catch (Exception ex)
-                {
-                    return false;
+
+                    db.Telefono.Add(obj);
+
+                    db.SaveChanges();
+
+                    obj.DniNavigation = personaAux;
+
+                    return true;
                 }
             }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
         }
 
         /// <summary>
@@ -107,37 +117,26 @@ namespace Datos.Repositories
         /// <returns></returns>
         public bool Update(Telefono obj)
         {
-            using (dbTransporteDRContext db = new dbTransporteDRContext())
+            try
             {
-                try
+                using (dbTransporteDRContext db = new dbTransporteDRContext())
                 {
-                    /*
-                    if (!String.IsNullOrWhiteSpace(obj.Numero) && !String.IsNullOrWhiteSpace(obj.Dni) && !String.IsNullOrWhiteSpace(obj.NumeroAntiguo))
+                    Telefono tlfAntiguo = db.Telefono.FirstOrDefault(x => x.Numero == obj.NumeroAntiguo);
+                    if (Delete(obj.NumeroAntiguo))
                     {
-                        //Telefono tlfAntiguo = db.Telefono.FirstOrDefault(x => x.Numero == obj.NumeroAntiguo);
-                        if (Delete(obj.NumeroAntiguo))
-                        {
-                            return Insert(obj);
-                        }
-                        else
-                        {
-                            return false;
-                        }
+                        return Insert(obj);
                     }
                     else
                     {
-                        return false;
+                        throw new Exception("Ocurrio un error al actualizar telefono" + Environment.NewLine
+                            + "Se recomienda mejor eliminar el número y agregar el nuevo");
                     }
-                    */
-
-                    return false;
-                }
-                catch (Exception ex)
-                {
-                    return false;
                 }
             }
-                        
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

@@ -15,135 +15,159 @@ namespace Datos.Repositories
     {
         public bool Delete(string _Id)
         {
-            int Id = int.Parse(_Id);
-            using (dbTransporteDRContext db = new dbTransporteDRContext())
+            try
             {
-                try
+                int Id = int.Parse(_Id);
+                using (dbTransporteDRContext db = new dbTransporteDRContext())
                 {
-                    var historial_db = db.Historial.FirstOrDefault(x => x.Id == Id);
+                    try
+                    {
+                        var historial_db = db.Historial.FirstOrDefault(x => x.Id == Id);
 
-                    if (historial_db == null)
+                        if (historial_db == null)
+                        {
+                            throw new Exception($"El historial con id {Id} no existe en la base de datos");
+                        }
+
+                        db.Historial.Remove(historial_db);
+
+                        db.SaveChanges();
+
+                        return true;
+                    }
+                    catch (Exception ex)
                     {
                         return false;
                     }
-
-                    db.Historial.Remove(historial_db);
-
-                    db.SaveChanges();
-
-                    return true;
                 }
-                catch (Exception ex)
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
+
+        public bool Exists(string ID)
+        {
+            try
+            {
+                int Id = int.Parse(ID);
+                using (dbTransporteDRContext db = new dbTransporteDRContext())
                 {
-                    return false;
+                    return db.Historial.ToList().Exists(x => x.Id == Id);
                 }
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
 
         public IEnumerable<Historial> GetAll()
         {
-            using (dbTransporteDRContext db = new dbTransporteDRContext())
+            try
             {
-                return db.Historial.Include(x => x.DniConductorNavigation).ThenInclude(x=>x.DniNavigation).Include(x => x.IdUnidadNavigation).ToList();
+                using (dbTransporteDRContext db = new dbTransporteDRContext())
+                {
+                    return db.Historial.Include(x => x.DniConductorNavigation).ThenInclude(x => x.DniNavigation).Include(x => x.IdUnidadNavigation).ToList();
+                }
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
 
         public bool Insert(Historial obj)
         {
-            using (dbTransporteDRContext db = new dbTransporteDRContext())
+            try
             {
-                try
+                using (dbTransporteDRContext db = new dbTransporteDRContext())
                 {
-                    if (obj.Id >= 0)
-                    {
-                        if (!db.Historial.ToList().Exists(x => x.Id == obj.Id))
-                        {
-                            /*
-                           Hago bakcup de Conductor y UV, para que el contexto no las trackee
-                             */
+                    /*
+                   Hago bakcup de Conductor y UV, para que el contexto no las trackee
+                     */
+                    var conductor = obj.DniConductorNavigation;
+                    obj.DniConductorNavigation = null;
 
-                            var conductor = obj.DniConductorNavigation; obj.DniConductorNavigation = null;
-                            var vehiculo = obj.IdUnidadNavigation; obj.IdUnidadNavigation = null;
+                    var vehiculo = obj.IdUnidadNavigation;
+                    obj.IdUnidadNavigation = null;
 
-                            db.Historial.Add(obj);
 
-                            /*db.Entry(obj.Conductor).State = System.Data.Entity.EntityState.Unchanged;
-                            db.Entry(obj.Conductor.Persona).State = System.Data.Entity.EntityState.Unchanged;
-                            db.Entry(obj.UnIdad_Vehicular).State = System.Data.Entity.EntityState.Unchanged;*/
+                    db.Historial.Add(obj);
 
-                            db.SaveChanges();
+                    db.SaveChanges();
 
-                            obj.IdUnidadNavigation = vehiculo;
-                            obj.DniConductorNavigation = conductor;
+                    obj.IdUnidadNavigation = vehiculo;
+                    obj.DniConductorNavigation = conductor;
 
-                            return true;
-                        }
-                        else
-                        {
-                            return false;
-                        }
-                    }
-                    else
-                    {
-                        return false;
-                    }
+                    return true;
                 }
-                catch (Exception ex) { throw; }
-
             }
+            catch (Exception)
+            {
+                throw;
+            }
+
         }
 
+        //Quiza sea necesario actualizar las FK, ademas poner sus nuevos FKNavigation
         public bool Update(Historial obj)
         {
-            using (dbTransporteDRContext db = new dbTransporteDRContext())
+            try
             {
-                try
+                using (dbTransporteDRContext db = new dbTransporteDRContext())
                 {
-                    if (obj.Id != 0)
+                    var obj_db = db.Historial.FirstOrDefault(x => x.Id == obj.Id);
+                    if (!(obj_db is null))
                     {
-                        var obj_db = db.Historial.FirstOrDefault(x => x.Id == obj.Id);
-                        System.Threading.Thread.Sleep(500);
-                        if (!(obj_db is null))
+                        if (!String.IsNullOrWhiteSpace(obj.Descripcion))
                         {
-                            if (!String.IsNullOrWhiteSpace(obj.Descripcion))
-                            {
-                                obj_db.Descripcion = obj.Descripcion;
-                            }
-
-                            if (!String.IsNullOrWhiteSpace(obj.Eventualidad))
-                            {
-                                obj_db.Eventualidad = obj.Eventualidad;
-                            }
-
-                            if (String.IsNullOrWhiteSpace(obj_db.Fecha.ToString()))
-                            {
-                                obj_db.Fecha = obj.Fecha;
-                            }
-
-                            if (String.IsNullOrWhiteSpace(obj_db.Lugar))
-                            {
-                                obj_db.Lugar = obj.Lugar;
-                            }
-
-                            db.SaveChanges();
-
-                            return true;
+                            obj_db.Descripcion = obj.Descripcion;
                         }
-                        else
+
+                        if (!String.IsNullOrWhiteSpace(obj.Eventualidad))
                         {
-                            return false;
+                            obj_db.Eventualidad = obj.Eventualidad;
                         }
+
+                        if (!String.IsNullOrWhiteSpace(obj_db.Fecha.ToString()))
+                        {
+                            obj_db.Fecha = obj.Fecha;
+                        }
+
+                        if (!String.IsNullOrWhiteSpace(obj_db.Lugar))
+                        {
+                            obj_db.Lugar = obj.Lugar;
+                        }
+
+                        if (!String.IsNullOrWhiteSpace(obj_db.DniConductor))
+                        {
+                            obj_db.DniConductor = obj.DniConductor;
+                        }
+
+                        if (!String.IsNullOrWhiteSpace(obj_db.IdUnidad))
+                        {
+                            obj_db.IdUnidad = obj.IdUnidad;
+                        }
+
+
+                        db.SaveChanges();
+
+                        return true;
                     }
                     else
                     {
-                        return false;
+                        throw new Exception($"El historial con id {obj.Id} no existe en la Base de Datos");
                     }
-
-
-
                 }
-                catch (Exception ex) { return false; }
             }
+            catch (Exception)
+            {
+                throw;
+            }
+
         }
     }
 }

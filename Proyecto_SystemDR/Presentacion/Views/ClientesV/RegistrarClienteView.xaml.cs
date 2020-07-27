@@ -40,12 +40,14 @@ namespace Presentacion.Views.ClientesV
             }
             else
             {
+                TextBox_RUC.IsEnabled = false;
                 newCliente = obj;
                 copyCliente_Updated = new Cliente();
 
-                if (!(obj.DniRlNavigation is null))
+                if (!(obj.DniRlNavigation is null))//Si es que tiene persona
                 {
                     copyCliente_Updated.DniRlNavigation = new Persona();
+                    TextBox_DNI.IsEnabled = false;
                 }
 
                 CopyInstance(newCliente, copyCliente_Updated);
@@ -126,7 +128,7 @@ namespace Presentacion.Views.ClientesV
                 newCliente.DniRl = TextBox_DNI.Text;
                 if (newCliente.DniRlNavigation is null)
                 {
-                    newCliente.DniRlNavigation = new Persona() { Dni = newCliente.DniRl };
+                    newCliente.DniRlNavigation = new Persona() { Dni = newCliente.DniRl, Tipo ="cli" };
                 }
                 else
                 {

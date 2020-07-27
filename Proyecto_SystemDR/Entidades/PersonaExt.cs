@@ -45,101 +45,92 @@ namespace Entidades
     }
 
     #region Backup Entity Persona
-
     /*
-        public partial class Persona : BindableBase
+    public partial class Persona : BindableBase
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Persona()
         {
-            this.Cliente = new HashSet<Cliente>();
-            this.Proveedor = new HashSet<Proveedor>();
-            this.Telefono = new HashSet<Telefono>();
+            Cliente = new HashSet<Cliente>();
+            Proveedor = new HashSet<Proveedor>();
+            Telefono = new HashSet<Telefono>();
         }
 
-
         private string dni;
-        public string DNI
+        [StringLength(15, ErrorMessage = "Error en el formato del DNI", MinimumLength = 8)]
+        [Required(ErrorMessage = "DNI Requerido")]
+        [RegularExpression("^[0-9]+$", ErrorMessage = "Solo números")]
+        public string Dni
         {
-            get => dni;
-            set
-            {
-                SetProperty(ref dni, value);
-            }
+            get { return dni; }
+            set { SetProperty(ref dni, value); }
         }
 
         private string nombre;
+        [StringLength(50, ErrorMessage = "Maximo 50 caracteres")]
         public string Nombre
         {
-            get => nombre;
-            set
-            {
-                SetProperty(ref nombre, value);
-            }
+            get { return nombre; }
+            set { SetProperty(ref nombre, value); }
         }
 
         private string apellido;
+        [StringLength(50, ErrorMessage = "Maximo 50 caracteres")]
         public string Apellido
         {
-            get => apellido;
-            set
-            {
-                SetProperty(ref apellido, value);
-            }
+            get { return apellido; }
+            set { SetProperty(ref apellido, value); }
         }
 
-        private Nullable<System.DateTime> fecha_Nac;
-        public Nullable<System.DateTime> Fecha_Nac
+        private DateTime? fechaNac;
+        public DateTime? FechaNac
         {
-            get => fecha_Nac;
-            set
-            {
-                SetProperty(ref fecha_Nac, value);
-            }
+            get { return fechaNac; }
+            set { SetProperty(ref fechaNac, value); }
         }
 
         private string nacionalidad;
+        [StringLength(50, ErrorMessage = "Maximo 50 caracteres")]
         public string Nacionalidad
         {
-            get => nacionalidad;
-            set
-            {
-                SetProperty(ref nacionalidad, value);
-            }
+            get { return nacionalidad; }
+            set { SetProperty(ref nacionalidad, value); }
         }
+
 
         private string tipo;
+        [Required]
+        [StringLength(3, ErrorMessage = "Error en el tipo")]
         public string Tipo
         {
-            get => tipo;
-            set
-            {
-                SetProperty(ref tipo, value);
-            }
+            get { return tipo; }
+            set { SetProperty(ref tipo, value); }
         }
 
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Cliente> Cliente { get; set; }
-        public virtual Conductor Conductor { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Proveedor> Proveedor { get; set; }
 
+        private Conductor conductor;
+        public virtual Conductor Conductor
+        {
+            get { return conductor; }
+            set { SetProperty(ref conductor, value); }
+        }
+        public virtual ICollection<Cliente> Cliente
+        {
+            get; set;
+        }
+        public virtual ICollection<Proveedor> Proveedor
+        {
+            get; set;
+        }
 
         private ICollection<Telefono> telefono;
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-
         public virtual ICollection<Telefono> Telefono
         {
-            get => telefono;
-            set
-            {
-                SetProperty(ref telefono, value);
-            }
+            get { return telefono; }
+            set { SetProperty(ref telefono, value); }
         }
     }
-     */
+    */
 
-    //FECHA: 07/07/20
+    //FECHA: 25/07/20
     #endregion
 }

@@ -37,7 +37,7 @@
                 <Label Foreground="{StaticResource MainColorForeground}" Margin="10">
                     <StackPanel>
                         <TextBlock Text="RUC" Style="{StaticResource h3-w}" Margin="0 0 0 2"/>
-                        <TextBox MinWidth="80" Style="{StaticResource StyleTextBox}" TabIndex="0" Text="{Binding Ruc, Mode=TwoWay}"/>
+                        <TextBox MinWidth="80" Name="TextBox_RUC"  Style="{StaticResource StyleTextBox}" TabIndex="0" Text="{Binding Ruc, Mode=TwoWay}"/>
                     </StackPanel>
                 </Label>
                 <Label Foreground="{StaticResource MainColorForeground}" Margin="10">

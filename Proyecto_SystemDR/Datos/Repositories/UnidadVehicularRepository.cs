@@ -14,15 +14,15 @@ namespace Datos.Repositories
     {
         public bool Delete(string Placa)
         {
-            using (dbTransporteDRContext db = new dbTransporteDRContext())
+            try
             {
-                try
+                using (dbTransporteDRContext db = new dbTransporteDRContext())
                 {
                     var vehiculo_db = db.UnidadVehicular.FirstOrDefault(x => x.Placa == Placa);
 
                     if (vehiculo_db == null)
                     {
-                        return false;
+                        throw new Exception($"La unidad vehicular con placa {Placa} no existe en la base de datos");
                     }
 
                     db.UnidadVehicular.Remove(vehiculo_db);
@@ -31,10 +31,26 @@ namespace Datos.Repositories
 
                     return true;
                 }
-                catch (Exception ex)
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+
+        }
+
+        public bool Exists(string ID)
+        {
+            try
+            {
+                using (dbTransporteDRContext db = new dbTransporteDRContext())
                 {
-                    return false;
+                    return db.UnidadVehicular.ToList().Exists(x => x.Placa == ID);
                 }
+            }
+            catch (Exception)
+            {
+                throw;
             }
         }
 
@@ -42,72 +58,66 @@ namespace Datos.Repositories
         {
             using (dbTransporteDRContext db = new dbTransporteDRContext())
             {
-                return db.UnidadVehicular.Include(x=>x.Historial).ToList();
+                return db.UnidadVehicular.Include(x => x.Historial).ToList();
             }
         }
 
         public bool Insert(UnidadVehicular obj)
         {
-            using (dbTransporteDRContext db = new dbTransporteDRContext())
+            try
             {
-                try
+                using (dbTransporteDRContext db = new dbTransporteDRContext())
                 {
-                    if (!String.IsNullOrWhiteSpace(obj.Placa))
-                    {
-                        if (!db.UnidadVehicular.ToList().Exists(x => x.Placa == obj.Placa))
-                        {
-                            db.UnidadVehicular.Add(obj);
+                    var Historiales = obj.Historial.ToList();
+                    obj.Historial = null;
 
-                            db.SaveChanges();
+                    db.UnidadVehicular.Add(obj);
 
-                            return true;
+                    db.SaveChanges();
 
-                        }
-                        else
-                        {
-                            return false;
-                        }
-                    }
-                    else
-                    {
-                        return false;
-                    }
+                    obj.Historial = Historiales;
 
+                    return true;
                 }
-                catch (Exception ex) { return false; }
             }
+            catch (Exception)
+            {
+                throw;
+            }
+
         }
 
         public bool Update(UnidadVehicular obj)
         {
-            using (dbTransporteDRContext db = new dbTransporteDRContext())
+            try
             {
-                try
+                using (dbTransporteDRContext db = new dbTransporteDRContext())
                 {
-                    if (!String.IsNullOrWhiteSpace(obj.Placa))
+
+                    var obj_db = db.UnidadVehicular.FirstOrDefault(x => x.Placa == obj.Placa);
+
+                    if (obj_db is null)
                     {
-                        var obj_db = db.UnidadVehicular.FirstOrDefault(x => x.Placa == obj.Placa);
-
-                        if (obj_db is null) return false;
-
-                        if (!String.IsNullOrWhiteSpace(obj.Marca)) obj_db.Marca = obj.Marca;
-
-                        if (!String.IsNullOrWhiteSpace(obj.SerieChasis)) obj_db.SerieChasis = obj.SerieChasis;
-
-                        if (!String.IsNullOrWhiteSpace(obj.YFabricacion.ToString())) obj_db.YFabricacion = obj.YFabricacion;
-
-
-                        db.SaveChanges();
-
-                        return true;
+                        throw new Exception($"La unidad vehicular con placa {obj.Placa} no existe en la Base de Datos");
                     }
-                    else
-                    {
-                        return false;
-                    }
+
+                    if (!String.IsNullOrWhiteSpace(obj.Marca)) obj_db.Marca = obj.Marca;
+
+                    if (!String.IsNullOrWhiteSpace(obj.SerieChasis)) obj_db.SerieChasis = obj.SerieChasis;
+
+                    if (!String.IsNullOrWhiteSpace(obj.YFabricacion.ToString())) obj_db.YFabricacion = obj.YFabricacion;
+
+
+                    db.SaveChanges();
+
+                    return true;
                 }
-                catch (Exception ex) { return false; }
             }
+            catch (Exception)
+            {
+                throw;
+            }
+
         }
     }
 }

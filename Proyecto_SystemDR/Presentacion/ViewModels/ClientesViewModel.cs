@@ -57,7 +57,10 @@ namespace Presentacion.ViewModels
 
         public ObservableCollection<Cliente> ListaClientes
         {
-            get { return listaClientes; }
+            get
+            {
+                return listaClientes;
+            }
             set { SetProperty(ref listaClientes, value); }
         }
 
@@ -74,21 +77,25 @@ namespace Presentacion.ViewModels
             {
                 var newCliente = registrarClienteView.GetCliente();
 
-                //Primero se lo paso a la capa negocio para que lo registre, si lo registra, lo pongo en la capa Presentacion
-                if (TransporteDR.ClienteBO.Registrar(newCliente))
+                try
                 {
-                    ListaClientes.Add(newCliente);
-                    CurrentCliente = newCliente;
+                    if (TransporteDR.ClienteBO.Registrar(newCliente))
+                    {
+                        ListaClientes.Add(newCliente);
+                        CurrentCliente = newCliente;
 
-                    MessageBox.Show($"{newCliente.Ruc} Registrado con exito");
+                        MessageBox.Show($"{newCliente.Ruc} Registrado con exito");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Algo ha ocurrido con el proceso de registro, por favor intentar de nuevo o reiniciar el computador.\nSi el problema persiste, contactar con el encargado del Sistema");
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Algo ha ocurrido con el proceso de registro, por favor intentar de nuevo o reiniciar el computador.\nSi el problema persiste, contactar con el encargado del Sistema");
+                    MessageBox.Show(ex.Message);
+                    MessageBox.Show(ex.InnerException?.Message);
                 }
-
-
-
             }
             /*if (registrarPersonaView.isRegistered)
             {
@@ -176,7 +183,7 @@ namespace Presentacion.ViewModels
 
         private bool CanExecute_VerTelefonosCommand()
         {
-            if(!(CurrentCliente is null))
+            if (!(CurrentCliente is null))
             {
                 return !(CurrentCliente.DniRlNavigation is null);
             }
@@ -217,9 +224,9 @@ namespace Presentacion.ViewModels
                     case FilterTypeSearchCliente.DNI:
                         var listAux = new ObservableCollection<Cliente>();
 
-                        foreach(var x in ListaClientesAux)
+                        foreach (var x in ListaClientesAux)
                         {
-                            if(!(x.DniRlNavigation is null))
+                            if (!(x.DniRlNavigation is null))
                             {
                                 if (x.DniRlNavigation.Dni.StartsWith(Filter))
                                 {

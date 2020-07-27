@@ -59,6 +59,7 @@
     <Compile Include="Gasto.cs" />
     <Compile Include="GastoV.cs" />
     <Compile Include="Historial.cs" />
+    <Compile Include="HistorialExt.cs" />
     <Compile Include="Mercaderia.cs" />
     <Compile Include="Persona.cs" />
     <Compile Include="PersonaExt.cs" />

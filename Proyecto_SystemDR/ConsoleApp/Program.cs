@@ -9,6 +9,8 @@ using Datos.Interfaces;
 using Entidades;
 using Datos.ModelsEFCore;
 using Microsoft.EntityFrameworkCore;
+using Negocio.Business_Objects;
+using Datos.Repositories;
 
 namespace ConsoleApp
 {
@@ -16,7 +18,8 @@ namespace ConsoleApp
     {
         static void Main(string[] args)
         {
-            Viaje viaje;
+            #region PRUEBA VIAJE
+            /*Viaje viaje;
             try
             {
                 using (var db = new dbTransporteDRContext())
@@ -29,7 +32,8 @@ namespace ConsoleApp
 
                     /*viaje = db.Viaje.Include(x => x.DniConductorNavigation).
                         Include(x => x.PlacaVehiculoNavigation).
-                        Include(x => x.Gasto).FirstOrDefault();*/
+                        Include(x => x.Gasto).FirstOrDefault();
+                        /
                 }
             }
             catch (Exception ex)
@@ -37,13 +41,121 @@ namespace ConsoleApp
 
                 Console.WriteLine(ex.Message);
                 Console.WriteLine(ex.InnerException?.Message);
+            }*/
+            #endregion
+
+            #region PRUEBA CLIENTE
+            Cliente newCliente = new Cliente()
+            {
+                Ruc = "121212",
+                RazonSocial = "VNAJ .INC",
+                Direccion = "Av La Marina",
+                DniRl = "72222444",
+                DniRlNavigation = new Persona()
+                {
+                    Dni = "72222444",
+                    Nombre = "Albeiro Estefano",
+                    Apellido = "Gonzales"
+                }
+            };
+
+
+            ClienteBO clienteBO = new ClienteBO(new ClienteRepository());
+
+            #region READ CLIENTE
+            /*
+            try
+            {
+                foreach (var x in clienteBO.GetAll())
+                {
+                    Console.WriteLine(x.Ruc + " " + x.RazonSocial);
+                }
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.InnerException?.Message);
+            }
+            //*/
+            #endregion
+
+            #region CREATE CLIENTE
+            /*
+            try
+            {
+                if (clienteBO.Registrar(newCliente))
+                {
+                    Console.WriteLine("Cliente Registrado");
+                }
+                else
+                {
+                    Console.WriteLine("Algo malo ocurrio");
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.InnerException?.Message);
+            }//*/
+            #endregion
+
+            #region UPDATE CLIENTE
+            ///*
+            try
+            {
+                if (clienteBO.Actualizar(newCliente))
+                {
+                    Console.WriteLine("Cliente Actualizado");
+                }
+                else
+                {
+                    Console.WriteLine("Algo malo ocurrio");
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.InnerException?.Message);
+            }
+            //*/
+            #endregion
+
+            #region DELETE CLIENTE
+            /*
+            try
+            {
+                if (clienteBO.Eliminar(newCliente.Ruc))
+                {
+                    Console.WriteLine("Cliente Eliminado");
+                }
+                else
+                {
+                    Console.WriteLine("Algo malo ocurrio");
+                }
+
+
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex.Message);
+                Console.WriteLine(ex.InnerException?.Message);
+            }//*/
+            #endregion
+
+            #endregion
 
 
             Console.ReadLine();
         }
+
     }
 }
+
+
 
 ///*namespace ConsoleApp
 //{

@@ -1,11 +1,18 @@
 ﻿using System;
 using System.Collections.Generic;
-using Prism.Mvvm;
-using System.ComponentModel.DataAnnotations;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 
 namespace Entidades
 {
-    public partial class Historial : BindableBase
+    public partial class HistorialExt
+    {
+    }
+
+    #region Backup Entity Historial
+    /*
+         public partial class Historial : BindableBase
     {
         private string dniConductor;
 
@@ -78,4 +85,9 @@ namespace Entidades
             set { SetProperty(ref idUnidadNavigation, value); }
         }
     }
+    
+    */
+
+    //FECHA: 25/07/20
+    #endregion
 }

@@ -11,74 +11,77 @@ namespace Entidades
     }
     #region Backup Entity Cliente
     /*
-    public partial class Proveedor : BindableBase
+         public partial class Proveedor : BindableBase
     {
         private string ruc;
 
         [Required(ErrorMessage = "El campo RUC es obligatorio")]
-        [StringLength(maximumLength: 20, MinimumLength = 6, ErrorMessage = "El RUC debe tener 10 digitos")]
+        [StringLength(15, ErrorMessage = "Error en el formato del RUC", MinimumLength = 8)]
         [RegularExpression("^[0-9]+$", ErrorMessage = "Solo números")]
-        public string RUC
+        public string Ruc
         {
             get { return ruc; }
             set { SetProperty(ref ruc, value); }
         }
 
-        private string razon_Social;
 
-        public string Razon_Social
+        private string razonSocial;
+
+        [StringLength(30, ErrorMessage = "Maximo son 30 caracteres")]
+        public string RazonSocial
         {
-            get => razon_Social;
-            set => SetProperty(ref razon_Social, value);
+            get { return razonSocial; }
+            set { SetProperty(ref razonSocial, value); }
         }
 
+
         private string direccion;
+
+        [StringLength(50, ErrorMessage = "Maximo son 50 caracteres")]
         public string Direccion
         {
-            get => direccion;
-            set => SetProperty(ref direccion, value);
+            get { return direccion; }
+            set { SetProperty(ref direccion, value); }
         }
 
 
         private string tipo;
+
+        [StringLength(50, ErrorMessage = "Maximo son 50 caracteres")]
         public string Tipo
         {
-            get => tipo;
-            set => SetProperty(ref tipo, value);
+            get { return tipo; }
+            set { SetProperty(ref tipo, value); }
         }
 
         private string productos;
+
+        [StringLength(100, ErrorMessage = "Maximo son 100 caracteres")]
         public string Productos
         {
-            get => productos;
-            set => SetProperty(ref productos, value);
+            get { return productos; }
+            set { SetProperty(ref productos, value); }
         }
 
 
-        private string dni;
-        public string DNI
+        private string dniRl;
+        [StringLength(15, ErrorMessage = "Maximo son 15 caracteres")]
+        public string DniRl
         {
-            get => dni;
-            set
-            {
-                SetProperty(ref dni, value);
-            }
+            get { return dniRl; }
+            set { SetProperty(ref dniRl, value); }
         }
 
 
-
-        private Persona persona;
-        public virtual Persona Persona
+        private Persona dniRlNavigation;
+        public virtual Persona DniRlNavigation
         {
-            get => persona;
-            set
-            {
-                SetProperty(ref persona, value);
-            }
+            get { return dniRlNavigation; }
+            set { SetProperty(ref dniRlNavigation, value); }
         }
     }
      */
 
-    //FECHA: 17/07/20
+    //FECHA: 26/07/20
     #endregion
 }

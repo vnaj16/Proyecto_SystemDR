@@ -1,4 +1,4 @@
-﻿    using Datos.Interfaces;
+﻿using Datos.Interfaces;
 using Datos.Repositories;
 using Entidades;
 using System;
@@ -12,17 +12,17 @@ namespace Negocio.Business_Objects
     public class ClienteBO
     {
         private IClienteRepository clienteRepository;
-        private List<Cliente> listaClientes;
+        //private List<Cliente> listaClientes;
 
         public ClienteBO(IClienteRepository clienteRepository)
         {
             this.clienteRepository = clienteRepository;
-            GetAll();
+            //GetAll();
         }
 
         public List<Cliente> GetAll() //READ
         {
-            if (listaClientes != null && listaClientes.Count != 0)
+            /*if (listaClientes != null && listaClientes.Count != 0)
             {
                 return listaClientes;
             }
@@ -35,46 +35,55 @@ namespace Negocio.Business_Objects
                     ClienteDTO obj = new ClienteDTO();
                     MyMapper.Map(x, obj);
                     listaClienteDTO.Add(obj);
-                }*/
+                }
 
                 return listaClientes;
-            }
+            }*/
+
+            return clienteRepository.GetAll().ToList();
         }
 
         public bool Registrar(Cliente obj)
         {
             if (!String.IsNullOrWhiteSpace(obj.Ruc))//EVALUO CAMPOS OBLIGATORIOS
             {
-                if (!listaClientes.Exists(x => x.Ruc == obj.Ruc))//EVALUO SI YA EXISTE
+                if (!clienteRepository.Exists(obj.Ruc))//EVALUO SI YA EXISTE
                 {
-                    //Si tiene DNI, debe tener persona, sino tiene, la creo
+                    //Si tiene DNI, debe tener persona, si no tiene, la creo
                     if (!String.IsNullOrWhiteSpace(obj.DniRl))
                     {
-                        if(obj.DniRlNavigation is null)
+                        if (obj.DniRlNavigation is null)
                         {
-                            obj.DniRlNavigation = new Persona() { Dni = obj.DniRl };
+                            obj.DniRlNavigation = new Persona() { Dni = obj.DniRl, Tipo = "cli" };
                         }
                         else
                         {
                             obj.DniRlNavigation.Dni = obj.DniRl;
                         }
+
+                        PersonaRepository personaRepository = new PersonaRepository();
+                        if (!personaRepository.Exists(obj.DniRlNavigation.Dni))
+                        {
+                            personaRepository.Insert(obj.DniRlNavigation);
+                        }
+
                     }
 
                     //Primero verifico si se agrego de manera correcta a la DB, luego lo agrego a la Lista in Memory
                     var Result = clienteRepository.Insert(obj);
 
-                    if(Result) listaClientes.Add(obj);
+                    //if(Result) listaClientes.Add(obj);
 
                     return Result;
                 }
                 else
                 {
-                    return false;
+                    throw new Exception("Ya existe un cliente con ese RUC");
                 }
             }
             else
             {
-                return false;
+                throw new Exception("El RUC esta vacio");
             }
         }
 
@@ -97,79 +106,44 @@ namespace Negocio.Business_Objects
         {
             if (!String.IsNullOrWhiteSpace(obj.Ruc))//EVALUO CAMPOS OBLIGATORIOS
             {
-                Cliente current = listaClientes.FirstOrDefault(x => x.Ruc == obj.Ruc);
-                if (!(current is null))//EVALUO SI YA EXISTE
+                if (clienteRepository.Exists(obj.Ruc))
                 {
-
-                    if (!String.IsNullOrWhiteSpace(obj.Direccion))
-                    {
-                        current.Direccion = obj.Direccion;
-                    }
-
-                    if (!String.IsNullOrWhiteSpace(obj.RazonSocial))
-                    {
-                        current.RazonSocial = obj.RazonSocial;
-                    }
-
-
-                    if (String.IsNullOrWhiteSpace(current.DniRl))
-                    {
-                        current.DniRl = obj.DniRl;
-                    }
-
-
+                    PersonaRepository personaRepository = new PersonaRepository();
+                    #region PERSONAREPOSITORY
                     //Si tiene DNI, debe tener persona, sino tiene, la creo
                     if (!String.IsNullOrWhiteSpace(obj.DniRl))
                     {
                         if (obj.DniRlNavigation is null)
                         {
-                            if (current.DniRlNavigation is null)
-                                current.DniRlNavigation = new Persona() { Dni = current.DniRl, Tipo = "cli" };
+                            obj.DniRlNavigation = new Persona() { Dni = obj.DniRl, Tipo = "cli" };
                         }
                         else
                         {
-                            if(current.DniRlNavigation is null)
-                            {
-                                current.DniRlNavigation = obj.DniRlNavigation;
-                            }
-                            else
-                            {
-                                //MAPEO
-                                if (!String.IsNullOrWhiteSpace(obj.DniRlNavigation.Nombre))
-                                {
-                                    current.DniRlNavigation.Nombre = obj.DniRlNavigation.Nombre;
-                                }
+                            obj.DniRlNavigation.Dni = obj.DniRl;
+                        }
 
-                                if (!String.IsNullOrWhiteSpace(obj.DniRlNavigation.Apellido))
-                                {
-                                    current.DniRlNavigation.Apellido = obj.DniRlNavigation.Apellido;
-                                }
-
-                                if (!String.IsNullOrWhiteSpace(obj.DniRlNavigation.FechaNac.ToString()))
-                                {
-                                    current.DniRlNavigation.FechaNac = obj.DniRlNavigation.FechaNac;
-                                }
-
-                                if (!String.IsNullOrWhiteSpace(obj.DniRlNavigation.Nacionalidad))
-                                {
-                                    current.DniRlNavigation.Nacionalidad = obj.DniRlNavigation.Nacionalidad;
-                                }
-
-                            }
+                        if (personaRepository.Exists(obj.DniRlNavigation.Dni))
+                        {
+                            personaRepository.Update(obj.DniRlNavigation);
+                        }
+                        else
+                        {
+                            personaRepository.Insert(obj.DniRlNavigation);
                         }
                     }
-
-                    //Lo agrego a la lista en memoria, luego a la DB
-                    return clienteRepository.Update(current);
+                    #endregion
+                    return clienteRepository.Update(obj);
                 }
+
+
                 else
                 {
-                    return false;
+                    throw new Exception("No existe un cliente con ese RUC");
                 }
             }
             else
             {
-                return false;
+                throw new Exception("El RUC esta vacio");
             }
         }
 
@@ -185,22 +159,28 @@ namespace Negocio.Business_Objects
         {
             if (!String.IsNullOrWhiteSpace(Ruc))//EVALUO CAMPOS OBLIGATORIOS
             {
-                if (listaClientes.Exists(x => x.Ruc == Ruc))
+                if (clienteRepository.Exists(Ruc))
                 {
+                    bool resultp = true;
+                    PersonaRepository personaRepository = new PersonaRepository();
+                    if (clienteRepository.HasRepresent(Ruc, out string DniRepresent))
+                    {
+                        resultp = personaRepository.Delete(DniRepresent);
+                    }
                     var result = clienteRepository.Delete(Ruc);
 
-                    if (result) listaClientes.Remove(listaClientes.FirstOrDefault(x => x.Ruc == Ruc));
-               
-                    return result;
+                    //if (result) listaClientes.Remove(listaClientes.FirstOrDefault(x => x.Ruc == Ruc));
+
+                    return result && resultp;
                 }
                 else
                 {
-                    return false;
+                    throw new Exception("No existe un cliente con ese RUC");
                 }
             }
             else
             {
-                return false;
+                throw new Exception("El RUC esta vacio");
             }
         }
     }

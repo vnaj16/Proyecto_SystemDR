@@ -10,5 +10,6 @@ namespace Datos.Interfaces
 {
     public interface IClienteRepository : IRepository<Cliente>
     {
+        bool HasRepresent(string ID, out string IdRepresent);
     }
 }

@@ -12,86 +12,89 @@ namespace Entidades
     }
     #region Backup Entity Conductor
     /*
-    public partial class Conductor : BindableBase
+         public partial class Conductor : BindableBase
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Conductor()
         {
-            this.Historial = new HashSet<Historial>();
-            this.Viaje = new HashSet<Viaje>();
+            Historial = new HashSet<Historial>();
+            Viaje = new HashSet<Viaje>();
         }
 
+
         private string dni;
-        public string DNI
+
+        [Required(ErrorMessage = "El campo DNI es obligatorio")]
+        [StringLength(15, ErrorMessage = "Maximo son 15 caracteres")]
+        public string Dni
         {
             get { return dni; }
             set { SetProperty(ref dni, value); }
         }
 
-        private Nullable<System.DateTime> fecha_Inicio;
-        public Nullable<System.DateTime> Fecha_Inicio
+
+        private DateTime? fechaInicio;
+        public DateTime? FechaInicio 
         {
-            get { return fecha_Inicio; }
-            set { SetProperty(ref fecha_Inicio, value); }
+            get { return fechaInicio; }
+            set { SetProperty(ref fechaInicio, value); }
         }
 
         private string brevete;
-        public string Brevete
-        {
+
+        [StringLength(25, ErrorMessage = "Maximo son 25 caracteres")]
+        public string Brevete {
             get { return brevete; }
             set { SetProperty(ref brevete, value); }
         }
 
-        private string lugar_Nac;
-        public string Lugar_Nac
-        {
-            get { return lugar_Nac; }
-            set { SetProperty(ref lugar_Nac, value); }
+        private string lugarNac;
+        [StringLength(25, ErrorMessage = "Maximo son 25 caracteres")]
+        public string LugarNac {
+            get { return lugarNac; }
+            set { SetProperty(ref lugarNac, value); }
         }
 
-        private string grado_Instruccion;
-        public string Grado_Instruccion
-        {
-            get { return grado_Instruccion; }
-            set { SetProperty(ref grado_Instruccion, value); }
+        private string gradoInstruccion;
+        [StringLength(25, ErrorMessage = "Maximo son 25 caracteres")]
+        public string GradoInstruccion {
+            get { return gradoInstruccion; }
+            set { SetProperty(ref gradoInstruccion, value); }
         }
-
 
         private string direccion;
-        public string Direccion
-        {
+        [StringLength(50, ErrorMessage = "Maximo son 50 caracteres")]
+        public string Direccion {
             get { return direccion; }
             set { SetProperty(ref direccion, value); }
         }
 
         private string personalidad;
-        public string Personalidad
-        {
-            get { return personalidad; }
-            set { SetProperty(ref personalidad, value); }
+        [StringLength(150, ErrorMessage = "Maximo son 150 caracteres")]
+        public string Personalidad {
+            get { return dni; }
+            set { SetProperty(ref dni, value); }
         }
 
-        private Persona persona;
-        public virtual Persona Persona
-        {
-            get { return persona; }
-            set { SetProperty(ref persona, value); }
+        private Persona dniNavigation;
+        public virtual Persona DniNavigation {
+            get { return dniNavigation; }
+            set { SetProperty(ref dniNavigation, value); }
         }
 
         private ICollection<Historial> historial;
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Historial> Historial
-        {
+        public virtual ICollection<Historial> Historial {
             get { return historial; }
             set { SetProperty(ref historial, value); }
         }
 
-
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Viaje> Viaje { get; set; }
+        private ICollection<Viaje> viaje;
+        public virtual ICollection<Viaje> Viaje {
+            get { return viaje; }
+            set { SetProperty(ref viaje, value); }
+        }
     }
-    */
+     */
 
-    //FECHA: 17/07/20
+    //FECHA: 25/07/20
     #endregion
 }

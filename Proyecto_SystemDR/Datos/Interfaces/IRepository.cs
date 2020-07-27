@@ -12,5 +12,6 @@ namespace Datos.Interfaces
         bool Update(T obj);
         bool Delete(string ID);
         IEnumerable<T> GetAll();
+        bool Exists(string ID);
     }
 }
