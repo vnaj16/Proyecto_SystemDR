@@ -71,7 +71,7 @@ namespace Presentacion.Views.ClientesV
 
         public Cliente GetClienteBackup()
         {
-            if (!(copyCliente_Updated is null) && isUpdated)
+            if (!(copyCliente_Updated is null) && isUpdate)
             {
                 return copyCliente_Updated;
             }
@@ -86,18 +86,23 @@ namespace Presentacion.Views.ClientesV
             {
                 if (!isUpdate)
                 {
-                    if (String.IsNullOrWhiteSpace(newCliente.DniRl))
+                    if (MessageBox.Show("El RUC/DNI ingresado es correcto? (luego no se podrá modificar)"
+                        , "Confirmación", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                     {
-                        newCliente.DniRlNavigation = null;
-                    }
+                        if (String.IsNullOrWhiteSpace(newCliente.DniRl))
+                        {
+                            newCliente.DniRlNavigation = null;
+                        }
 
-                    isRegistered = true;
+                        isRegistered = true;
+                        this.Close();
+                    }
                 }
                 else
                 {
                     isUpdated = true;
+                    this.Close();
                 }
-                this.Close();
             }
             else
             {

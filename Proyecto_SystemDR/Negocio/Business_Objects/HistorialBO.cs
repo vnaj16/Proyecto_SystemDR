@@ -12,17 +12,17 @@ namespace Negocio.Business_Objects
     public class HistorialBO
     {
         private IHistorialRepository historialRepository;
-        private List<Historial> listaHistoriales;
+        //private List<Historial> listaHistoriales;
 
         public HistorialBO(IHistorialRepository historialRepository)
         {
             this.historialRepository = historialRepository;
-            GetAll();
+            //GetAll();
         }
 
         public List<Historial> GetAll() //READ
         {
-            if (listaHistoriales != null && listaHistoriales.Count != 0)
+            /*if (listaHistoriales != null && listaHistoriales.Count != 0)
             {
                 return listaHistoriales;
             }
@@ -35,104 +35,72 @@ namespace Negocio.Business_Objects
                     ClienteDTO obj = new ClienteDTO();
                     MyMapper.Map(x, obj);
                     listaClienteDTO.Add(obj);
-                }*/
+                }
 
                 return listaHistoriales;
-            }
+            }*/
+
+            return historialRepository.GetAll().ToList();
         }
 
         public bool Registrar(Historial obj)
         {
-            if (obj.Id>=0)//EVALUO CAMPOS OBLIGATORIOS
+            if (historialRepository.Exists(obj.Id.ToString()))//EVALUO SI YA EXISTE
             {
-                if (!listaHistoriales.Exists(x => x.Id == obj.Id))//EVALUO SI YA EXISTE
+                if (!String.IsNullOrEmpty(obj.DniConductor))
                 {
-                    try
-                    {
-                        //Primero verifico si se agrego de manera correcta a la DB, luego lo agrego a la Lista in Memory
-                        var Result = historialRepository.Insert(obj);
+                    var Result = historialRepository.Insert(obj);
 
-
-                        if (Result) listaHistoriales.Add(obj);
-
-                        return Result;
-                    }
-                    catch(Exception ex) { throw; }
+                    return Result;
                 }
                 else
                 {
-                    return false;
+                    throw new Exception("No existe conductor asignado");
                 }
             }
             else
             {
-                return false;
+                throw new Exception("Este historial ya existe");
             }
         }
 
         public bool Eliminar(int ID)
         {
-            if (ID !=0)//EVALUO CAMPOS OBLIGATORIOS
+            if (ID > 0)//EVALUO CAMPOS OBLIGATORIOS
             {
-                if (listaHistoriales.Exists(x => x.Id == ID))
+                if (historialRepository.Exists(ID.ToString()))
                 {
                     var result = historialRepository.Delete(ID.ToString());
-
-                    if (result) listaHistoriales.Remove(listaHistoriales.FirstOrDefault(x => x.Id == ID));
 
                     return result;
                 }
                 else
                 {
-                    return false;
+                    throw new Exception("No existe un historial con ese ID");
                 }
             }
             else
             {
-                return false;
+                throw new Exception("No hay ID asignado");
             }
         }
 
         public bool Actualizar(Historial obj)
         {
-            if (obj.Id != 0)//EVALUO CAMPOS OBLIGATORIOS
+            if (obj.Id > 0)//EVALUO CAMPOS OBLIGATORIOS
             {
-                var current = listaHistoriales.FirstOrDefault(x => x.Id == obj.Id);
-                if (!(current is null))//EVALUO SI YA EXISTE
+                if (historialRepository.Exists(obj.Id.ToString()))
                 {
-
-                    if (!String.IsNullOrWhiteSpace(obj.Descripcion))
-                    {
-                        current.Descripcion = obj.Descripcion;
-                    }
-
-                    if (!String.IsNullOrWhiteSpace(obj.Eventualidad))
-                    {
-                        current.Eventualidad = obj.Eventualidad;
-                    }
-
-                    if (String.IsNullOrWhiteSpace(current.Fecha.ToString()))
-                    {
-                        current.Fecha = obj.Fecha;
-                    }
-
-                    if (String.IsNullOrWhiteSpace(current.Lugar))
-                    {
-                        current.Lugar = obj.Lugar;
-                    }
-
-
-                    //Lo agrego a la lista en memoria, luego a la DB
-                    return historialRepository.Update(current);
+                    return historialRepository.Update(obj);
                 }
                 else
                 {
-                    return false;
+                    throw new Exception("No existe un historial con ese ID");
                 }
             }
             else
             {
-                return false;
+                throw new Exception("No hay ID asignado");
             }
         }
 

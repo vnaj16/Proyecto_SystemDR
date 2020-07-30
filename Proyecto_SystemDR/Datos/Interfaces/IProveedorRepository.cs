@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Datos.Interfaces
 {
-    public interface IProveedorRepository : IRepository<Proveedor>
+    public interface IProveedorRepository : IRepository<Proveedor>, IEmpresaRepository
     {
     }
 }

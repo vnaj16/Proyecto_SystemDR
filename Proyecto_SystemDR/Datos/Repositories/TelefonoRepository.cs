@@ -13,61 +13,46 @@ namespace Datos.Repositories
     {
         public bool Delete(string Numero)
         {
-            try
+
+            using (dbTransporteDRContext db = new dbTransporteDRContext())
             {
-                using (dbTransporteDRContext db = new dbTransporteDRContext())
+
+                Telefono telefono_db = db.Telefono.FirstOrDefault(x => x.Numero == Numero);
+
+                if (telefono_db == null)
                 {
-
-                    Telefono telefono_db = db.Telefono.FirstOrDefault(x => x.Numero == Numero);
-
-                    if (telefono_db == null)
-                    {
-                        throw new Exception($"El telefono con numero {Numero} no existe en la base de datos");
-                    }
-
-                    db.Telefono.Remove(telefono_db);
-
-                    db.SaveChanges();
-
-                    return true;
+                    throw new Exception($"El telefono con numero {Numero} no existe en la base de datos");
                 }
-            }
-            catch (Exception)
-            {
-                throw;
+
+                db.Telefono.Remove(telefono_db);
+
+                db.SaveChanges();
+
+                return true;
             }
 
         }
 
         public bool Exists(string Numero)
         {
-            try
+
+            using (dbTransporteDRContext db = new dbTransporteDRContext())
             {
-                using (dbTransporteDRContext db = new dbTransporteDRContext())
-                {
-                    return db.Telefono.ToList().Exists(x => x.Numero == Numero);
-                }
+                return db.Telefono.ToList().Exists(x => x.Numero == Numero);
             }
-            catch (Exception)
-            {
-                throw;
-            }
+
         }
 
         public IEnumerable<Telefono> GetAll()
         {
-            try
+
+            using (dbTransporteDRContext db = new dbTransporteDRContext())
             {
-                using (dbTransporteDRContext db = new dbTransporteDRContext())
-                {
-                    return db.Telefono.ToList();
-                }
-            }
-            catch (Exception)
-            {
-                throw;
+                return db.Telefono.ToList();
             }
         }
+
+
 
         /// <summary>
         /// 1. Verifico que venga tanto el numero como el DNI del dueño
@@ -78,32 +63,27 @@ namespace Datos.Repositories
         /// <returns></returns>
         public bool Insert(Telefono obj)
         {
-            try
+
+            using (dbTransporteDRContext db = new dbTransporteDRContext())
             {
-                using (dbTransporteDRContext db = new dbTransporteDRContext())
+                Persona personaAux = null;
+
+                if (!(obj.DniNavigation is null))
                 {
-                    Persona personaAux = null;
-
-                    if (!(obj.DniNavigation is null))
-                    {
-                        personaAux = obj.DniNavigation;
-                        obj.DniNavigation = null;
-                    }
-
-                    db.Telefono.Add(obj);
-
-                    db.SaveChanges();
-
-                    obj.DniNavigation = personaAux;
-
-                    return true;
+                    personaAux = obj.DniNavigation;
+                    obj.DniNavigation = null;
                 }
-            }
-            catch (Exception)
-            {
 
-                throw;
+                db.Telefono.Add(obj);
+
+                db.SaveChanges();
+
+                obj.DniNavigation = personaAux;
+
+                return true;
             }
+
+
 
         }
 
@@ -117,26 +97,22 @@ namespace Datos.Repositories
         /// <returns></returns>
         public bool Update(Telefono obj)
         {
-            try
+
+            using (dbTransporteDRContext db = new dbTransporteDRContext())
             {
-                using (dbTransporteDRContext db = new dbTransporteDRContext())
+                Telefono tlfAntiguo = db.Telefono.FirstOrDefault(x => x.Numero == obj.NumeroAntiguo);
+                if (Delete(obj.NumeroAntiguo))
                 {
-                    Telefono tlfAntiguo = db.Telefono.FirstOrDefault(x => x.Numero == obj.NumeroAntiguo);
-                    if (Delete(obj.NumeroAntiguo))
-                    {
-                        return Insert(obj);
-                    }
-                    else
-                    {
-                        throw new Exception("Ocurrio un error al actualizar telefono" + Environment.NewLine
-                            + "Se recomienda mejor eliminar el número y agregar el nuevo");
-                    }
+                    return Insert(obj);
+                }
+                else
+                {
+                    throw new Exception("Ocurrio un error al actualizar telefono" + Environment.NewLine
+                        + "Se recomienda mejor eliminar el número y agregar el nuevo");
                 }
             }
-            catch (Exception)
-            {
-                throw;
-            }
+
         }
     }
 }
+

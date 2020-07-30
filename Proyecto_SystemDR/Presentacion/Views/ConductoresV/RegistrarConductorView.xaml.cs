@@ -35,12 +35,14 @@ namespace Presentacion.Views.ConductoresV
 
             if (!isUpdate)
             {
-                newConductor = new Conductor() { 
+                newConductor = new Conductor()
+                {
                     DniNavigation = new Persona()
                 };
             }
             else
             {
+                TextBox_DNI.IsEnabled = false;
                 newConductor = obj;
                 copyConductor_Updated = new Conductor();
 
@@ -85,18 +87,23 @@ namespace Presentacion.Views.ConductoresV
             {
                 if (!isUpdate)
                 {
-                    if (String.IsNullOrWhiteSpace(newConductor.DniNavigation.Dni))
+                    if (MessageBox.Show("El DNI ingresado es correcto? (luego no se podrá modificar)"
+    , "Confirmación", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                     {
-                        newConductor.DniNavigation.Dni = newConductor.Dni;
-                    }
+                        if (String.IsNullOrWhiteSpace(newConductor.DniNavigation.Dni))
+                        {
+                            newConductor.DniNavigation.Dni = newConductor.Dni;
+                        }
 
-                    isRegistered = true;
+                        isRegistered = true;
+                        this.Close();
+                    }
                 }
                 else
                 {
                     isUpdated = true;
+                    this.Close();
                 }
-                this.Close();
             }
             else
             {

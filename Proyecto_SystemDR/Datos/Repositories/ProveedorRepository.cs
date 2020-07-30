@@ -14,139 +14,131 @@ namespace Datos.Repositories
     {
         public bool Delete(string Ruc)
         {
-            try
+
+            using (dbTransporteDRContext db = new dbTransporteDRContext())
             {
-                using (dbTransporteDRContext db = new dbTransporteDRContext())
+                var proveedor_db = db.Proveedor.FirstOrDefault(x => x.Ruc == Ruc);
+
+                if (proveedor_db == null)
                 {
-                    var proveedor_db = db.Proveedor.FirstOrDefault(x => x.Ruc == Ruc);
-
-                    if (proveedor_db == null)
-                    {
-                        throw new Exception($"El proveedor con ruc {Ruc} ya no se encuentra en la Base de Datos");
-                    }
-
-                    db.Proveedor.Remove(proveedor_db);
-
-                    db.SaveChanges();
-
-                    return true;
+                    throw new Exception($"El proveedor con ruc {Ruc} ya no se encuentra en la Base de Datos");
                 }
-            }
-            catch (Exception)
-            {
-                throw;
+
+                db.Proveedor.Remove(proveedor_db);
+
+                db.SaveChanges();
+
+                return true;
             }
 
         }
 
         public bool Exists(string Ruc)
         {
-            try
+
+            using (dbTransporteDRContext db = new dbTransporteDRContext())
             {
-                using (dbTransporteDRContext db = new dbTransporteDRContext())
-                {
-                    return db.Proveedor.ToList().Exists(x => x.Ruc == Ruc);
-                }
+                return db.Proveedor.ToList().Exists(x => x.Ruc == Ruc);
             }
-            catch (Exception)
-            {
-                throw;
-            }
+
         }
 
         public IEnumerable<Proveedor> GetAll()
         {
-            try
+
+            using (dbTransporteDRContext db = new dbTransporteDRContext())
             {
-                using (dbTransporteDRContext db = new dbTransporteDRContext())
-                {
-                    return db.Proveedor.Include(x => x.DniRlNavigation).ThenInclude(x => x.Telefono).ToList();
-                }
+                return db.Proveedor.Include(x => x.DniRlNavigation).ThenInclude(x => x.Telefono).ToList();
             }
-            catch (Exception)
+        }
+
+
+
+        public bool HasRepresent(string RUC, out string IdRepresent)
+        {
+            using (dbTransporteDRContext db = new dbTransporteDRContext())
             {
-                throw;
+
+                var representante = db.Proveedor.Include(x => x.DniRlNavigation).FirstOrDefault(x => x.Ruc == RUC).DniRlNavigation;
+
+                if (representante is null)
+                {
+                    IdRepresent = null;
+                    return false;
+                }
+                IdRepresent = representante.Dni;
+
+                return true;
+
             }
         }
 
         public bool Insert(Proveedor obj)
         {
-            try
+
+            using (dbTransporteDRContext db = new dbTransporteDRContext())
             {
-                using (dbTransporteDRContext db = new dbTransporteDRContext())
+                Persona personaAux = null;
+                if (!(obj.DniRlNavigation is null))
                 {
-                    Persona personaAux = null;
-                    if (!(obj.DniRlNavigation is null))
-                    {
-                        personaAux = obj.DniRlNavigation;
-                        obj.DniRlNavigation = null;
-                    }
-
-                    db.Proveedor.Add(obj);
-
-                    db.SaveChanges();
-
-                    obj.DniRlNavigation = personaAux;
-
-                    return true;
+                    personaAux = obj.DniRlNavigation;
+                    obj.DniRlNavigation = null;
                 }
+
+                db.Proveedor.Add(obj);
+
+                db.SaveChanges();
+
+                obj.DniRlNavigation = personaAux;
+
+                return true;
             }
-            catch (Exception)
-            {
-                throw;
-            }
+
         }
 
         public bool Update(Proveedor obj)
         {
-            try
+
+            using (dbTransporteDRContext db = new dbTransporteDRContext())
             {
-                using (dbTransporteDRContext db = new dbTransporteDRContext())
+                var obj_db = db.Proveedor.FirstOrDefault(x => x.Ruc == obj.Ruc);
+                if (!(obj_db is null))
                 {
-                    var obj_db = db.Proveedor.FirstOrDefault(x => x.Ruc == obj.Ruc);
-                    if (!(obj_db is null))
+                    if (!String.IsNullOrWhiteSpace(obj.Direccion))
                     {
-                        if (!String.IsNullOrWhiteSpace(obj.Direccion))
-                        {
-                            obj_db.Direccion = obj.Direccion;
-                        }
-
-                        if (!String.IsNullOrWhiteSpace(obj.RazonSocial))
-                        {
-                            obj_db.RazonSocial = obj.RazonSocial;
-                        }
-
-                        if (!String.IsNullOrWhiteSpace(obj.Productos))
-                        {
-                            obj_db.Productos = obj.Productos;
-                        }
-
-                        if (!String.IsNullOrWhiteSpace(obj.Tipo))
-                        {
-                            obj_db.Tipo = obj.Tipo;
-                        }
-
-                        if (String.IsNullOrWhiteSpace(obj_db.DniRl))
-                        {
-                            obj_db.DniRl = obj.DniRl;
-                        }
-
-
-                        db.SaveChanges();
-
-                        return true;
+                        obj_db.Direccion = obj.Direccion;
                     }
-                    else
+
+                    if (!String.IsNullOrWhiteSpace(obj.RazonSocial))
                     {
-                        throw new Exception($"El proveedor con ruc {obj.Ruc} no existe en la Base de Datos");
+                        obj_db.RazonSocial = obj.RazonSocial;
                     }
+
+                    if (!String.IsNullOrWhiteSpace(obj.Productos))
+                    {
+                        obj_db.Productos = obj.Productos;
+                    }
+
+                    if (!String.IsNullOrWhiteSpace(obj.Tipo))
+                    {
+                        obj_db.Tipo = obj.Tipo;
+                    }
+
+                    if (String.IsNullOrWhiteSpace(obj_db.DniRl))
+                    {
+                        obj_db.DniRl = obj.DniRl;
+                    }
+
+
+                    db.SaveChanges();
+
+                    return true;
+                }
+                else
+                {
+                    throw new Exception($"El proveedor con ruc {obj.Ruc} no existe en la Base de Datos");
                 }
             }
-            catch (Exception)
-            {
-                throw;
-            }
-
         }
     }
 }

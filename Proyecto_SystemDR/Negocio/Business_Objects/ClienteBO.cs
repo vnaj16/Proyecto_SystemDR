@@ -49,16 +49,17 @@ namespace Negocio.Business_Objects
             {
                 if (!clienteRepository.Exists(obj.Ruc))//EVALUO SI YA EXISTE
                 {
-                    //Si tiene DNI, debe tener persona, si no tiene, la creo
+                    //Si tiene DNI, debe tener persona
                     if (!String.IsNullOrWhiteSpace(obj.DniRl))
                     {
-                        if (obj.DniRlNavigation is null)
+                        if (obj.DniRlNavigation is null)//si no tiene, la creo
                         {
                             obj.DniRlNavigation = new Persona() { Dni = obj.DniRl, Tipo = "cli" };
                         }
                         else
                         {
                             obj.DniRlNavigation.Dni = obj.DniRl;
+                            obj.DniRlNavigation.Tipo = "cli";
                         }
 
                         PersonaRepository personaRepository = new PersonaRepository();
@@ -66,13 +67,10 @@ namespace Negocio.Business_Objects
                         {
                             personaRepository.Insert(obj.DniRlNavigation);
                         }
-
                     }
 
-                    //Primero verifico si se agrego de manera correcta a la DB, luego lo agrego a la Lista in Memory
+                    //Primero verifico si se agrego de manera correcta a la DB
                     var Result = clienteRepository.Insert(obj);
-
-                    //if(Result) listaClientes.Add(obj);
 
                     return Result;
                 }
@@ -110,32 +108,39 @@ namespace Negocio.Business_Objects
                 {
                     PersonaRepository personaRepository = new PersonaRepository();
                     #region PERSONAREPOSITORY
-                    //Si tiene DNI, debe tener persona, sino tiene, la creo
+                    //Si tiene DNI, debe tener persona
                     if (!String.IsNullOrWhiteSpace(obj.DniRl))
                     {
-                        if (obj.DniRlNavigation is null)
+                        if (obj.DniRlNavigation is null)//Si no tiene, la creo
                         {
                             obj.DniRlNavigation = new Persona() { Dni = obj.DniRl, Tipo = "cli" };
                         }
                         else
                         {
                             obj.DniRlNavigation.Dni = obj.DniRl;
+                            obj.DniRlNavigation.Tipo = "cli";
                         }
 
-                        if (personaRepository.Exists(obj.DniRlNavigation.Dni))
+                        if (clienteRepository.HasRepresent(obj.Ruc, out string Dni) && Dni == obj.DniRlNavigation.Dni)
                         {
                             personaRepository.Update(obj.DniRlNavigation);
                         }
                         else
                         {
-                            personaRepository.Insert(obj.DniRlNavigation);
+                            if (personaRepository.Exists(obj.DniRlNavigation.Dni))
+                            {
+                                throw new Exception("Este representante legal ya se encuentra registrado");
+                            }
+                            else
+                            {
+                                personaRepository.Insert(obj.DniRlNavigation);
+                            }
                         }
+                        //Si este cliente tiene representante legal, actualiza, si no tiene, verificar que no exista ya ese cliente para registrarlo
                     }
                     #endregion
                     return clienteRepository.Update(obj);
                 }
-
-
                 else
                 {
                     throw new Exception("No existe un cliente con ese RUC");

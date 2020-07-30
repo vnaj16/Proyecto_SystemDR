@@ -15,7 +15,7 @@ namespace Entidades
         private string ruc;
 
         [Required(ErrorMessage = "El campo RUC es obligatorio")]
-        [StringLength(15, ErrorMessage = "Error en el formato del RUC", MinimumLength = 8)]
+        [StringLength(15, ErrorMessage = "Error en el formato del RUC", MinimumLength = 6)]
         [RegularExpression("^[0-9]+$", ErrorMessage = "Solo números")]
         public string Ruc
         {

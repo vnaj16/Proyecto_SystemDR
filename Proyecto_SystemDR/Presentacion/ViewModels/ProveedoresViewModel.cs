@@ -23,30 +23,19 @@ namespace Presentacion.ViewModels
 
         private ProveedoresViewModel()
         {
-            //listaProveedores = new ObservableCollection<Proveedor>(TransporteDR..GetAll());
-
-            listaProveedores = new ObservableCollection<Proveedor>(TransporteDR.ProveedorBO.GetAll());
-
-            /*//PRUEBA LOCAL
-            listaProveedores.Add(new Proveedor()
-            {
-                RUC = "75412416",
-                Razon_Social = "Meca Razon",
-                Direccion = "OLOS",
-                Persona = new Persona()
-                {
-                    DNI = "78454545",
-                    Nombre = "Luis",
-                    Apellido="Orteha"
-                }
-            });*/
-
-            ListaProveedoresAux = ListaProveedores; //Este es otra referencia a la Lista que traigo de la DB, me sirve para cuando tenga que cambiar la lista que se muestra
+            LoadData();
 
             AgregarCommand = new DelegateCommand(Execute_AgregarCommand);
             ActualizarCommand = new DelegateCommand(Execute_ActualizarCommand, CanExecute_ActualizarCommand).ObservesProperty(() => CurrentProveedor);
             DeleteCommand = new DelegateCommand(Execute_DeleteCommand, CanExecute_DeleteCommand).ObservesProperty(() => CurrentProveedor);
             VerTelefonosCommand = new DelegateCommand(Execute_VerTelefonosCommand, CanExecute_VerTelefonosCommand).ObservesProperty(() => CurrentProveedor);
+        }
+
+        public void LoadData()
+        {
+            ListaProveedores = new ObservableCollection<Proveedor>(TransporteDR.ProveedorBO.GetAll());
+
+            ListaProveedoresAux = ListaProveedores; //Este es otra referencia a la Lista que traigo de la DB, me sirve para cuando tenga que cambiar la lista que se muestra
         }
         public static ProveedoresViewModel Instance
         {
@@ -94,8 +83,11 @@ namespace Presentacion.ViewModels
                     //Primero se lo paso a la capa negocio para que lo registre, si lo registra, lo pongo en la capa Presentacion
                     if (TransporteDR.ProveedorBO.Registrar(newProveedor))
                     {
-                        ListaProveedores.Add(newProveedor);
-                        CurrentProveedor = newProveedor;
+                        LoadData();
+                        CurrentProveedor = ListaProveedores.FirstOrDefault(x => x.Ruc == newProveedor.Ruc);
+
+                        /*ListaProveedores.Add(newProveedor);
+                        CurrentProveedor = newProveedor;*/
 
                         MessageBox.Show($"{newProveedor.Ruc} Registrado con exito");
                     }
@@ -107,7 +99,10 @@ namespace Presentacion.ViewModels
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
-                    MessageBox.Show(ex.StackTrace);
+                    if (!(ex.InnerException is null))
+                    {
+                        MessageBox.Show(ex.InnerException.Message);
+                    }
                 }
 
 
@@ -149,7 +144,10 @@ namespace Presentacion.ViewModels
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
-                    MessageBox.Show(ex.StackTrace);
+                    if (!(ex.InnerException is null))
+                    {
+                        MessageBox.Show(ex.InnerException.Message);
+                    }
                 }
 
             }
@@ -186,7 +184,8 @@ namespace Presentacion.ViewModels
                             {
                                 if (TransporteDR.ProveedorBO.Eliminar(CurrentProveedor.Ruc))
                                 {
-                                    ListaProveedores.Remove(CurrentProveedor);
+                                    LoadData();
+                                    //ListaProveedores.Remove(CurrentProveedor);
 
                                     CurrentProveedor = null;
 
@@ -200,7 +199,10 @@ namespace Presentacion.ViewModels
                             catch (Exception ex)
                             {
                                 MessageBox.Show(ex.Message);
-                                MessageBox.Show(ex.StackTrace);
+                                if (!(ex.InnerException is null))
+                                {
+                                    MessageBox.Show(ex.InnerException.Message);
+                                }
                             }
 
                             break;

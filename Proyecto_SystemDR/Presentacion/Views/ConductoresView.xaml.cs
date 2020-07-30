@@ -53,6 +53,9 @@ namespace Presentacion.Views
                     instance = new ConductoresView();
                 }
 
+                ConductoresViewModel.Instance.LoadData();//Para traer la data de la DB cada vez que inicie esta View
+
+
                 return instance;
             }
         }
@@ -94,6 +97,11 @@ namespace Presentacion.Views
                 CustomHistorialesView customHistorialesView = new CustomHistorialesView(ConductoresViewModel.Instance.CurrentConductor.Dni, FilterTypeSearchHistorial.DNI);
                 customHistorialesView.ShowDialog();
             }
+        }
+
+        private void Button_Refresh_Click(object sender, RoutedEventArgs e)
+        {
+            ConductoresViewModel.Instance.LoadData();
         }
     }
 }

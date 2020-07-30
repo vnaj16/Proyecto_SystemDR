@@ -12,17 +12,17 @@ namespace Negocio.Business_Objects
     public class ProveedorBO
     {
         private IProveedorRepository proveedorRepository;
-        private List<Proveedor> listaProveedores;
+        //private List<Proveedor> listaProveedores;
 
         public ProveedorBO(IProveedorRepository proveedorRepository)
         {
             this.proveedorRepository = proveedorRepository;
-            GetAll();
+            //GetAll();
         }
 
         public List<Proveedor> GetAll() //READ
         {
-            if (listaProveedores != null && listaProveedores.Count != 0)
+            /*if (listaProveedores != null && listaProveedores.Count != 0)
             {
                 return listaProveedores;
             }
@@ -35,45 +35,45 @@ namespace Negocio.Business_Objects
                     ClienteDTO obj = new ClienteDTO();
                     MyMapper.Map(x, obj);
                     listaClienteDTO.Add(obj);
-                }*/
+                }
 
                 return listaProveedores;
-            }
+            }*/
+
+            return proveedorRepository.GetAll().ToList();
         }
 
         public bool Registrar(Proveedor obj)
         {
             if (!String.IsNullOrWhiteSpace(obj.Ruc))//EVALUO CAMPOS OBLIGATORIOS
             {
-                if (!listaProveedores.Exists(x => x.Ruc == obj.Ruc))//EVALUO SI YA EXISTE
+                if (!proveedorRepository.Exists(obj.Ruc))//EVALUO SI YA EXISTE
                 {
-                    //Si tiene DNI, debe tener persona, sino tiene, la creo
+                    //Si tiene DNI, debe tener persona
                     if (!String.IsNullOrWhiteSpace(obj.DniRl))
                     {
                         if (obj.DniRlNavigation is null)
                         {
-                            obj.DniRlNavigation = new Persona() { Dni = obj.DniRl };
+                            obj.DniRlNavigation = new Persona() { Dni = obj.DniRl, Tipo = "pro" };
                         }
                         else
                         {
                             obj.DniRlNavigation.Dni = obj.DniRl;
+                            obj.DniRlNavigation.Tipo = "pro";
+                        }
+
+                        PersonaRepository personaRepository = new PersonaRepository();
+                        if (!personaRepository.Exists(obj.DniRlNavigation.Dni))
+                        {
+                            personaRepository.Insert(obj.DniRlNavigation);
                         }
                     }
 
-                    try
-                    {
-                        //Primero verifico si se agrego de manera correcta a la DB, luego lo agrego a la Lista in Memory
-                        var Result = proveedorRepository.Insert(obj);
+                    //Primero verifico si se agrego de manera correcta a la DB, luego lo agrego a la Lista in Memory
+                    var Result = proveedorRepository.Insert(obj);
 
-                        if (Result) listaProveedores.Add(obj);
+                    return Result;
 
-                        return Result;
-                    }
-                    catch (Exception ex)
-                    {
-
-                        throw;
-                    }
                 }
                 else
                 {
@@ -90,79 +90,44 @@ namespace Negocio.Business_Objects
         {
             if (!String.IsNullOrWhiteSpace(obj.Ruc))//EVALUO CAMPOS OBLIGATORIOS
             {
-                Proveedor current = listaProveedores.FirstOrDefault(x => x.Ruc == obj.Ruc);
-                if (!(current is null))//EVALUO SI YA EXISTE
+                if (proveedorRepository.Exists(obj.Ruc))
                 {
-
-                    if (!String.IsNullOrWhiteSpace(obj.Direccion))
-                    {
-                        current.Direccion = obj.Direccion;
-                    }
-
-                    if (!String.IsNullOrWhiteSpace(obj.RazonSocial))
-                    {
-                        current.RazonSocial = obj.RazonSocial;
-                    }
-
-
-                    if (String.IsNullOrWhiteSpace(current.DniRl))
-                    {
-                        current.DniRl = obj.DniRl;
-                    }
-
-
-                    //Si tiene DNI, debe tener persona, sino tiene, la creo
+                    PersonaRepository personaRepository = new PersonaRepository();
+                    #region PERSONAREPOSITORY
+                    //Si tiene DNI, debe tener persona
                     if (!String.IsNullOrWhiteSpace(obj.DniRl))
                     {
-                        if (obj.DniRlNavigation is null)
+                        if (obj.DniRlNavigation is null)//Si no tiene, la creo
                         {
-                            if (current.DniRlNavigation is null)
-                                current.DniRlNavigation = new Persona() { Dni = current.DniRl, Tipo = "pro" };
+                            obj.DniRlNavigation = new Persona() { Dni = obj.DniRl, Tipo = "pro" };
                         }
                         else
                         {
-                            if (current.DniRlNavigation is null)
+                            obj.DniRlNavigation.Dni = obj.DniRl;
+                            obj.DniRlNavigation.Tipo = "pro";
+                        }
+
+                        if (proveedorRepository.HasRepresent(obj.Ruc, out string Dni) && Dni == obj.DniRlNavigation.Dni)
+                        {
+                            personaRepository.Update(obj.DniRlNavigation);
+                        }
+                        else
+                        {
+                            if (personaRepository.Exists(obj.DniRlNavigation.Dni))
                             {
-                                current.DniRlNavigation = obj.DniRlNavigation;
+                                throw new Exception("Este representante legal ya se encuentra registrado");
                             }
                             else
                             {
-                                //MAPEO
-                                if (!String.IsNullOrWhiteSpace(obj.DniRlNavigation.Nombre))
-                                {
-                                    current.DniRlNavigation.Nombre = obj.DniRlNavigation.Nombre;
-                                }
-
-                                if (!String.IsNullOrWhiteSpace(obj.DniRlNavigation.Apellido))
-                                {
-                                    current.DniRlNavigation.Apellido = obj.DniRlNavigation.Apellido;
-                                }
-
-                                if (!String.IsNullOrWhiteSpace(obj.DniRlNavigation.FechaNac.ToString()))
-                                {
-                                    current.DniRlNavigation.FechaNac = obj.DniRlNavigation.FechaNac;
-                                }
-
-                                if (!String.IsNullOrWhiteSpace(obj.DniRlNavigation.Nacionalidad))
-                                {
-                                    current.DniRlNavigation.Nacionalidad = obj.DniRlNavigation.Nacionalidad;
-                                }
-
+                                personaRepository.Insert(obj.DniRlNavigation);
                             }
                         }
+                        //Si este cliente tiene representante legal, actualiza, si no tiene, verificar que no exista ya ese cliente para registrarlo
                     }
+                    #endregion
 
-                    try
-                    {
-                        //Lo agrego a la lista en memoria, luego a la DB
-                        return proveedorRepository.Update(current);
-                    }
-                    catch (Exception)
-                    {
-
-                        throw;
-                    }
-
+                    //Lo agrego a la lista en memoria, luego a la DB
+                    return proveedorRepository.Update(obj);
                 }
                 else
                 {
@@ -175,33 +140,32 @@ namespace Negocio.Business_Objects
             }
         }
 
-        public bool Eliminar(string RUC)
+        public bool Eliminar(string Ruc)
         {
-            if (!String.IsNullOrWhiteSpace(RUC))//EVALUO CAMPOS OBLIGATORIOS
+            if (!String.IsNullOrWhiteSpace(Ruc))//EVALUO CAMPOS OBLIGATORIOS
             {
-                if (listaProveedores.Exists(x => x.Ruc == RUC))
+                if (proveedorRepository.Exists(Ruc))
                 {
-                    try
+                    bool resultp = true;
+                    PersonaRepository personaRepository = new PersonaRepository();
+                    if (proveedorRepository.HasRepresent(Ruc, out string DniRepresent))
                     {
-                        var result = proveedorRepository.Delete(RUC);
-
-                        if (result) listaProveedores.Remove(listaProveedores.FirstOrDefault(x => x.Ruc == RUC));
-
-                        return result;
+                        resultp = personaRepository.Delete(DniRepresent);
                     }
-                    catch (Exception)
-                    {
-                        throw;
-                    }
+                    var result = proveedorRepository.Delete(Ruc);
+
+                    //if (result) listaClientes.Remove(listaClientes.FirstOrDefault(x => x.Ruc == Ruc));
+
+                    return result && resultp;
                 }
                 else
                 {
-                    throw new Exception("Ese Proveedor no existe");
+                    throw new Exception("No existe un proveedor con ese RUC");
                 }
             }
             else
             {
-                throw new Exception("RUC vacio");
+                throw new Exception("El RUC esta vacio");
             }
         }
     }

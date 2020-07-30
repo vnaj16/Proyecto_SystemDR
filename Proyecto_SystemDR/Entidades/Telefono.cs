@@ -17,7 +17,6 @@ namespace Entidades
         }
 
         private string dni;
-        [Required(ErrorMessage = "El campo dni es obligatorio")]
         [StringLength(15, ErrorMessage = "Maximo 15 digitos")]
         public string Dni {
             get { return dni; }

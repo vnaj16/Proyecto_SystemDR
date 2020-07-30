@@ -39,12 +39,14 @@ namespace Presentacion.Views.ProveedoresV
             }
             else
             {
+                TextBox_RUC.IsEnabled = false;
                 newProveedor = obj;
                 copyProveedor_Updated = new Proveedor();
 
                 if (!(obj.DniRlNavigation is null))
                 {
                     copyProveedor_Updated.DniRlNavigation = new Persona();
+                    TextBox_DNI.IsEnabled = false;
                 }
 
                 CopyInstance(newProveedor, copyProveedor_Updated);
@@ -68,7 +70,7 @@ namespace Presentacion.Views.ProveedoresV
 
         public Proveedor GetProveedorBackup()
         {
-            if (!(copyProveedor_Updated is null) && isUpdated)
+            if (!(copyProveedor_Updated is null) && isUpdate)
             {
                 return copyProveedor_Updated;
             }
@@ -83,18 +85,24 @@ namespace Presentacion.Views.ProveedoresV
             {
                 if (!isUpdate)
                 {
-                    if (String.IsNullOrWhiteSpace(newProveedor.DniRl))
+                    if (MessageBox.Show("El RUC/DNI ingresado es correcto? (luego no se podrá modificar)"
+                        , "Confirmación", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                     {
-                        newProveedor.DniRlNavigation = null;
-                    }
+                        if (String.IsNullOrWhiteSpace(newProveedor.DniRl))
+                        {
+                            newProveedor.DniRlNavigation = null;
+                        }
 
-                    isRegistered = true;
+                        isRegistered = true;
+                        this.Close();
+                    }
                 }
                 else
                 {
                     isUpdated = true;
+                    this.Close();
                 }
-                this.Close();
+
             }
             else
             {

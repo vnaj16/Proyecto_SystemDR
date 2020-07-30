@@ -25,59 +25,45 @@ namespace Datos.Repositories
         /// <returns></returns>
         public bool Delete(string Dni)
         {
-            try
+            using (dbTransporteDRContext db = new dbTransporteDRContext())
             {
-                using (dbTransporteDRContext db = new dbTransporteDRContext())
+
+                var conductor_db = db.Conductor.FirstOrDefault(x => x.Dni == Dni);
+
+                if (conductor_db == null)
                 {
-
-                    var conductor_db = db.Conductor.FirstOrDefault(x => x.Dni == Dni);
-
-                    if (conductor_db == null)
-                    {
-                        throw new Exception($"El conductor con dni {Dni} no existe en la base de datos");
-                    }
-
-                    db.Conductor.Remove(conductor_db);
-
-                    db.SaveChanges();
-
-                    return true;
+                    throw new Exception($"El conductor con dni {Dni} no existe en la base de datos");
                 }
-            }
-            catch (Exception)
-            {
-                throw;
+
+                db.Conductor.Remove(conductor_db);
+
+                db.SaveChanges();
+
+                return true;
             }
         }
 
         public bool Exists(string Dni)
         {
-            try
+
+            using (dbTransporteDRContext db = new dbTransporteDRContext())
             {
-                using (dbTransporteDRContext db = new dbTransporteDRContext())
-                {
-                    return db.Conductor.ToList().Exists(x => x.Dni == Dni);
-                }
+                return db.Conductor.ToList().Exists(x => x.Dni == Dni);
             }
-            catch (Exception)
-            {
-                throw;
-            }
+
+
         }
 
         public IEnumerable<Conductor> GetAll()
         {
-            try
+
+            using (dbTransporteDRContext db = new dbTransporteDRContext())
             {
-                using (dbTransporteDRContext db = new dbTransporteDRContext())
-                {
-                    return db.Conductor.Include(x => x.DniNavigation).ThenInclude(x => x.Telefono).Include(x => x.Historial).ToList();
-                }
+                var Lista = db.Conductor.Include(x => x.DniNavigation).ThenInclude(x => x.Telefono).Include(x => x.Historial).ToList();
+
+                return Lista;
             }
-            catch (Exception)
-            {
-                throw;
-            }
+
 
         }
 
@@ -92,31 +78,26 @@ namespace Datos.Repositories
         /// <returns></returns>
         public bool Insert(Conductor obj)
         {
-            try
+
+            using (dbTransporteDRContext db = new dbTransporteDRContext())
             {
-                using (dbTransporteDRContext db = new dbTransporteDRContext())
+                Persona personaAux = null;
+                if (!(obj.DniNavigation is null))
                 {
-                    Persona personaAux = null;
-                    if (!(obj.DniNavigation is null))
-                    {
-                        personaAux = obj.DniNavigation;
-                        obj.DniNavigation = null;
-                    }
-
-                    db.Conductor.Add(obj);
-
-                    db.SaveChanges();
-
-
-                    obj.DniNavigation = personaAux;
-
-                    return true;
+                    personaAux = obj.DniNavigation;
+                    obj.DniNavigation = null;
                 }
+
+                db.Conductor.Add(obj);
+
+                db.SaveChanges();
+
+
+                obj.DniNavigation = personaAux;
+
+                return true;
             }
-            catch (Exception)
-            {
-                throw;
-            }
+
 
         }
 
@@ -132,38 +113,33 @@ namespace Datos.Repositories
         /// <returns></returns>
         public bool Update(Conductor obj)
         {
-            try
+
+            using (dbTransporteDRContext db = new dbTransporteDRContext())
             {
-                using (dbTransporteDRContext db = new dbTransporteDRContext())
+                var obj_db = db.Conductor.FirstOrDefault(x => x.Dni == obj.Dni);
+
+                if (obj_db is null)
                 {
-                    var obj_db = db.Conductor.FirstOrDefault(x => x.Dni == obj.Dni);
-
-                    if (obj_db is null)
-                    {
-                        throw new Exception($"El conductor con Dni {obj.Dni} no existe en la Base de Datos");
-                    }
-
-                    if (!String.IsNullOrWhiteSpace(obj.Brevete)) obj_db.Brevete = obj.Brevete;
-
-                    if (!String.IsNullOrWhiteSpace(obj.Direccion)) obj_db.Direccion = obj.Direccion;
-
-                    if (!String.IsNullOrWhiteSpace(obj.Direccion)) obj_db.Direccion = obj.Direccion;
-
-                    if (!String.IsNullOrWhiteSpace(obj.FechaInicio.ToString())) obj_db.FechaInicio = obj.FechaInicio;
-
-                    if (!String.IsNullOrWhiteSpace(obj.GradoInstruccion)) obj_db.GradoInstruccion = obj.GradoInstruccion;
-
-                    if (!String.IsNullOrWhiteSpace(obj.LugarNac)) obj_db.LugarNac = obj.LugarNac;
-
-                    db.SaveChanges();
-
-                    return true;
+                    throw new Exception($"El conductor con Dni {obj.Dni} no existe en la Base de Datos");
                 }
+
+                if (!String.IsNullOrWhiteSpace(obj.Brevete)) obj_db.Brevete = obj.Brevete;
+
+                if (!String.IsNullOrWhiteSpace(obj.Direccion)) obj_db.Direccion = obj.Direccion;
+
+                if (!String.IsNullOrWhiteSpace(obj.Direccion)) obj_db.Direccion = obj.Direccion;
+
+                if (!String.IsNullOrWhiteSpace(obj.FechaInicio.ToString())) obj_db.FechaInicio = obj.FechaInicio;
+
+                if (!String.IsNullOrWhiteSpace(obj.GradoInstruccion)) obj_db.GradoInstruccion = obj.GradoInstruccion;
+
+                if (!String.IsNullOrWhiteSpace(obj.LugarNac)) obj_db.LugarNac = obj.LugarNac;
+
+                db.SaveChanges();
+
+                return true;
             }
-            catch (Exception)
-            {
-                throw;
-            }
+
         }
     }
 }

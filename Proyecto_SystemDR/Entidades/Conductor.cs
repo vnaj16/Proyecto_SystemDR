@@ -64,8 +64,8 @@ namespace Entidades
         private string personalidad;
         [StringLength(150, ErrorMessage = "Maximo son 150 caracteres")]
         public string Personalidad {
-            get { return dni; }
-            set { SetProperty(ref dni, value); }
+            get { return personalidad; }
+            set { SetProperty(ref personalidad, value); }
         }
 
         private Persona dniNavigation;

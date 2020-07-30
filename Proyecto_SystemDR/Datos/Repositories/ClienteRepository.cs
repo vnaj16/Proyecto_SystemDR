@@ -27,84 +27,54 @@ namespace Datos.Repositories
         /// <returns></returns>
         public bool Delete(string Ruc)
         {
-            try
+            using (dbTransporteDRContext db = new dbTransporteDRContext())
             {
-                using (dbTransporteDRContext db = new dbTransporteDRContext())
+
+                var cliente_db = db.Cliente.FirstOrDefault(x => x.Ruc == Ruc);
+
+                if (cliente_db == null)
                 {
-
-                    var cliente_db = db.Cliente.FirstOrDefault(x => x.Ruc == Ruc);
-
-                    if (cliente_db == null)
-                    {
-                        throw new Exception($"El cliente con ruc {Ruc} no existe en la base de datos");
-                    }
-
-                    db.Cliente.Remove(cliente_db);
-
-                    db.SaveChanges();
-
-                    return true;
-
+                    throw new Exception($"El cliente con ruc {Ruc} no existe en la base de datos");
                 }
-            }
-            catch (Exception)
-            {
 
-                throw;
+                db.Cliente.Remove(cliente_db);
+
+                db.SaveChanges();
+
+                return true;
             }
         }
 
         public bool Exists(string Ruc)
         {
-            try
+            using (dbTransporteDRContext db = new dbTransporteDRContext())
             {
-                using (dbTransporteDRContext db = new dbTransporteDRContext())
-                {
-                    return db.Cliente.ToList().Exists(x => x.Ruc == Ruc);
-                }
-            }
-            catch (Exception)
-            {
-                throw;
+                return db.Cliente.ToList().Exists(x => x.Ruc == Ruc);
             }
         }
 
         public IEnumerable<Cliente> GetAll()
         {//Aca podria ir un contador y determinar si se consulta varias veces, aplicar singleton para simular cache
-            try
+            using (dbTransporteDRContext db = new dbTransporteDRContext())
             {
-                using (dbTransporteDRContext db = new dbTransporteDRContext())
-                {
-                    return db.Cliente.Include(x => x.DniRlNavigation).ThenInclude(x => x.Telefono).ToList();
-                }
-            }
-            catch (Exception)
-            {
-                throw;
+                return db.Cliente.Include(x => x.DniRlNavigation).ThenInclude(x => x.Telefono).ToList();
             }
         }
 
         public bool HasRepresent(string RUC, out string IdRepresent)
         {
-            try
+            using (dbTransporteDRContext db = new dbTransporteDRContext())
             {
-                using (dbTransporteDRContext db = new dbTransporteDRContext())
+                var representante = db.Cliente.Include(x => x.DniRlNavigation).FirstOrDefault(x => x.Ruc == RUC).DniRlNavigation;
+
+                if (representante is null)
                 {
-                    var representante = db.Cliente.Include(x => x.DniRlNavigation).FirstOrDefault(x => x.Ruc == RUC).DniRlNavigation;
-
-                    if(representante is null)
-                    {
-                        IdRepresent = null;
-                        return false;
-                    }
-                    IdRepresent = representante.Dni;
-
-                    return true;
+                    IdRepresent = null;
+                    return false;
                 }
-            }
-            catch (Exception)
-            {
-                throw;
+                IdRepresent = representante.Dni;
+
+                return true;
             }
         }
 
@@ -120,29 +90,22 @@ namespace Datos.Repositories
         /// <returns></returns>
         public bool Insert(Cliente obj)
         {
-            try
+            using (dbTransporteDRContext db = new dbTransporteDRContext())
             {
-                using (dbTransporteDRContext db = new dbTransporteDRContext())
+                Persona personaAux = null;
+                if (!(obj.DniRlNavigation is null))
                 {
-                    Persona personaAux = null;
-                    if (!(obj.DniRlNavigation is null))
-                    {
-                        personaAux = obj.DniRlNavigation;
-                        obj.DniRlNavigation = null;
-                    }
-
-                    db.Cliente.Add(obj);
-
-                    db.SaveChanges();
-
-                    obj.DniRlNavigation = personaAux;
-
-                    return true;
+                    personaAux = obj.DniRlNavigation;
+                    obj.DniRlNavigation = null;
                 }
-            }
-            catch (Exception)
-            {
-                throw;
+
+                db.Cliente.Add(obj);
+
+                db.SaveChanges();
+
+                obj.DniRlNavigation = personaAux;
+
+                return true;
             }
         }
 
@@ -159,45 +122,37 @@ namespace Datos.Repositories
         /// <returns></returns>
         public bool Update(Cliente obj)
         {
-            try
+            using (dbTransporteDRContext db = new dbTransporteDRContext())
             {
-                using (dbTransporteDRContext db = new dbTransporteDRContext())
+                var cliente_db = db.Cliente.FirstOrDefault(x => x.Ruc == obj.Ruc);
+                if (!(cliente_db is null))
                 {
-                    var cliente_db = db.Cliente.FirstOrDefault(x => x.Ruc == obj.Ruc);
-                    if (!(cliente_db is null))
+                    if (!String.IsNullOrWhiteSpace(obj.Direccion))
                     {
-                        if (!String.IsNullOrWhiteSpace(obj.Direccion))
-                        {
-                            cliente_db.Direccion = obj.Direccion;
-                        }
-                        if (!String.IsNullOrWhiteSpace(obj.RazonSocial))
-                        {
-                            cliente_db.RazonSocial = obj.RazonSocial;
-                        }
-                        if (!String.IsNullOrWhiteSpace(obj.Tipo))
-                        {
-                            cliente_db.Tipo = obj.Tipo;
-                        }
-                        if (!String.IsNullOrWhiteSpace(obj.DniRl))
-                        {
-                            cliente_db.DniRl = obj.DniRl;
-                        }
-
-
-                        db.SaveChanges();
-
-                        return true;
+                        cliente_db.Direccion = obj.Direccion;
                     }
-                    else
+                    if (!String.IsNullOrWhiteSpace(obj.RazonSocial))
                     {
-                        throw new Exception($"El cliente con ruc {obj.Ruc} no existe en la Base de Datos");
+                        cliente_db.RazonSocial = obj.RazonSocial;
                     }
+                    if (!String.IsNullOrWhiteSpace(obj.Tipo))
+                    {
+                        cliente_db.Tipo = obj.Tipo;
+                    }
+                    if (!String.IsNullOrWhiteSpace(obj.DniRl))
+                    {
+                        cliente_db.DniRl = obj.DniRl;
+                    }
+
+
+                    db.SaveChanges();
+
+                    return true;
                 }
-            }
-            catch (Exception)
-            {
-
-                throw;
+                else
+                {
+                    throw new Exception($"El cliente con ruc {obj.Ruc} no existe en la Base de Datos");
+                }
             }
         }
     }

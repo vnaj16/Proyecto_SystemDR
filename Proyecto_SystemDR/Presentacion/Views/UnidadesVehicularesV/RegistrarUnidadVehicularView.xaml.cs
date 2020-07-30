@@ -39,6 +39,8 @@ namespace Presentacion.Views.UnidadesVehicularesV
             }
             else
             {
+                TextBox_Placa.IsEnabled = false;
+
                 newUnidadVehicular = obj;
                 copyUnidadVehicular_Updated = new UnidadVehicular();
 
@@ -63,7 +65,7 @@ namespace Presentacion.Views.UnidadesVehicularesV
 
         public UnidadVehicular GetUnidadVehicularBackup()
         {
-            if (!(copyUnidadVehicular_Updated is null) && isUpdated)
+            if (!(copyUnidadVehicular_Updated is null) && isUpdate)
             {
                 return copyUnidadVehicular_Updated;
             }
@@ -78,13 +80,19 @@ namespace Presentacion.Views.UnidadesVehicularesV
             {
                 if (!isUpdate)
                 {
-                    isRegistered = true;
+                    if (MessageBox.Show("La Placa ingresada es correcta? (luego no se podrá modificar)"
+    , "Confirmación", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    {
+                        isRegistered = true;
+                        this.Close();
+                    }
                 }
                 else
                 {
                     isUpdated = true;
+                    this.Close();
                 }
-                this.Close();
+
             }
             else
             {

@@ -40,7 +40,7 @@
             <Label Foreground="{StaticResource MainColorForeground}" Margin="10" Grid.Row="0" Grid.Column="0">
                 <StackPanel>
                     <TextBlock Text="DNI" Style="{StaticResource h3-w}" Margin="0 0 0 2"/>
-                    <TextBox MinWidth="80" Style="{StaticResource StyleTextBox}" TabIndex="0" Text="{Binding Dni, Mode=TwoWay}"/>
+                    <TextBox x:Name="TextBox_DNI" MinWidth="80" Style="{StaticResource StyleTextBox}" TabIndex="0" Text="{Binding Dni, Mode=TwoWay}"/>
                 </StackPanel>
             </Label>
 

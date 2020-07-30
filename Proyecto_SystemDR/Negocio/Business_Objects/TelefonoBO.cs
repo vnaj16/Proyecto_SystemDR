@@ -22,39 +22,36 @@ namespace Negocio.Business_Objects
         {
             if (!String.IsNullOrWhiteSpace(obj.Numero) && !String.IsNullOrWhiteSpace(obj.Dni))
             {
-                var persona = obj.DniNavigation;
-                //Persona persona;
-                ////Primero jalo a ver si es cliente, luego si es proveedor, o sino por ultimo si es conductor
-                //if (TransporteDR.ClienteBO.GetAll().Exists(x => x.DNI == obj.DNI))
-                //{
-
-                //}
-                //else if(TransporteDR.ProveedorBO.GetAll().Exists(x => x.DNI == obj.DNI))
-                //{
-                //    persona = TransporteDR.ProveedorBO.GetAll().Find(x => x.DNI == obj.DNI).Persona;
-                //}
-                //else if(TransporteDR.ConductorBO.GetAll().Exists(x => x.DNI == obj.DNI)){
-                //    persona = TransporteDR.ConductorBO.GetAll().Find(x => x.DNI == obj.DNI).Persona;
-                //}
-                //else
-                //{
-                //    throw new Exception("No existe esa persona");
-                //}
-
-                if (persona.Telefono.ToList().Exists(x => x.Numero == obj.Numero))
+                if (obj.DniNavigation is null)
                 {
-                    return false;
+                    throw new Exception("No hay una persona asignada a este telefono");
                 }
 
-                var result = telefonoRepository.Insert(obj);
+                var persona = obj.DniNavigation;
 
-                if (result) persona.Telefono?.Add(obj);
+                if (!telefonoRepository.Exists(obj.Numero))
+                {
+                    var result = telefonoRepository.Insert(obj);
 
-                return result;
+                    if(persona.Telefono is null)
+                    {
+                        persona.Telefono = new List<Telefono>();
+                    }
+
+                    if (result && !(persona.Telefono.ToList().Exists(X=>X.Numero == obj.Numero))) {
+                        persona.Telefono.Add(obj);
+                    }
+
+                    return result;
+                }
+                else
+                {
+                    throw new Exception("Ya existe ese telefono");
+                }
             }
             else
             {
-                return false;
+                throw new Exception("Asegurese que el campo Numero no este vacio.\n Si el problema persiste, cierre y abra la ventana de nuevo");
             }
         }
 
@@ -62,35 +59,45 @@ namespace Negocio.Business_Objects
         {
             if (!String.IsNullOrWhiteSpace(obj.Numero))
             {
-                //Primero jalo a ver si es cliente, luego si es proveedor, o sino por ultimo si es conductor
+                if (obj.DniNavigation is null)
+                {
+                    throw new Exception("No hay una persona asignada a este telefono");
+                }
+
                 var persona = obj.DniNavigation;
 
 
-                if (persona.Telefono.ToList().Exists(x => x.Numero == obj.Numero))
+                if (telefonoRepository.Exists(obj.Numero))
                 {
-                    //int y = persona.Telefono.ToList().RemoveAll(x => x.Numero == Numero);
-
                     var result = telefonoRepository.Delete(obj.Numero);
 
                     if (result) persona.Telefono.Remove(persona.Telefono.FirstOrDefault(x => x.Numero == obj.Numero));
 
                     return result;
                 }
-
-
-                return false;
+                else
+                {
+                    throw new Exception("Ya no existe ese telefono en la Base de Datos");
+                }
             }
             else
             {
-                return false;
+                throw new Exception("Asegurese que el campo Numero no este vacio.\n Si el problema persiste, cierre y abra la ventana de nuevo");
             }
         }
 
         public bool Actualizar(Telefono obj)
         {
-            if (!String.IsNullOrWhiteSpace(obj.Numero) && !String.IsNullOrWhiteSpace(obj.Dni) && !String.IsNullOrWhiteSpace(obj.Numero))
+            if (!String.IsNullOrWhiteSpace(obj.Numero) && !String.IsNullOrWhiteSpace(obj.Dni) && !String.IsNullOrWhiteSpace(obj.NumeroAntiguo))
             {
-                //Primero jalo a ver si es cliente, luego si es proveedor, o sino por ultimo si es conductor
+                if (obj.DniNavigation is null)
+                {
+                    throw new Exception("No hay una persona asignada a este telefono");
+                }
+
+                var persona = obj.DniNavigation;
+
+                /*//Primero jalo a ver si es cliente, luego si es proveedor, o sino por ultimo si es conductor
                 var persona = TransporteDR.ClienteBO.GetAll().FirstOrDefault(x => x.DniRl == obj.Dni).DniRlNavigation;
 
                 if (persona is null)
@@ -101,23 +108,32 @@ namespace Negocio.Business_Objects
                 if (persona is null)
                 {
                     //persona = TransporteDR.ClienteBO.GetAll().Find(x => x.DNI == obj.DNI).Persona;
-                }
+                }*/
 
-                if (persona.Telefono.ToList().Exists(x => x.Numero == obj.Numero))
+                if (telefonoRepository.Exists(obj.NumeroAntiguo) && !telefonoRepository.Exists(obj.Numero))
                 {
-                    persona.Telefono.FirstOrDefault(x => x.Numero == obj.Numero).Numero = obj.Numero;
+                    var result = telefonoRepository.Update(obj);
 
-                    return telefonoRepository.Update(obj);
+                    if (result)
+                    {
+                        persona.Telefono.FirstOrDefault(x => x.Numero == obj.Numero).Numero = obj.Numero;
+                    }
+
+
+                    return result;
+                }
+                else if (telefonoRepository.Exists(obj.Numero))
+                {
+                    throw new Exception("Ya existe ese telefono en la Base de Datos");
                 }
                 else
                 {
-                    return false;
+                    throw new Exception("Ya no existe ese telefono en la Base de Datos");
                 }
-
             }
             else
             {
-                return false;
+                throw new Exception("Asegurese que el campo Numero no este vacio.\n Si el problema persiste, cierre y abra la ventana de nuevo");
             }
         }
 

@@ -21,6 +21,10 @@
         </Grid.RowDefinitions>
 
         <TextBlock Grid.Column="0" Grid.Row="0" Style="{StaticResource h1-b}"  Text="Listado de Eventualidades" VerticalAlignment="Bottom" HorizontalAlignment="Left" Margin="20,20,0,0"/>
+        <Button Grid.Column="0" Width="50" Height="35" Name="Button_Refresh" Background="Transparent" Click="Button_Refresh_Click" Foreground="{StaticResource MainColorBackground}" BorderBrush="Transparent" 
+                   Margin="5 5 5 0"  HorizontalAlignment="Right" VerticalAlignment="Bottom" >
+            <materialDesign:PackIcon Kind="Refresh" HorizontalAlignment="Center" Height="30" Width="25" />
+        </Button>
 
         <StackPanel Orientation="Horizontal" Grid.Column="0" Grid.Row="1" Margin="0,20,20,0" HorizontalAlignment="Center">
             <TextBlock VerticalAlignment="Center" Text="Buscar por: "/>

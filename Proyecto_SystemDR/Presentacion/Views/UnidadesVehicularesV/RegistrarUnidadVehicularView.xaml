@@ -27,7 +27,7 @@
             <Label Foreground="{StaticResource MainColorForeground}" Margin="10">
                 <StackPanel>
                     <TextBlock Text="Placa" Margin="0 0 0 2" Style="{StaticResource h3-w}"/>
-                    <TextBox MinWidth="80" Style="{StaticResource StyleTextBox}" TabIndex="0" Text="{Binding Placa, Mode=TwoWay}"/>
+                    <TextBox Name="TextBox_Placa" MinWidth="80" Style="{StaticResource StyleTextBox}" TabIndex="0" Text="{Binding Placa, Mode=TwoWay}"/>
                 </StackPanel>
             </Label>
             <Label Foreground="{StaticResource MainColorForeground}" Margin="10">

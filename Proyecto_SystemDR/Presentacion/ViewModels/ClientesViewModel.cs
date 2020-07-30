@@ -23,15 +23,20 @@ namespace Presentacion.ViewModels
 
         private ClientesViewModel()
         {
-            listaClientes = new ObservableCollection<Cliente>(TransporteDR.ClienteBO.GetAll());
-
-            ListaClientesAux = ListaClientes; //Este es otra referencia a la Lista que traigo de la DB, me sirve para cuando tenga que cambiar la lista que se muestra
+            LoadData();
 
             AgregarCommand = new DelegateCommand(Execute_AgregarCommand);
             ActualizarCommand = new DelegateCommand(Execute_ActualizarCommand, CanExecute_ActualizarCommand).ObservesProperty(() => CurrentCliente);
             DeleteCommand = new DelegateCommand(Execute_DeleteCommand, CanExecute_DeleteCommand).ObservesProperty(() => CurrentCliente);
             VerTelefonosCommand = new DelegateCommand(Execute_VerTelefonosCommand, CanExecute_VerTelefonosCommand).ObservesProperty(() => CurrentCliente);
         }
+        public void LoadData()
+        {
+            ListaClientes = new ObservableCollection<Cliente>(TransporteDR.ClienteBO.GetAll());
+
+            ListaClientesAux = ListaClientes; //Este es otra referencia a la Lista que traigo de la DB, me sirve para cuando tenga que cambiar la lista que se muestra
+        }
+
         public static ClientesViewModel Instance
         {
             get
@@ -81,8 +86,10 @@ namespace Presentacion.ViewModels
                 {
                     if (TransporteDR.ClienteBO.Registrar(newCliente))
                     {
-                        ListaClientes.Add(newCliente);
-                        CurrentCliente = newCliente;
+                        LoadData();
+                        CurrentCliente = ListaClientes.FirstOrDefault(x => x.Ruc == newCliente.Ruc);
+                        /*ListaClientes.Add(newCliente);
+                        CurrentCliente = newCliente;*/
 
                         MessageBox.Show($"{newCliente.Ruc} Registrado con exito");
                     }
@@ -94,7 +101,10 @@ namespace Presentacion.ViewModels
                 catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
-                    MessageBox.Show(ex.InnerException?.Message);
+                    if (!(ex.InnerException is null))
+                    {
+                        MessageBox.Show(ex.InnerException.Message);
+                    }
                 }
             }
             /*if (registrarPersonaView.isRegistered)
@@ -115,17 +125,29 @@ namespace Presentacion.ViewModels
 
             if (registrarClienteView.isUpdated)
             {
-                //Primero se lo paso a la capa negocio para que lo registre, si lo registra, lo pongo en la capa Presentacion
-                if (TransporteDR.ClienteBO.Actualizar(CurrentCliente))
+                try
                 {
-                    MessageBox.Show($"{CurrentCliente.Ruc} Actualizado con exito");
-                }
-                else
-                {
-                    registrarClienteView.ToDefaultCliente(CurrentCliente);
+                    if (TransporteDR.ClienteBO.Actualizar(CurrentCliente))
+                    {
+                        MessageBox.Show($"{CurrentCliente.Ruc} Actualizado con exito");
+                    }
+                    else
+                    {
+                        registrarClienteView.ToDefaultCliente(CurrentCliente);
 
-                    MessageBox.Show("Algo ha ocurrido con el proceso de actualizacion, por favor intentar de nuevo o reiniciar el computador.\nSi el problema persiste, contactar con el encargado del Sistema");
+                        MessageBox.Show("Algo ha ocurrido con el proceso de actualizacion, por favor intentar de nuevo o reiniciar el computador.\nSi el problema persiste, contactar con el encargado del Sistema");
+                    }
                 }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    if (!(ex.InnerException is null))
+                    {
+                        MessageBox.Show(ex.InnerException.Message);
+                    }
+                }
+                //Primero se lo paso a la capa negocio para que lo registre, si lo registra, lo pongo en la capa Presentacion
+
             }
         }
 
@@ -156,18 +178,31 @@ namespace Presentacion.ViewModels
                     switch (MessageBox.Show("Estás seguro?", "Confirmación", MessageBoxButton.YesNo, MessageBoxImage.Exclamation))
                     {
                         case MessageBoxResult.Yes:
-                            if (TransporteDR.ClienteBO.Eliminar(CurrentCliente.Ruc))
+                            try
                             {
-                                ListaClientes.Remove(CurrentCliente);
+                                if (TransporteDR.ClienteBO.Eliminar(CurrentCliente.Ruc))
+                                {
+                                    LoadData();
+                                    /*ListaClientes.Remove(CurrentCliente);*/
 
-                                CurrentCliente = null;
+                                    CurrentCliente = null;
 
-                                MessageBox.Show($"{RUC} Eliminado con exito");
+                                    MessageBox.Show($"{RUC} Eliminado con exito");
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Algo ha ocurrido con el proceso de eliminacion, por favor intentar de nuevo o reiniciar el computador.\nSi el problema persiste, contactar con el encargado del Sistema");
+                                }
                             }
-                            else
+                            catch (Exception ex)
                             {
-                                MessageBox.Show("Algo ha ocurrido con el proceso de eliminacion, por favor intentar de nuevo o reiniciar el computador.\nSi el problema persiste, contactar con el encargado del Sistema");
+                                MessageBox.Show(ex.Message);
+                                if (!(ex.InnerException is null))
+                                {
+                                    MessageBox.Show(ex.InnerException.Message);
+                                }
                             }
+
                             break;
                         case MessageBoxResult.No:
                             break;
@@ -195,8 +230,21 @@ namespace Presentacion.ViewModels
 
         private void Execute_VerTelefonosCommand()
         {
-            TelefonoView telefonoView = new TelefonoView(CurrentCliente.DniRlNavigation, CurrentCliente.RazonSocial);
-            telefonoView.ShowDialog();
+            try
+            {
+                TelefonoView telefonoView = new TelefonoView(CurrentCliente.DniRlNavigation, CurrentCliente.RazonSocial);
+                telefonoView.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+
+                if (!(ex.InnerException is null))
+                {
+                    MessageBox.Show(ex.InnerException.Message);
+                }
+            }
+
         }
 
         #endregion

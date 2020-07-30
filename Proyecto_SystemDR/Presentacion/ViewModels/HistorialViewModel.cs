@@ -24,14 +24,21 @@ namespace Presentacion.ViewModels
 
         private HistorialViewModel()
         {
-            listaHistoriales = new ObservableCollection<Historial>(TransporteDR.HistorialBO.GetAll());
-
-            ListaHistorialesAux = listaHistoriales; //Este es otra referencia a la Lista que traigo de la DB, me sirve para cuando tenga que cambiar la lista que se muestra
+            LoadData();
 
             AgregarCommand = new DelegateCommand(Execute_AgregarCommand);
             ActualizarCommand = new DelegateCommand(Execute_ActualizarCommand, CanExecute_ActualizarCommand).ObservesProperty(() => CurrentHistorial);
             DeleteCommand = new DelegateCommand(Execute_DeleteCommand, CanExecute_DeleteCommand).ObservesProperty(() => CurrentHistorial);
         }
+
+        public void LoadData()
+        {
+            ListaHistoriales = new ObservableCollection<Historial>(TransporteDR.HistorialBO.GetAll());
+
+            ListaHistorialesAux = listaHistoriales; //Este es otra referencia a la Lista que traigo de la DB, me sirve para cuando tenga que cambiar la lista que se muestra
+
+        }
+
         public static HistorialViewModel Instance
         {
             get
@@ -80,8 +87,9 @@ namespace Presentacion.ViewModels
                     //Primero se lo paso a la capa negocio para que lo registre, si lo registra, lo pongo en la capa Presentacion
                     if (TransporteDR.HistorialBO.Registrar(newHistorial))
                     {
-                        ListaHistoriales.Add(newHistorial);
-                        CurrentHistorial = newHistorial;
+                        LoadData();
+                        CurrentHistorial = ListaHistoriales.FirstOrDefault(x => x.Id == newHistorial.Id);
+
 
                         MessageBox.Show($"{newHistorial.Id} Registrado con exito");
                     }
@@ -90,10 +98,13 @@ namespace Presentacion.ViewModels
                         MessageBox.Show("Algo ha ocurrIdo con el proceso de registro, por favor intentar de nuevo o reiniciar el computador.\nSi el problema persiste, contactar con el encargado del Sistema");
                     }
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     MessageBox.Show(ex.Message);
-                    MessageBox.Show(ex.StackTrace);
+                    if (!(ex.InnerException is null))
+                    {
+                        MessageBox.Show(ex.InnerException.Message);
+                    }
                 }
             }
             /*if (registrarPersonaView.isRegistered)
@@ -109,21 +120,32 @@ namespace Presentacion.ViewModels
 
         private void Execute_ActualizarCommand()
         {
-            RegistrarHistorialView registrarHistorialView = new RegistrarHistorialView(true, CurrentHistorial,ConductoresViewModel.Instance.ListaConductores, UnidadVehicularViewModel.Instance.ListaUnidadesVehiculares);
+            RegistrarHistorialView registrarHistorialView = new RegistrarHistorialView(true, CurrentHistorial, ConductoresViewModel.Instance.ListaConductores, UnidadVehicularViewModel.Instance.ListaUnidadesVehiculares);
             registrarHistorialView.ShowDialog();
 
             if (registrarHistorialView.isUpdated)
             {
-                //Primero se lo paso a la capa negocio para que lo registre, si lo registra, lo pongo en la capa Presentacion
-                if (TransporteDR.HistorialBO.Actualizar(CurrentHistorial))
+                try
                 {
-                    MessageBox.Show($"{CurrentHistorial.Id} Actualizado con exito");
-                }
-                else
-                {
-                    registrarHistorialView.ToDefaultHistorial(CurrentHistorial);
+                    //Primero se lo paso a la capa negocio para que lo registre, si lo registra, lo pongo en la capa Presentacion
+                    if (TransporteDR.HistorialBO.Actualizar(CurrentHistorial))
+                    {
+                        MessageBox.Show($"{CurrentHistorial.Id} Actualizado con exito");
+                    }
+                    else
+                    {
+                        registrarHistorialView.ToDefaultHistorial(CurrentHistorial);
 
-                    MessageBox.Show("Algo ha ocurrIdo con el proceso de actualizacion, por favor intentar de nuevo o reiniciar el computador.\nSi el problema persiste, contactar con el encargado del Sistema");
+                        MessageBox.Show("Algo ha ocurrIdo con el proceso de actualizacion, por favor intentar de nuevo o reiniciar el computador.\nSi el problema persiste, contactar con el encargado del Sistema");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    if (!(ex.InnerException is null))
+                    {
+                        MessageBox.Show(ex.InnerException.Message);
+                    }
                 }
             }
         }
@@ -155,31 +177,37 @@ namespace Presentacion.ViewModels
                     switch (MessageBox.Show("Estás seguro?", "Confirmación", MessageBoxButton.YesNo, MessageBoxImage.Exclamation))
                     {
                         case MessageBoxResult.Yes:
-                            if (TransporteDR.HistorialBO.Eliminar(CurrentHistorial.Id))
+                            try
                             {
-                                try
+                                if (TransporteDR.HistorialBO.Eliminar(CurrentHistorial.Id))
                                 {
-                                    ConductoresViewModel.Instance.ListaConductores.FirstOrDefault(x => x.Dni == CurrentHistorial.DniConductor).Historial.ToList().RemoveAll(x => x.Id == CurrentHistorial.Id);
-                                    UnidadVehicularViewModel.Instance.ListaUnidadesVehiculares.FirstOrDefault(x => x.Placa == CurrentHistorial.IdUnidad).Historial.ToList().RemoveAll(x => x.Id == CurrentHistorial.Id);
+                                    //Innecesario al ser online
+                                    /*ConductoresViewModel.Instance.ListaConductores.FirstOrDefault(x => x.Dni == CurrentHistorial.DniConductor).Historial.ToList().RemoveAll(x => x.Id == CurrentHistorial.Id);
+                                    UnidadVehicularViewModel.Instance.ListaUnidadesVehiculares.FirstOrDefault(x => x.Placa == CurrentHistorial.IdUnidad).Historial.ToList().RemoveAll(x => x.Id == CurrentHistorial.Id);*/
+
+                                    // CurrentHistorial.Conductor?.Historial.Remove(CurrentHistorial);
+                                    //CurrentHistorial.UnIdad_Vehicular?.Historial.Remove(CurrentHistorial);
+
+                                    LoadData();
+
+                                    CurrentHistorial = null;
+
+                                    MessageBox.Show($"Historial {Id} Eliminado con exito");
                                 }
-                                catch(Exception ex)
+                                else
                                 {
-                                    MessageBox.Show(ex.Message);
+                                    MessageBox.Show("Algo ha ocurrIdo con el proceso de eliminacion, por favor intentar de nuevo o reiniciar el computador.\nSi el problema persiste, contactar con el encargado del Sistema");
+                                }
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show(ex.Message);
+                                if (!(ex.InnerException is null))
+                                {
                                     MessageBox.Show(ex.InnerException.Message);
                                 }
-                                // CurrentHistorial.Conductor?.Historial.Remove(CurrentHistorial);
-                                //CurrentHistorial.UnIdad_Vehicular?.Historial.Remove(CurrentHistorial);
-
-                                ListaHistoriales.Remove(CurrentHistorial);
-
-                                CurrentHistorial = null;
-
-                                MessageBox.Show($"Historial {Id} Eliminado con exito");
                             }
-                            else
-                            {
-                                MessageBox.Show("Algo ha ocurrIdo con el proceso de eliminacion, por favor intentar de nuevo o reiniciar el computador.\nSi el problema persiste, contactar con el encargado del Sistema");
-                            }
+
                             break;
                         case MessageBoxResult.No:
                             break;

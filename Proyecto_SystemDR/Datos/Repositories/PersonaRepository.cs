@@ -14,44 +14,37 @@ namespace Datos.Repositories
     {
         public bool Delete(string DNI)
         {
-            try
+
+            using (dbTransporteDRContext db = new dbTransporteDRContext())
             {
-                using (dbTransporteDRContext db = new dbTransporteDRContext())
+                var persona_db = db.Persona.FirstOrDefault(x => x.Dni == DNI);
+
+                if (persona_db == null)
                 {
-                    var persona_db = db.Persona.FirstOrDefault(x => x.Dni == DNI);
-
-                    if (persona_db == null)
-                    {
-                        throw new Exception($"El representante legal con dni {DNI} no existe en la base de datos");
-                    }
-
-                    db.Persona.Remove(persona_db);
-
-                    db.SaveChanges();
-
-                    return true;
-
+                    throw new Exception($"El representante legal con dni {DNI} no existe en la base de datos");
                 }
+
+                db.Persona.Remove(persona_db);
+
+                db.SaveChanges();
+
+                return true;
+
             }
-            catch (Exception)
-            {
-                throw;
-            }
+
         }
 
         public bool Exists(string DNI)
         {
-            try
+
+            using (dbTransporteDRContext db = new dbTransporteDRContext())
             {
-                using (dbTransporteDRContext db = new dbTransporteDRContext())
-                {
-                    return db.Persona.ToList().Exists(x => x.Dni == DNI);
-                }
+
+                return db.Persona.ToList().Exists(x => x.Dni == DNI);
+
             }
-            catch (Exception)
-            {
-                throw;
-            }
+
+
         }
 
         public IEnumerable<Persona> GetAll()
@@ -61,74 +54,62 @@ namespace Datos.Repositories
 
         public bool Insert(Persona obj)
         {
-            try
+            using (dbTransporteDRContext db = new dbTransporteDRContext())
             {
-                using (dbTransporteDRContext db = new dbTransporteDRContext())
+                List<Telefono> telefonoAux = null;
+                if (!(obj.Telefono is null))
                 {
-                    List<Telefono> telefonoAux = null;
-                    if (!(obj.Telefono is null))
-                    {
-                        telefonoAux = obj.Telefono.ToList();
-                        obj.Telefono = null;
-                    }
-                    db.Persona.Add(obj);
-
-                    db.SaveChanges();
-
-                    obj.Telefono = telefonoAux;
-
-                    return true;
+                    telefonoAux = obj.Telefono.ToList();
+                    obj.Telefono = null;
                 }
-            }
-            catch (Exception)
-            {
-                throw;
+                db.Persona.Add(obj);
+
+                db.SaveChanges();
+
+                obj.Telefono = telefonoAux;
+
+                return true;
             }
         }
 
         public bool Update(Persona obj)
         {
-            try
+
+            using (dbTransporteDRContext db = new dbTransporteDRContext())
             {
-                using (dbTransporteDRContext db = new dbTransporteDRContext())
+                var persona_db = db.Persona.FirstOrDefault(x => x.Dni == obj.Dni);
+                if (!(persona_db is null))
                 {
-                    var persona_db = db.Persona.FirstOrDefault(x => x.Dni == obj.Dni);
-                    if (!(persona_db is null))
+                    if (!String.IsNullOrWhiteSpace(obj.Nombre))
                     {
-                        if (!String.IsNullOrWhiteSpace(obj.Nombre))
-                        {
-                            persona_db.Nombre = obj.Nombre;
-                        }
-
-                        if (!String.IsNullOrWhiteSpace(obj.Apellido))
-                        {
-                            persona_db.Apellido = obj.Apellido;
-                        }
-
-                        if (!String.IsNullOrWhiteSpace(obj.FechaNac.ToString()))
-                        {
-                            persona_db.FechaNac = obj.FechaNac;
-                        }
-
-                        if (!String.IsNullOrWhiteSpace(obj.Nacionalidad))
-                        {
-                            persona_db.Nacionalidad = obj.Nacionalidad;
-                        }
-
-                        db.SaveChanges();
-
-                        return true;
+                        persona_db.Nombre = obj.Nombre;
                     }
-                    else
+
+                    if (!String.IsNullOrWhiteSpace(obj.Apellido))
                     {
-                        throw new Exception($"El representante legal con dni {obj.Dni} no existe en la Base de Datos");
+                        persona_db.Apellido = obj.Apellido;
                     }
+
+                    if (!String.IsNullOrWhiteSpace(obj.FechaNac.ToString()))
+                    {
+                        persona_db.FechaNac = obj.FechaNac;
+                    }
+
+                    if (!String.IsNullOrWhiteSpace(obj.Nacionalidad))
+                    {
+                        persona_db.Nacionalidad = obj.Nacionalidad;
+                    }
+
+                    db.SaveChanges();
+
+                    return true;
+                }
+                else
+                {
+                    throw new Exception($"El representante legal con dni {obj.Dni} no existe en la Base de Datos");
                 }
             }
-            catch (Exception)
-            {
-                throw;
-            }
+
         }
     }
 }

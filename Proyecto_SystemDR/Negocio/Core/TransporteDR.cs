@@ -21,7 +21,7 @@ namespace Negocio.Core
 
         static TransporteDR()
         {
-            Initialize();
+            //Initialize();
         }
 
         private static void Initialize()

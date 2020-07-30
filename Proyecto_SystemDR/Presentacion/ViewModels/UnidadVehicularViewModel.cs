@@ -22,13 +22,18 @@ namespace Presentacion.ViewModels
 
         private UnidadVehicularViewModel()
         {
-            listaUnidadesVehiculares = new ObservableCollection<UnidadVehicular>(TransporteDR.UnidadVehicularBO.GetAll());
-
-            ListaUnidadesVehicularesAux = ListaUnidadesVehiculares; //Este es otra referencia a la Lista que traigo de la DB, me sirve para cuando tenga que cambiar la lista que se muestra
+            LoadData();
 
             AgregarCommand = new DelegateCommand(Execute_AgregarCommand);
             ActualizarCommand = new DelegateCommand(Execute_ActualizarCommand, CanExecute_ActualizarCommand).ObservesProperty(() => CurrentUnidadVehicular);
             DeleteCommand = new DelegateCommand(Execute_DeleteCommand, CanExecute_DeleteCommand).ObservesProperty(() => CurrentUnidadVehicular);
+        }
+
+        public void LoadData()
+        {
+            ListaUnidadesVehiculares = new ObservableCollection<UnidadVehicular>(TransporteDR.UnidadVehicularBO.GetAll());
+
+            ListaUnidadesVehicularesAux = ListaUnidadesVehiculares; //Este es otra referencia a la Lista que traigo de la DB, me sirve para cuando tenga que cambiar la lista que se muestra
         }
         public static UnidadVehicularViewModel Instance
         {
@@ -71,28 +76,29 @@ namespace Presentacion.ViewModels
             {
                 var newUnidadVehicular = registrarUnidadVehicularView.GetUnidadVehicular();
 
-                //Primero se lo paso a la capa negocio para que lo registre, si lo registra, lo pongo en la capa Presentacion
-                if (TransporteDR.UnidadVehicularBO.Registrar(newUnidadVehicular))
+                try
                 {
-                    ListaUnidadesVehiculares.Add(newUnidadVehicular);
-                    CurrentUnidadVehicular = newUnidadVehicular;
+                    if (TransporteDR.UnidadVehicularBO.Registrar(newUnidadVehicular))
+                    {
+                        LoadData();
+                        CurrentUnidadVehicular = ListaUnidadesVehiculares.FirstOrDefault(x => x.Placa == newUnidadVehicular.Placa);
 
-                    MessageBox.Show($"{newUnidadVehicular.Placa} Registrado con exito");
+                        MessageBox.Show($"{newUnidadVehicular.Placa} Registrado con exito");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Algo ha ocurrido con el proceso de registro, por favor intentar de nuevo o reiniciar el computador.\nSi el problema persiste, contactar con el encargado del Sistema");
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Algo ha ocurrido con el proceso de registro, por favor intentar de nuevo o reiniciar el computador.\nSi el problema persiste, contactar con el encargado del Sistema");
+                    MessageBox.Show(ex.Message);
+                    if (!(ex.InnerException is null))
+                    {
+                        MessageBox.Show(ex.InnerException.Message);
+                    }
                 }
-
-
-
             }
-            /*if (registrarPersonaView.isRegistered)
-            {
-                listaPersonas.Add(registrarPersonaView.GetPersona());
-            }*/
-
-            //MessageBox.Show("Agregar persona View");
         }
 
 
@@ -105,16 +111,26 @@ namespace Presentacion.ViewModels
 
             if (registrarUnidadVehicularView.isUpdated)
             {
-                //Primero se lo paso a la capa negocio para que lo registre, si lo registra, lo pongo en la capa Presentacion
-                if (TransporteDR.UnidadVehicularBO.Actualizar(CurrentUnidadVehicular))
+                try
                 {
-                    MessageBox.Show($"{CurrentUnidadVehicular.Placa} Actualizado con exito");
-                }
-                else
-                {
-                    registrarUnidadVehicularView.ToDefaultUnidadVehicular(CurrentUnidadVehicular);
+                    if (TransporteDR.UnidadVehicularBO.Actualizar(CurrentUnidadVehicular))
+                    {
+                        MessageBox.Show($"{CurrentUnidadVehicular.Placa} Actualizado con exito");
+                    }
+                    else
+                    {
+                        registrarUnidadVehicularView.ToDefaultUnidadVehicular(CurrentUnidadVehicular);
 
-                    MessageBox.Show("Algo ha ocurrido con el proceso de actualizacion, por favor intentar de nuevo o reiniciar el computador.\nSi el problema persiste, contactar con el encargado del Sistema");
+                        MessageBox.Show("Algo ha ocurrido con el proceso de actualizacion, por favor intentar de nuevo o reiniciar el computador.\nSi el problema persiste, contactar con el encargado del Sistema");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    if (!(ex.InnerException is null))
+                    {
+                        MessageBox.Show(ex.InnerException.Message);
+                    }
                 }
             }
         }
@@ -146,18 +162,30 @@ namespace Presentacion.ViewModels
                     switch (MessageBox.Show("Estás seguro?", "Confirmación", MessageBoxButton.YesNo, MessageBoxImage.Exclamation))
                     {
                         case MessageBoxResult.Yes:
-                            if (TransporteDR.UnidadVehicularBO.Eliminar(CurrentUnidadVehicular.Placa))
+                            try
                             {
-                                ListaUnidadesVehiculares.Remove(CurrentUnidadVehicular);
+                                if (TransporteDR.UnidadVehicularBO.Eliminar(CurrentUnidadVehicular.Placa))
+                                {
+                                    LoadData();
 
-                                CurrentUnidadVehicular = null;
+                                    CurrentUnidadVehicular = null;
 
-                                MessageBox.Show($"{Placa} Eliminado con exito");
+                                    MessageBox.Show($"{Placa} Eliminado con exito");
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Algo ha ocurrido con el proceso de eliminacion, por favor intentar de nuevo o reiniciar el computador.\nSi el problema persiste, contactar con el encargado del Sistema");
+                                }
                             }
-                            else
+                            catch (Exception ex)
                             {
-                                MessageBox.Show("Algo ha ocurrido con el proceso de eliminacion, por favor intentar de nuevo o reiniciar el computador.\nSi el problema persiste, contactar con el encargado del Sistema");
+                                MessageBox.Show(ex.Message);
+                                if (!(ex.InnerException is null))
+                                {
+                                    MessageBox.Show(ex.InnerException.Message);
+                                }
                             }
+
                             break;
                         case MessageBoxResult.No:
                             break;

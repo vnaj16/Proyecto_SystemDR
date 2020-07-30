@@ -14,44 +14,34 @@ namespace Datos.Repositories
     {
         public bool Delete(string Placa)
         {
-            try
+
+            using (dbTransporteDRContext db = new dbTransporteDRContext())
             {
-                using (dbTransporteDRContext db = new dbTransporteDRContext())
+                var vehiculo_db = db.UnidadVehicular.FirstOrDefault(x => x.Placa == Placa);
+
+                if (vehiculo_db == null)
                 {
-                    var vehiculo_db = db.UnidadVehicular.FirstOrDefault(x => x.Placa == Placa);
-
-                    if (vehiculo_db == null)
-                    {
-                        throw new Exception($"La unidad vehicular con placa {Placa} no existe en la base de datos");
-                    }
-
-                    db.UnidadVehicular.Remove(vehiculo_db);
-
-                    db.SaveChanges();
-
-                    return true;
+                    throw new Exception($"La unidad vehicular con placa {Placa} no existe en la base de datos");
                 }
+
+                db.UnidadVehicular.Remove(vehiculo_db);
+
+                db.SaveChanges();
+
+                return true;
             }
-            catch (Exception)
-            {
-                throw;
-            }
+
 
         }
 
         public bool Exists(string ID)
         {
-            try
+
+            using (dbTransporteDRContext db = new dbTransporteDRContext())
             {
-                using (dbTransporteDRContext db = new dbTransporteDRContext())
-                {
-                    return db.UnidadVehicular.ToList().Exists(x => x.Placa == ID);
-                }
+                return db.UnidadVehicular.ToList().Exists(x => x.Placa == ID);
             }
-            catch (Exception)
-            {
-                throw;
-            }
+
         }
 
         public IEnumerable<UnidadVehicular> GetAll()
@@ -64,60 +54,48 @@ namespace Datos.Repositories
 
         public bool Insert(UnidadVehicular obj)
         {
-            try
+
+            using (dbTransporteDRContext db = new dbTransporteDRContext())
             {
-                using (dbTransporteDRContext db = new dbTransporteDRContext())
-                {
-                    var Historiales = obj.Historial.ToList();
-                    obj.Historial = null;
+                var Historiales = obj.Historial.ToList();
+                obj.Historial = null;
 
-                    db.UnidadVehicular.Add(obj);
+                db.UnidadVehicular.Add(obj);
 
-                    db.SaveChanges();
+                db.SaveChanges();
 
-                    obj.Historial = Historiales;
+                obj.Historial = Historiales;
 
-                    return true;
-                }
+                return true;
             }
-            catch (Exception)
-            {
-                throw;
-            }
+
 
         }
 
         public bool Update(UnidadVehicular obj)
         {
-            try
+
+            using (dbTransporteDRContext db = new dbTransporteDRContext())
             {
-                using (dbTransporteDRContext db = new dbTransporteDRContext())
+
+                var obj_db = db.UnidadVehicular.FirstOrDefault(x => x.Placa == obj.Placa);
+
+                if (obj_db is null)
                 {
-
-                    var obj_db = db.UnidadVehicular.FirstOrDefault(x => x.Placa == obj.Placa);
-
-                    if (obj_db is null)
-                    {
-                        throw new Exception($"La unidad vehicular con placa {obj.Placa} no existe en la Base de Datos");
-                    }
-
-                    if (!String.IsNullOrWhiteSpace(obj.Marca)) obj_db.Marca = obj.Marca;
-
-                    if (!String.IsNullOrWhiteSpace(obj.SerieChasis)) obj_db.SerieChasis = obj.SerieChasis;
-
-                    if (!String.IsNullOrWhiteSpace(obj.YFabricacion.ToString())) obj_db.YFabricacion = obj.YFabricacion;
-
-
-                    db.SaveChanges();
-
-                    return true;
+                    throw new Exception($"La unidad vehicular con placa {obj.Placa} no existe en la Base de Datos");
                 }
-            }
-            catch (Exception)
-            {
-                throw;
-            }
 
+                if (!String.IsNullOrWhiteSpace(obj.Marca)) obj_db.Marca = obj.Marca;
+
+                if (!String.IsNullOrWhiteSpace(obj.SerieChasis)) obj_db.SerieChasis = obj.SerieChasis;
+
+                if (!String.IsNullOrWhiteSpace(obj.YFabricacion.ToString())) obj_db.YFabricacion = obj.YFabricacion;
+
+
+                db.SaveChanges();
+
+                return true;
+            }
         }
     }
 }

@@ -86,7 +86,7 @@ namespace Presentacion.Views.HistorialV
 
         public Historial GetHistorialBackup()
         {
-            if (!(copyHistorial_Updated is null) && isUpdated)
+            if (!(copyHistorial_Updated is null) && isUpdate)
             {
                 return copyHistorial_Updated;
             }
@@ -96,14 +96,25 @@ namespace Presentacion.Views.HistorialV
 
         private void Guardar_Click(object sender, RoutedEventArgs e)
         {
-            if (!(conductorSelected is null)) { newHistorial.DniConductorNavigation = conductorSelected; newHistorial.DniConductorNavigation.Historial.Add(newHistorial); newHistorial.DniConductor = newHistorial.DniConductorNavigation.Dni; }
+            //Esto sirve para el binding, pero al estar probando todo online, parece que no es necesario
+            /*if (!(conductorSelected is null))
+            {
+                newHistorial.DniConductorNavigation = conductorSelected;
+                newHistorial.DniConductorNavigation.Historial.Add(newHistorial);
+                newHistorial.DniConductor = newHistorial.DniConductorNavigation.Dni;
+            }
 
-            if (!(VehiculoSelected is null)) { newHistorial.IdUnidadNavigation = VehiculoSelected; newHistorial.IdUnidadNavigation.Historial.Add(newHistorial); newHistorial.IdUnidad = newHistorial.IdUnidadNavigation.Placa; }
+            if (!(VehiculoSelected is null))
+            {
+                newHistorial.IdUnidadNavigation = VehiculoSelected;
+                newHistorial.IdUnidadNavigation.Historial.Add(newHistorial);
+                newHistorial.IdUnidad = newHistorial.IdUnidadNavigation.Placa;
+            }*/
 
             var MyTuple = MyValidator.TryValidateObject(newHistorial);
             if (MyTuple.Item1)
             {
-                if (!isUpdate)
+                if (!isUpdate && newHistorial.DniConductor !=null )
                 {
                     isRegistered = true;
                 }
@@ -141,6 +152,8 @@ namespace Presentacion.Views.HistorialV
             destino.Eventualidad = fuente.Eventualidad;
             destino.Fecha = fuente.Fecha;
             destino.Lugar = fuente.Lugar;
+            destino.DniConductor = fuente.DniConductor;
+            destino.IdUnidad = fuente.IdUnidad;
         }
 
         public void ToDefaultHistorial(Historial Historial)

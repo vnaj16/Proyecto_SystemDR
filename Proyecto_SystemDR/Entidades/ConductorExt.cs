@@ -9,6 +9,7 @@ namespace Entidades
 {
     public partial class Conductor: BindableBase
     {
+
     }
     #region Backup Entity Conductor
     /*

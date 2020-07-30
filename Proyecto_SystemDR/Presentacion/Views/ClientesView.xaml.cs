@@ -52,6 +52,8 @@ namespace Presentacion.Views
                     instance = new ClientesView();
                 }
 
+                ClientesViewModel.Instance.LoadData();//Para traer la data de la DB cada vez que inicie esta View
+
                 return instance;
             }
         }
@@ -83,6 +85,11 @@ namespace Presentacion.Views
         private void ComboBox_Filtros_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Enum.TryParse<FilterTypeSearchCliente>(ComboBox_Filtros.SelectedValue.ToString(), out FilterType);
+        }
+
+        private void Button_Refresh_Click(object sender, RoutedEventArgs e)
+        {
+            ClientesViewModel.Instance.LoadData();
         }
     }
 }

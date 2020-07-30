@@ -53,6 +53,9 @@ namespace Presentacion.Views
                     instance = new UnidadesVehicularesView();
                 }
 
+                UnidadVehicularViewModel.Instance.LoadData();//Para traer la data de la DB cada vez que inicie esta View
+
+
                 return instance;
             }
         }
@@ -94,6 +97,11 @@ namespace Presentacion.Views
                 CustomHistorialesView customHistorialesView = new CustomHistorialesView(UnidadVehicularViewModel.Instance.CurrentUnidadVehicular.Placa, FilterTypeSearchHistorial.Placa);
                 customHistorialesView.ShowDialog();
             }
+        }
+
+        private void Button_Refresh_Click(object sender, RoutedEventArgs e)
+        {
+            UnidadVehicularViewModel.Instance.LoadData();
         }
 
     }

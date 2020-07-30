@@ -29,7 +29,6 @@ namespace Presentacion.ViewModels
                 TextHidden = $"Empresa: {RazonSocial}";
             }
 
-
             CurrentDniNavigation = DniNavigation;
 
             if (CurrentDniNavigation.Telefono is null)
@@ -87,23 +86,32 @@ namespace Presentacion.ViewModels
         }*/
         private void Execute_AgregarCommand()
         {
-            if (!(String.IsNullOrWhiteSpace(NewTelefono.Numero)))
+            try
             {
-                if (TransporteDR.TelefonoBO.Registrar(NewTelefono))
+                if (!(String.IsNullOrWhiteSpace(NewTelefono.Numero)))
                 {
-                    ListaTelefonos.Add(NewTelefono);
+                    if (TransporteDR.TelefonoBO.Registrar(NewTelefono))
+                    {
+                        ListaTelefonos.Add(NewTelefono);
 
-                    MessageBox.Show($"{NewTelefono.Numero} Registrado");
+                        MessageBox.Show($"{NewTelefono.Numero} Registrado");
 
-                    NewTelefono = new Telefono() { Dni = CurrentDniNavigation.Dni, DniNavigation = CurrentDniNavigation };
-                }
-                else
-                {
-                    MessageBox.Show("Algo inesperado ocurrio");
+                        NewTelefono = new Telefono() { Dni = CurrentDniNavigation.Dni, DniNavigation = CurrentDniNavigation };
+                    }
+                    else
+                    {
+                        MessageBox.Show("Algo inesperado ocurrio");
+                    }
                 }
             }
-
-            //MessageBox.Show("Agregar DniNavigation View");*/
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                if (!(ex.InnerException is null))
+                {
+                    MessageBox.Show(ex.InnerException.Message);
+                }
+            }
         }
 
 
@@ -128,18 +136,29 @@ namespace Presentacion.ViewModels
                     switch (MessageBox.Show("Estás seguro?", "Confirmación", MessageBoxButton.YesNo, MessageBoxImage.Exclamation))
                     {
                         case MessageBoxResult.Yes:
-                            if (TransporteDR.TelefonoBO.Eliminar(CurrentTelefono))
+                            try
                             {
-                                ListaTelefonos.Remove(CurrentTelefono);
+                                if (TransporteDR.TelefonoBO.Eliminar(CurrentTelefono))
+                                {
+                                    ListaTelefonos.Remove(CurrentTelefono);
 
-                                CurrentTelefono = null;
-                                NewTelefono = new Telefono() { Dni = CurrentDniNavigation.Dni, DniNavigation = CurrentDniNavigation };
+                                    CurrentTelefono = null;
+                                    NewTelefono = new Telefono() { Dni = CurrentDniNavigation.Dni, DniNavigation = CurrentDniNavigation };
 
-                                MessageBox.Show($"{Numero} Eliminado con exito");
+                                    MessageBox.Show($"{Numero} Eliminado con exito");
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Algo ha ocurrido con el proceso de eliminacion, por favor intentar de nuevo o reiniciar el computador.\nSi el problema persiste, contactar con el encargado del Sistema");
+                                }
                             }
-                            else
+                            catch (Exception ex)
                             {
-                                MessageBox.Show("Algo ha ocurrido con el proceso de eliminacion, por favor intentar de nuevo o reiniciar el computador.\nSi el problema persiste, contactar con el encargado del Sistema");
+                                MessageBox.Show(ex.Message);
+                                if (!(ex.InnerException is null))
+                                {
+                                    MessageBox.Show(ex.InnerException.Message);
+                                }
                             }
                             break;
                         case MessageBoxResult.No:

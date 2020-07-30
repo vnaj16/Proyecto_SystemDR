@@ -23,15 +23,19 @@ namespace Presentacion.ViewModels
 
         private ConductoresViewModel()
         {
-            listaConductores = new ObservableCollection<Conductor>(TransporteDR.ConductorBO.GetAll());
-
-            ListaConductoresAux = ListaConductores; //Este es otra referencia a la Lista que traigo de la DB, me sirve para cuando tenga que cambiar la lista que se muestra
-
+            LoadData();
 
             AgregarCommand = new DelegateCommand(Execute_AgregarCommand);
             ActualizarCommand = new DelegateCommand(Execute_ActualizarCommand, CanExecute_ActualizarCommand).ObservesProperty(() => CurrentConductor);
             DeleteCommand = new DelegateCommand(Execute_DeleteCommand, CanExecute_DeleteCommand).ObservesProperty(() => CurrentConductor);
             VerTelefonosCommand = new DelegateCommand(Execute_VerTelefonosCommand, CanExecute_VerTelefonosCommand).ObservesProperty(() => CurrentConductor);
+        }
+
+        public void LoadData()
+        {
+            ListaConductores = new ObservableCollection<Conductor>(TransporteDR.ConductorBO.GetAll());
+
+            ListaConductoresAux = ListaConductores; //Este es otra referencia a la Lista que traigo de la DB, me sirve para cuando tenga que cambiar la lista que se muestra
         }
         public static ConductoresViewModel Instance
         {
@@ -74,32 +78,35 @@ namespace Presentacion.ViewModels
             {
                 var newConductor = registrarConductorView.GetConductor();
 
-                //Primero se lo paso a la capa negocio para que lo registre, si lo registra, lo pongo en la capa Presentacion
-                if (TransporteDR.ConductorBO.Registrar(newConductor))
+                try
                 {
-                    ListaConductores.Add(newConductor);
-                    CurrentConductor = newConductor;
+                    //Primero se lo paso a la capa negocio para que lo registre, si lo registra, lo pongo en la capa Presentacion
+                    if (TransporteDR.ConductorBO.Registrar(newConductor))
+                    {
+                        LoadData();
+                        CurrentConductor = ListaConductores.FirstOrDefault(x => x.Dni == newConductor.Dni);
 
-                    MessageBox.Show($"{newConductor.Dni} Registrado con exito");
+
+                        MessageBox.Show($"{newConductor.Dni} Registrado con exito");
+                    }
+                    else
+                    {
+                        MessageBox.Show("Algo ha ocurrido con el proceso de registro, por favor intentar de nuevo o reiniciar el computador.\nSi el problema persiste, contactar con el encargado del Sistema");
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    MessageBox.Show("Algo ha ocurrido con el proceso de registro, por favor intentar de nuevo o reiniciar el computador.\nSi el problema persiste, contactar con el encargado del Sistema");
+                    MessageBox.Show(ex.Message);
+                    if (!(ex.InnerException is null))
+                    {
+                        MessageBox.Show(ex.InnerException.Message);
+                    }
                 }
-
-
-
             }
-            /*if (registrarDniNavigationView.isRegistered)
-            {
-                listaDniNavigations.Add(registrarDniNavigationView.GetDniNavigation());
-            }*/
-
-            //MessageBox.Show("Agregar DniNavigation View");
         }
 
 
-       public ICommand ActualizarCommand { get; set; }
+        public ICommand ActualizarCommand { get; set; }
 
         private void Execute_ActualizarCommand()
         {
@@ -108,16 +115,26 @@ namespace Presentacion.ViewModels
 
             if (registrarConductorView.isUpdated)
             {
-                //Primero se lo paso a la capa negocio para que lo registre, si lo registra, lo pongo en la capa Presentacion
-                if (TransporteDR.ConductorBO.Actualizar(CurrentConductor))
+                try
                 {
-                    MessageBox.Show($"{CurrentConductor.Dni} Actualizado con exito");
-                }
-                else
-                {
-                    registrarConductorView.ToDefaultConductor(CurrentConductor);
+                    if (TransporteDR.ConductorBO.Actualizar(CurrentConductor))
+                    {
+                        MessageBox.Show($"{CurrentConductor.Dni} Actualizado con exito");
+                    }
+                    else
+                    {
+                        registrarConductorView.ToDefaultConductor(CurrentConductor);
 
-                    MessageBox.Show("Algo ha ocurrido con el proceso de actualizacion, por favor intentar de nuevo o reiniciar el computador.\nSi el problema persiste, contactar con el encargado del Sistema");
+                        MessageBox.Show("Algo ha ocurrido con el proceso de actualizacion, por favor intentar de nuevo o reiniciar el computador.\nSi el problema persiste, contactar con el encargado del Sistema");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(ex.Message);
+                    if (!(ex.InnerException is null))
+                    {
+                        MessageBox.Show(ex.InnerException.Message);
+                    }
                 }
             }
         }
@@ -149,18 +166,30 @@ namespace Presentacion.ViewModels
                     switch (MessageBox.Show("Estás seguro?", "Confirmación", MessageBoxButton.YesNo, MessageBoxImage.Exclamation))
                     {
                         case MessageBoxResult.Yes:
-                            if (TransporteDR.ConductorBO.Eliminar(CurrentConductor.Dni))
+                            try
                             {
-                                ListaConductores.Remove(CurrentConductor);
+                                if (TransporteDR.ConductorBO.Eliminar(CurrentConductor.Dni))
+                                {
+                                    LoadData();
 
-                                CurrentConductor = null;
+                                    CurrentConductor = null;
 
-                                MessageBox.Show($"{Dni} Eliminado con exito");
+                                    MessageBox.Show($"{Dni} Eliminado con exito");
+                                }
+                                else
+                                {
+                                    MessageBox.Show("Algo ha ocurrido con el proceso de eliminacion, por favor intentar de nuevo o reiniciar el computador.\nSi el problema persiste, contactar con el encargado del Sistema");
+                                }
                             }
-                            else
+                            catch (Exception ex)
                             {
-                                MessageBox.Show("Algo ha ocurrido con el proceso de eliminacion, por favor intentar de nuevo o reiniciar el computador.\nSi el problema persiste, contactar con el encargado del Sistema");
+                                MessageBox.Show(ex.Message);
+                                if (!(ex.InnerException is null))
+                                {
+                                    MessageBox.Show(ex.InnerException.Message);
+                                }
                             }
+
                             break;
                         case MessageBoxResult.No:
                             break;
@@ -188,8 +217,20 @@ namespace Presentacion.ViewModels
 
         private void Execute_VerTelefonosCommand()
         {
-            TelefonoView telefonoView = new TelefonoView(CurrentConductor.DniNavigation);
-            telefonoView.ShowDialog();
+            try
+            {
+                TelefonoView telefonoView = new TelefonoView(CurrentConductor.DniNavigation);
+                telefonoView.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+
+                if (!(ex.InnerException is null))
+                {
+                    MessageBox.Show(ex.InnerException.Message);
+                }
+            }
         }
 
         #endregion

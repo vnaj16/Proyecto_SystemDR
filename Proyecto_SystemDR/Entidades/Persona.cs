@@ -57,7 +57,6 @@ namespace Entidades
 
 
         private string tipo;
-        [Required]
         [StringLength(3, ErrorMessage = "Error en el tipo")]
         public string Tipo
         {

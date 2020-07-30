@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Datos.Interfaces;
+using Datos.Repositories;
 using Entidades;
 using Negocio.Core;
 
@@ -12,17 +13,17 @@ namespace Negocio.Business_Objects
     public class ConductorBO
     {
         private IConductorRepository conductorRepository;
-        private List<Conductor> listaConductores;
+        //private List<Conductor> listaConductores;
 
         public ConductorBO(IConductorRepository conductorRepository)
         {
             this.conductorRepository = conductorRepository;
-            GetAll();
+            //GetAll();
         }
 
         public List<Conductor> GetAll()
         {
-            if (listaConductores != null && listaConductores.Count != 0)
+            /*if (listaConductores != null && listaConductores.Count != 0)
             {
                 return listaConductores;
             }
@@ -31,40 +32,50 @@ namespace Negocio.Business_Objects
                 listaConductores = conductorRepository.GetAll().ToList();
 
                 return listaConductores;
-            }
+            }*/
+
+            return conductorRepository.GetAll().ToList();
         }
 
         public bool Registrar(Conductor obj)
         {
             if (!String.IsNullOrWhiteSpace(obj.Dni))
             {
-                if(!listaConductores.Exists(x=>x.Dni == obj.Dni))
+                if (!conductorRepository.Exists(obj.Dni))
                 {
-                    if (obj.DniNavigation is null)
+                    //Si tiene DNI, debe tener persona
+                    if (!String.IsNullOrWhiteSpace(obj.Dni))
                     {
-                        obj.DniNavigation = new Persona() { Dni = obj.Dni, Tipo = "con" };
-                    }
-                    else
-                    {
-                        obj.DniNavigation.Dni = obj.Dni;
-                        obj.DniNavigation.Tipo = "con";
+                        if (obj.DniNavigation is null)//si no tiene, la creo
+                        {
+                            obj.DniNavigation = new Persona() { Dni = obj.Dni, Tipo = "con" };
+                        }
+                        else
+                        {
+                            obj.DniNavigation.Dni = obj.Dni;
+                            obj.DniNavigation.Tipo = "con";
+                        }
+
+                        PersonaRepository personaRepository = new PersonaRepository();
+                        if (!personaRepository.Exists(obj.DniNavigation.Dni))
+                        {
+                            personaRepository.Insert(obj.DniNavigation);
+                        }
                     }
 
                     //Primero verifico si se agrego de manera correcta a la DB, luego lo agrego a la Lista in Memory
                     var Result = conductorRepository.Insert(obj);
 
-                    if (Result) listaConductores.Add(obj);
-
                     return Result;
                 }
                 else
                 {
-                    return false;
+                    throw new Exception("Ya existe un conductor con ese DNI");
                 }
             }
             else
             {
-                return false;
+                throw new Exception("El DNI esta vacio");
             }
         }
 
@@ -72,7 +83,43 @@ namespace Negocio.Business_Objects
         {
             if (!String.IsNullOrWhiteSpace(obj.Dni))
             {
-                Conductor current = listaConductores.FirstOrDefault(x => x.Dni == obj.Dni);
+                if (conductorRepository.Exists(obj.Dni))
+                {
+                    PersonaRepository personaRepository = new PersonaRepository();
+                    #region PERSONAREPOSITORY
+                    //Si tiene DNI, debe tener persona
+                    if (!String.IsNullOrWhiteSpace(obj.Dni))
+                    {
+                        if (obj.DniNavigation is null)//Si no tiene, la creo
+                        {
+                            obj.DniNavigation = new Persona() { Dni = obj.Dni, Tipo = "cli" };
+                        }
+                        else
+                        {
+                            obj.DniNavigation.Dni = obj.Dni;
+                            obj.DniNavigation.Tipo = "cli";
+                        }
+
+
+                        if (personaRepository.Exists(obj.DniNavigation.Dni))
+                        {
+                            personaRepository.Update(obj.DniNavigation);
+                        }
+                        else
+                        {
+                            personaRepository.Insert(obj.DniNavigation);
+                        }
+
+                        //Si este cliente tiene representante legal, actualiza, si no tiene, verificar que no exista ya ese cliente para registrarlo
+                    }
+                    #endregion
+                    return conductorRepository.Update(obj);
+                }
+                else
+                {
+                    throw new Exception("No existe un conductor con ese DNI");
+                }
+                /*Conductor current = listaConductores.FirstOrDefault(x => x.Dni == obj.Dni);
 
                 if(!(current is null))
                 {
@@ -89,6 +136,7 @@ namespace Negocio.Business_Objects
 
                     if (!String.IsNullOrWhiteSpace(obj.Personalidad)) current.Personalidad = obj.Personalidad;
 
+                    /*
                     if(obj.DniNavigation is null)
                     {
                         if (current.DniNavigation is null)
@@ -125,6 +173,7 @@ namespace Negocio.Business_Objects
 
                         }
                     }
+                    
 
 
                     return conductorRepository.Update(current);
@@ -132,11 +181,11 @@ namespace Negocio.Business_Objects
                 else
                 {
                     return false;
-                }
+                }*/
             }
             else
             {
-                return false;
+                throw new Exception("El DNI esta vacio");
             }
         }
 
@@ -144,22 +193,19 @@ namespace Negocio.Business_Objects
         {
             if (!String.IsNullOrWhiteSpace(DNI))
             {
-                if(listaConductores.Exists(x=>x.Dni == DNI))
+                if (conductorRepository.Exists(DNI))
                 {
                     var result = conductorRepository.Delete(DNI);
-
-                    if (result) listaConductores.Remove(listaConductores.FirstOrDefault(x => x.Dni == DNI));
-
                     return result;
                 }
                 else
                 {
-                    return false;
+                    throw new Exception("No existe un conductor con ese DNI");
                 }
             }
             else
             {
-                return false;
+                throw new Exception("El DNI esta vacio");
             }
         }
 
