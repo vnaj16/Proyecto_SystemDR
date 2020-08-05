@@ -27,6 +27,8 @@ namespace Presentacion.Views
 
         private FilterTypeSearchVehiculo FilterType = 0;
 
+        private static bool DataLoaded = false;
+
         public UnidadesVehicularesView()
         {
             InitializeComponent();
@@ -36,10 +38,16 @@ namespace Presentacion.Views
             try
             {
                 this.DataContext = UnidadVehicularViewModel.Instance;
+                DataLoaded = true;
             }
             catch (Exception ex)
             {
+                DataLoaded = false;
                 MessageBox.Show(ex.Message);
+                if (!(ex.InnerException is null))
+                {
+                    MessageBox.Show(ex.InnerException.Message);
+                }
             }
         }
 
@@ -53,10 +61,30 @@ namespace Presentacion.Views
                     instance = new UnidadesVehicularesView();
                 }
 
-                UnidadVehicularViewModel.Instance.LoadData();//Para traer la data de la DB cada vez que inicie esta View
+                if (DataLoaded == false)
+                {
+                    LoadData();
+                }
 
+                DataLoaded = false;
 
                 return instance;
+            }
+        }
+
+        private static void LoadData()
+        {
+            try
+            {
+                UnidadVehicularViewModel.Instance.LoadData();//Para traer la data de la DB cada vez que inicie esta View
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                if (!(ex.InnerException is null))
+                {
+                    MessageBox.Show(ex.InnerException.Message);
+                }
             }
         }
 

@@ -164,11 +164,13 @@ namespace Presentacion.Views.HistorialV
         private void ComboBox_Conductor_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             conductorSelected = ComboBox_Conductor.SelectedItem as Conductor;
+            newHistorial.DniConductor = conductorSelected.Dni;
         }
 
         private void ComboBox_Vehiculo_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             VehiculoSelected = ComboBox_Vehiculo.SelectedItem as UnidadVehicular;
+            newHistorial.IdUnidad = VehiculoSelected.Placa;
         }
     }
 }

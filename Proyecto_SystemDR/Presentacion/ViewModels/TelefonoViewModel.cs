@@ -1,5 +1,6 @@
 ﻿using Entidades;
 using Negocio.Core;
+using Presentacion.Helpers;
 using Prism.Commands;
 using Prism.Mvvm;
 using System;
@@ -80,27 +81,37 @@ namespace Presentacion.ViewModels
         #region COMMANDS
         public ICommand AgregarCommand { get; set; }
 
-        /*private bool CanExecute_AgregarCommand()
-        {
-            return !(String.IsNullOrEmpty(NewTelefono.Numero));
-        }*/
         private void Execute_AgregarCommand()
         {
             try
             {
                 if (!(String.IsNullOrWhiteSpace(NewTelefono.Numero)))
                 {
-                    if (TransporteDR.TelefonoBO.Registrar(NewTelefono))
+                    var MyTuple = MyValidator.TryValidateObject(NewTelefono);
+                    if (MyTuple.Item1)
                     {
-                        ListaTelefonos.Add(NewTelefono);
+                        if (TransporteDR.TelefonoBO.Registrar(NewTelefono))
+                        {
+                            ListaTelefonos.Add(NewTelefono);
 
-                        MessageBox.Show($"{NewTelefono.Numero} Registrado");
+                            MessageBox.Show($"{NewTelefono.Numero} Registrado");
 
-                        NewTelefono = new Telefono() { Dni = CurrentDniNavigation.Dni, DniNavigation = CurrentDniNavigation };
+                            NewTelefono = new Telefono() { Dni = CurrentDniNavigation.Dni, DniNavigation = CurrentDniNavigation };
+                        }
+                        else
+                        {
+                            MessageBox.Show("Algo inesperado ocurrio");
+                        }
                     }
                     else
                     {
-                        MessageBox.Show("Algo inesperado ocurrio");
+                        string Messages = "";
+                        foreach (var x in MyTuple.Item2)
+                        {
+                            Messages += x.ErrorMessage + "\n";
+                        }
+
+                        MessageBox.Show(Messages);
                     }
                 }
             }

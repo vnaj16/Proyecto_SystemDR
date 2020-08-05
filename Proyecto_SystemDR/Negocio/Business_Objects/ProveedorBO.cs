@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Datos.Helpers;
 using Datos.Interfaces;
 using Datos.Repositories;
 using Entidades;
@@ -77,12 +78,12 @@ namespace Negocio.Business_Objects
                 }
                 else
                 {
-                    throw new Exception("Ese Proveedor ya existe");
+                    throw new Exception(ExceptionMessageManager.ExceptionMessageProveedor.AlreadyExists(obj.Ruc));
                 }
             }
             else
             {
-                throw new Exception("RUC vacio");
+                throw new Exception(ExceptionMessageManager.ExceptionMessageVehiculo.KeyIsNull());
             }
         }
 
@@ -131,12 +132,12 @@ namespace Negocio.Business_Objects
                 }
                 else
                 {
-                    throw new Exception("Ese Proveedor no existe");
+                    throw new Exception(ExceptionMessageManager.ExceptionMessageProveedor.DoesNotExist(obj.Ruc));
                 }
             }
             else
             {
-                throw new Exception("RUC vacio");
+                throw new Exception(ExceptionMessageManager.ExceptionMessageVehiculo.KeyIsNull());
             }
         }
 
@@ -160,12 +161,12 @@ namespace Negocio.Business_Objects
                 }
                 else
                 {
-                    throw new Exception("No existe un proveedor con ese RUC");
+                    throw new Exception(ExceptionMessageManager.ExceptionMessageProveedor.DoesNotExist(Ruc));
                 }
             }
             else
             {
-                throw new Exception("El RUC esta vacio");
+                throw new Exception(ExceptionMessageManager.ExceptionMessageVehiculo.KeyIsNull());
             }
         }
     }

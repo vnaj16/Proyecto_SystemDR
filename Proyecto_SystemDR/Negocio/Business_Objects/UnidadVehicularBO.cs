@@ -1,4 +1,5 @@
-﻿using Datos.Interfaces;
+﻿using Datos.Helpers;
+using Datos.Interfaces;
 using Entidades;
 using System;
 using System.Collections.Generic;
@@ -55,12 +56,12 @@ namespace Negocio.Business_Objects
                 }
                 else
                 {
-                    throw new Exception("Ya existe un vehiculo con esa placa");
+                    throw new Exception(ExceptionMessageManager.ExceptionMessageVehiculo.AlreadyExists(obj.Placa));
                 }
             }
             else
             {
-                throw new Exception("La placa esta vacia");
+                throw new Exception(ExceptionMessageManager.ExceptionMessageVehiculo.KeyIsNull());
             }
         }
 
@@ -75,12 +76,12 @@ namespace Negocio.Business_Objects
                 }
                 else
                 {
-                    throw new Exception("No existe un vehiculo con esa Placa");
+                    throw new Exception(ExceptionMessageManager.ExceptionMessageVehiculo.DoesNotExist(obj.Placa));
                 }
             }
             else
             {
-                throw new Exception("La placa esta vacia");
+                throw new Exception(ExceptionMessageManager.ExceptionMessageVehiculo.KeyIsNull());
             }
         }
 
@@ -96,12 +97,12 @@ namespace Negocio.Business_Objects
                 }
                 else
                 {
-                    throw new Exception("No existe un vehiculo con esa Placa");
+                    throw new Exception(ExceptionMessageManager.ExceptionMessageVehiculo.DoesNotExist(Placa));
                 }
             }
             else
             {
-                throw new Exception("La placa esta vacia");
+                throw new Exception(ExceptionMessageManager.ExceptionMessageVehiculo.KeyIsNull());
             }
         }
 

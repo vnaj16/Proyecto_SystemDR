@@ -1,4 +1,5 @@
-﻿using Datos.Interfaces;
+﻿using Datos.Helpers;
+using Datos.Interfaces;
 using Datos.ModelsEFCore;
 using Entidades;
 using Microsoft.EntityFrameworkCore;
@@ -34,7 +35,7 @@ namespace Datos.Repositories
 
                 if (cliente_db == null)
                 {
-                    throw new Exception($"El cliente con ruc {Ruc} no existe en la base de datos");
+                    throw new Exception(ExceptionMessageManager.ExceptionMessageCliente.DoesNotExist(Ruc));
                 }
 
                 db.Cliente.Remove(cliente_db);
@@ -151,7 +152,7 @@ namespace Datos.Repositories
                 }
                 else
                 {
-                    throw new Exception($"El cliente con ruc {obj.Ruc} no existe en la Base de Datos");
+                    throw new Exception(ExceptionMessageManager.ExceptionMessageCliente.DoesNotExist(obj.Ruc));
                 }
             }
         }

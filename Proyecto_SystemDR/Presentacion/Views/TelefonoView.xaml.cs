@@ -25,7 +25,19 @@ namespace Presentacion.Views
         {
             InitializeComponent();
 
-            this.DataContext = new TelefonoViewModel(persona, RZ);
+            try
+            {
+                this.DataContext = new TelefonoViewModel(persona, RZ);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                if (!(ex.InnerException is null))
+                {
+                    MessageBox.Show(ex.InnerException.Message);
+                }
+            }
+
         }
     }
 }

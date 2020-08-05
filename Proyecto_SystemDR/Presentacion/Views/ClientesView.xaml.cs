@@ -26,6 +26,8 @@ namespace Presentacion.Views
 
         private FilterTypeSearchCliente FilterType = 0;
 
+        private static bool DataLoaded = false;
+
         private ClientesView()
         {
             InitializeComponent();
@@ -35,10 +37,16 @@ namespace Presentacion.Views
             try
             {
                 this.DataContext = ClientesViewModel.Instance;
+                DataLoaded = true;
             }
             catch (Exception ex)
             {
+                DataLoaded = false;
                 MessageBox.Show(ex.Message);
+                if (!(ex.InnerException is null))
+                {
+                    MessageBox.Show(ex.InnerException.Message);
+                }
             }
         }
 
@@ -52,11 +60,33 @@ namespace Presentacion.Views
                     instance = new ClientesView();
                 }
 
-                ClientesViewModel.Instance.LoadData();//Para traer la data de la DB cada vez que inicie esta View
+                if(DataLoaded == false)
+                {
+                    LoadData();
+                }
+
+                DataLoaded = false;
 
                 return instance;
             }
         }
+
+        private static void LoadData()
+        {
+            try
+            {
+                ClientesViewModel.Instance.LoadData();//Para traer la data de la DB cada vez que inicie esta View
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                if (!(ex.InnerException is null))
+                {
+                    MessageBox.Show(ex.InnerException.Message);
+                }
+            }
+        }
+
 
         #region CODIGO PARA EL TEXTBOX BUSCAR
         private void TextBox_Buscar_TextChanged(object sender, TextChangedEventArgs e)

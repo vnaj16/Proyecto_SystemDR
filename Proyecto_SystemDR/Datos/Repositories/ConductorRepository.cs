@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Datos.Helpers;
 using Datos.Interfaces;
 using Datos.ModelsEFCore;
 using Entidades;
@@ -32,7 +33,7 @@ namespace Datos.Repositories
 
                 if (conductor_db == null)
                 {
-                    throw new Exception($"El conductor con dni {Dni} no existe en la base de datos");
+                    throw new Exception(ExceptionMessageManager.ExceptionMessageConductor.DoesNotExist(Dni));
                 }
 
                 db.Conductor.Remove(conductor_db);
@@ -120,7 +121,7 @@ namespace Datos.Repositories
 
                 if (obj_db is null)
                 {
-                    throw new Exception($"El conductor con Dni {obj.Dni} no existe en la Base de Datos");
+                    throw new Exception(ExceptionMessageManager.ExceptionMessageConductor.DoesNotExist(obj.Dni));
                 }
 
                 if (!String.IsNullOrWhiteSpace(obj.Brevete)) obj_db.Brevete = obj.Brevete;

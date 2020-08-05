@@ -1,4 +1,5 @@
-﻿using Datos.Interfaces;
+﻿using Datos.Helpers;
+using Datos.Interfaces;
 using Datos.ModelsEFCore;
 using Entidades;
 using Microsoft.EntityFrameworkCore;
@@ -21,7 +22,7 @@ namespace Datos.Repositories
 
                 if (vehiculo_db == null)
                 {
-                    throw new Exception($"La unidad vehicular con placa {Placa} no existe en la base de datos");
+                    throw new Exception(ExceptionMessageManager.ExceptionMessageVehiculo.DoesNotExist(Placa));
                 }
 
                 db.UnidadVehicular.Remove(vehiculo_db);
@@ -82,7 +83,7 @@ namespace Datos.Repositories
 
                 if (obj_db is null)
                 {
-                    throw new Exception($"La unidad vehicular con placa {obj.Placa} no existe en la Base de Datos");
+                    throw new Exception(ExceptionMessageManager.ExceptionMessageVehiculo.DoesNotExist(obj.Placa));
                 }
 
                 if (!String.IsNullOrWhiteSpace(obj.Marca)) obj_db.Marca = obj.Marca;

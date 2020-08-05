@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Datos.Helpers;
 using Datos.Interfaces;
 using Datos.Repositories;
 using Entidades;
@@ -45,22 +46,15 @@ namespace Negocio.Business_Objects
 
         public bool Registrar(Historial obj)
         {
-            if (historialRepository.Exists(obj.Id.ToString()))//EVALUO SI YA EXISTE
+            if (!String.IsNullOrEmpty(obj.DniConductor))
             {
-                if (!String.IsNullOrEmpty(obj.DniConductor))
-                {
-                    var Result = historialRepository.Insert(obj);
+                var Result = historialRepository.Insert(obj);
 
-                    return Result;
-                }
-                else
-                {
-                    throw new Exception("No existe conductor asignado");
-                }
+                return Result;
             }
             else
             {
-                throw new Exception("Este historial ya existe");
+                throw new Exception(ExceptionMessageManager.ExceptionMessageHistorial.KeyIsNull());
             }
         }
 
@@ -76,12 +70,12 @@ namespace Negocio.Business_Objects
                 }
                 else
                 {
-                    throw new Exception("No existe un historial con ese ID");
+                    throw new Exception(ExceptionMessageManager.ExceptionMessageHistorial.DoesNotExist(ID.ToString()));
                 }
             }
             else
             {
-                throw new Exception("No hay ID asignado");
+                throw new Exception(ExceptionMessageManager.ExceptionMessageHistorial.KeyIsNull());
             }
         }
 
@@ -95,12 +89,12 @@ namespace Negocio.Business_Objects
                 }
                 else
                 {
-                    throw new Exception("No existe un historial con ese ID");
+                    throw new Exception(ExceptionMessageManager.ExceptionMessageHistorial.DoesNotExist(obj.Id.ToString()));
                 }
             }
             else
             {
-                throw new Exception("No hay ID asignado");
+                throw new Exception(ExceptionMessageManager.ExceptionMessageHistorial.KeyIsNull());
             }
         }
 

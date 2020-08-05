@@ -80,7 +80,7 @@
                 <StackPanel Orientation="Horizontal">
                     <TextBlock Text="Numero de Eventualidades: " Style="{StaticResource h2-b}"/>
                     <TextBlock Text="{Binding CurrentConductor.Historial.Count}" Style="{StaticResource h2-b}" FontWeight="Bold"/>
-                    <TextBlock Text="(más info)" VerticalAlignment="Center" FontSize="10"/>
+                    <TextBlock Text=" (más info)" VerticalAlignment="Center" FontSize="10"/>
                 </StackPanel>
             </Label>
         </Grid>

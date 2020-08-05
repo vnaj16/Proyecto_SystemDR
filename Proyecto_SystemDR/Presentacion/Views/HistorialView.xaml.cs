@@ -26,6 +26,8 @@ namespace Presentacion.Views
 
         private FilterTypeSearchHistorial FilterType = 0;
 
+        private static bool DataLoaded = false;
+
         public HistorialView()
         {
             InitializeComponent();
@@ -35,10 +37,16 @@ namespace Presentacion.Views
             try
             {
                 this.DataContext = HistorialViewModel.Instance;
+                DataLoaded = true;
             }
             catch (Exception ex)
             {
+                DataLoaded = false;
                 MessageBox.Show(ex.Message);
+                if (!(ex.InnerException is null))
+                {
+                    MessageBox.Show(ex.InnerException.Message);
+                }
             }
         }
 
@@ -51,10 +59,31 @@ namespace Presentacion.Views
                     instance = new HistorialView();
                 }
 
-                HistorialViewModel.Instance.LoadData();//Para traer la data de la DB cada vez que inicie esta View
+                if (DataLoaded == false)
+                {
+                    LoadData();
+                }
 
+                DataLoaded = false;
 
                 return instance;
+            }
+        }
+
+
+        private static void LoadData()
+        {
+            try
+            {
+                HistorialViewModel.Instance.LoadData();//Para traer la data de la DB cada vez que inicie esta View
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+                if (!(ex.InnerException is null))
+                {
+                    MessageBox.Show(ex.InnerException.Message);
+                }
             }
         }
 

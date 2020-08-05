@@ -1,4 +1,5 @@
-﻿using Datos.Interfaces;
+﻿using Datos.Helpers;
+using Datos.Interfaces;
 using Datos.ModelsEFCore;
 using Entidades;
 using Microsoft.EntityFrameworkCore;
@@ -21,7 +22,7 @@ namespace Datos.Repositories
 
                 if (proveedor_db == null)
                 {
-                    throw new Exception($"El proveedor con ruc {Ruc} ya no se encuentra en la Base de Datos");
+                    throw new Exception(ExceptionMessageManager.ExceptionMessageProveedor.DoesNotExist(Ruc));
                 }
 
                 db.Proveedor.Remove(proveedor_db);
@@ -136,7 +137,7 @@ namespace Datos.Repositories
                 }
                 else
                 {
-                    throw new Exception($"El proveedor con ruc {obj.Ruc} no existe en la Base de Datos");
+                    throw new Exception(ExceptionMessageManager.ExceptionMessageProveedor.DoesNotExist(obj.Ruc));
                 }
             }
         }

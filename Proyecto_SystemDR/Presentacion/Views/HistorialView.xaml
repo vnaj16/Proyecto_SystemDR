@@ -163,7 +163,7 @@
 
                 <Label Grid.Row="0" Margin="20,10,0,10" MaxWidth="250" HorizontalAlignment="Left" Grid.ColumnSpan="2" >
                     <StackPanel Orientation="Horizontal">
-                        <TextBlock Text="Datos del Evento" Style="{StaticResource h3-w}"/>
+                        <TextBlock Text="Datos del Evento " Style="{StaticResource h3-w}"/>
                         <TextBlock Text="{Binding CurrentHistorial.Id}" FontWeight="Bold" Style="{StaticResource h3-w}"/>
                     </StackPanel>
                 </Label>

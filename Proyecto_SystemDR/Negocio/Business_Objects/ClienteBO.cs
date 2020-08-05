@@ -1,4 +1,5 @@
-﻿using Datos.Interfaces;
+﻿using Datos.Helpers;
+using Datos.Interfaces;
 using Datos.Repositories;
 using Entidades;
 using System;
@@ -12,39 +13,21 @@ namespace Negocio.Business_Objects
     public class ClienteBO
     {
         private IClienteRepository clienteRepository;
-        //private List<Cliente> listaClientes;
 
         public ClienteBO(IClienteRepository clienteRepository)
         {
             this.clienteRepository = clienteRepository;
-            //GetAll();
         }
 
         public List<Cliente> GetAll() //READ
         {
-            /*if (listaClientes != null && listaClientes.Count != 0)
-            {
-                return listaClientes;
-            }
-            else
-            {
-                listaClientes = clienteRepository.GetAll().ToList();
-
-                /*foreach (Cliente x in listaDB)
-                {
-                    ClienteDTO obj = new ClienteDTO();
-                    MyMapper.Map(x, obj);
-                    listaClienteDTO.Add(obj);
-                }
-
-                return listaClientes;
-            }*/
-
             return clienteRepository.GetAll().ToList();
         }
 
         public bool Registrar(Cliente obj)
         {
+            bool RLExists = false;
+
             if (!String.IsNullOrWhiteSpace(obj.Ruc))//EVALUO CAMPOS OBLIGATORIOS
             {
                 if (!clienteRepository.Exists(obj.Ruc))//EVALUO SI YA EXISTE
@@ -67,21 +50,35 @@ namespace Negocio.Business_Objects
                         {
                             personaRepository.Insert(obj.DniRlNavigation);
                         }
+                        else
+                        {
+                            RLExists = true;
+                            obj.DniRl = null;
+                            obj.DniRlNavigation = null;
+                        }
                     }
+
 
                     //Primero verifico si se agrego de manera correcta a la DB
                     var Result = clienteRepository.Insert(obj);
 
-                    return Result;
+                    if (RLExists == false)
+                    {
+                        return Result;
+                    }
+                    else
+                    {
+                        throw new Exception("Se registro al cliente de manera correcta, pero no se pudo registrar al Representante Legal ya que ya existe en la Base de Datos y está relacionado con otra empresa");
+                    }
                 }
                 else
                 {
-                    throw new Exception("Ya existe un cliente con ese RUC");
+                    throw new Exception(ExceptionMessageManager.ExceptionMessageCliente.AlreadyExists(obj.Ruc));
                 }
             }
             else
             {
-                throw new Exception("El RUC esta vacio");
+                throw new Exception(ExceptionMessageManager.ExceptionMessageCliente.KeyIsNull());
             }
         }
 
@@ -129,6 +126,8 @@ namespace Negocio.Business_Objects
                         {
                             if (personaRepository.Exists(obj.DniRlNavigation.Dni))
                             {
+                                obj.DniRl = null;
+                                obj.DniRlNavigation = null;
                                 throw new Exception("Este representante legal ya se encuentra registrado");
                             }
                             else
@@ -143,12 +142,12 @@ namespace Negocio.Business_Objects
                 }
                 else
                 {
-                    throw new Exception("No existe un cliente con ese RUC");
+                    throw new Exception(ExceptionMessageManager.ExceptionMessageCliente.DoesNotExist(obj.Ruc));
                 }
             }
             else
             {
-                throw new Exception("El RUC esta vacio");
+                throw new Exception(ExceptionMessageManager.ExceptionMessageCliente.KeyIsNull());
             }
         }
 
@@ -180,12 +179,12 @@ namespace Negocio.Business_Objects
                 }
                 else
                 {
-                    throw new Exception("No existe un cliente con ese RUC");
+                    throw new Exception(ExceptionMessageManager.ExceptionMessageCliente.DoesNotExist(obj.Ruc));
                 }
             }
             else
             {
-                throw new Exception("El RUC esta vacio");
+                throw new Exception(ExceptionMessageManager.ExceptionMessageCliente.KeyIsNull());
             }
         }
     }

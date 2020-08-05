@@ -130,7 +130,13 @@ namespace Presentacion.ViewModels
                     //Primero se lo paso a la capa negocio para que lo registre, si lo registra, lo pongo en la capa Presentacion
                     if (TransporteDR.HistorialBO.Actualizar(CurrentHistorial))
                     {
+                        int id = CurrentHistorial.Id;
+
                         MessageBox.Show($"{CurrentHistorial.Id} Actualizado con exito");
+
+                        LoadData();
+
+                        CurrentHistorial = ListaHistoriales.FirstOrDefault(x => x.Id == id);
                     }
                     else
                     {
@@ -251,11 +257,35 @@ namespace Presentacion.ViewModels
                         break;
 
                     case FilterTypeSearchHistorial.Eventualidad:
-                        ListaHistoriales = new ObservableCollection<Historial>(ListaHistorialesAux.Where(x => x.Eventualidad.ToLower().StartsWith(Filter.ToLower())));
+                        var listAuxE = new ObservableCollection<Historial>();
+                        foreach (var x in ListaHistorialesAux)
+                        {
+                            if (!String.IsNullOrEmpty(x.Eventualidad))
+                            {
+                                if (x.Eventualidad.ToLower().StartsWith(Filter.ToLower()))
+                                {
+                                    listAuxE.Add(x);
+                                }
+                            }
+                        }
+                        ListaHistoriales = listAuxE;
+                        //ListaHistoriales = new ObservableCollection<Historial>(ListaHistorialesAux.Where(x => x.Eventualidad.ToLower().StartsWith(Filter.ToLower())));
                         break;
 
                     case FilterTypeSearchHistorial.Lugar:
-                        ListaHistoriales = new ObservableCollection<Historial>(ListaHistorialesAux.Where(x => x.Lugar.ToLower().StartsWith(Filter.ToLower())));
+                        var listAuxL = new ObservableCollection<Historial>();
+                        foreach (var x in ListaHistorialesAux)
+                        {
+                            if (!String.IsNullOrEmpty(x.Lugar))
+                            {
+                                if (x.Lugar.ToLower().StartsWith(Filter.ToLower()))
+                                {
+                                    listAuxL.Add(x);
+                                }
+                            }
+                        }
+                        ListaHistoriales = listAuxL;
+                        //ListaHistoriales = new ObservableCollection<Historial>(ListaHistorialesAux.Where(x => x.Lugar.ToLower().StartsWith(Filter.ToLower())));
                         break;
                     case FilterTypeSearchHistorial.Placa:
                         var listAux1 = new ObservableCollection<Historial>();

@@ -8,6 +8,7 @@ using Entidades;
 
 using Datos.ModelsEFCore;
 using Microsoft.EntityFrameworkCore;
+using Datos.Helpers;
 
 namespace Datos.Repositories
 {
@@ -19,28 +20,19 @@ namespace Datos.Repositories
             int Id = int.Parse(_Id);
             using (dbTransporteDRContext db = new dbTransporteDRContext())
             {
-                try
+                var historial_db = db.Historial.FirstOrDefault(x => x.Id == Id);
+
+                if (historial_db == null)
                 {
-                    var historial_db = db.Historial.FirstOrDefault(x => x.Id == Id);
-
-                    if (historial_db == null)
-                    {
-                        throw new Exception($"El historial con id {Id} no existe en la base de datos");
-                    }
-
-                    db.Historial.Remove(historial_db);
-
-                    db.SaveChanges();
-
-                    return true;
+                    throw new Exception(ExceptionMessageManager.ExceptionMessageHistorial.DoesNotExist(_Id));
                 }
-                catch (Exception ex)
-                {
-                    return false;
-                }
+
+                db.Historial.Remove(historial_db);
+
+                db.SaveChanges();
+
+                return true;
             }
-
-
         }
 
         public bool Exists(string ID)
@@ -110,22 +102,22 @@ namespace Datos.Repositories
                         obj_db.Eventualidad = obj.Eventualidad;
                     }
 
-                    if (!String.IsNullOrWhiteSpace(obj_db.Fecha.ToString()))
+                    if (!String.IsNullOrWhiteSpace(obj.Fecha.ToString()))
                     {
                         obj_db.Fecha = obj.Fecha;
                     }
 
-                    if (!String.IsNullOrWhiteSpace(obj_db.Lugar))
+                    if (!String.IsNullOrWhiteSpace(obj.Lugar))
                     {
                         obj_db.Lugar = obj.Lugar;
                     }
 
-                    if (!String.IsNullOrWhiteSpace(obj_db.DniConductor))
+                    if (!String.IsNullOrWhiteSpace(obj.DniConductor))
                     {
                         obj_db.DniConductor = obj.DniConductor;
                     }
 
-                    if (!String.IsNullOrWhiteSpace(obj_db.IdUnidad))
+                    if (!String.IsNullOrWhiteSpace(obj.IdUnidad))
                     {
                         obj_db.IdUnidad = obj.IdUnidad;
                     }
@@ -137,7 +129,7 @@ namespace Datos.Repositories
                 }
                 else
                 {
-                    throw new Exception($"El historial con id {obj.Id} no existe en la Base de Datos");
+                    throw new Exception(ExceptionMessageManager.ExceptionMessageHistorial.DoesNotExist(obj.Id.ToString()));
                 }
             }
         }

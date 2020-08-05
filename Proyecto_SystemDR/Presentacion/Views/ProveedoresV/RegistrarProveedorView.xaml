@@ -80,7 +80,7 @@
                 <Label Foreground="{StaticResource MainColorForeground}" Margin="10" Grid.Column="0">
                     <StackPanel>
                         <TextBlock Text="DNI" Margin="0 0 0 2" Style="{StaticResource h3-w}"/>
-                        <TextBox x:Name="TextBox_DNI" MinWidth="80" Style="{StaticResource StyleTextBox}" TabIndex="4" Text="{Binding Dni, Mode=TwoWay}" LostFocus="TextBox_DNI_LostFocus" />
+                        <TextBox x:Name="TextBox_DNI" MinWidth="80" Style="{StaticResource StyleTextBox}" TabIndex="4" Text="{Binding DniRl, Mode=TwoWay}" LostFocus="TextBox_DNI_LostFocus" />
                     </StackPanel>
                 </Label>
                 <Label Foreground="{StaticResource MainColorForeground}" Margin="10" Grid.Row="1" Grid.Column="0">

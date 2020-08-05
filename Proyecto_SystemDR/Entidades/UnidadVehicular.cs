@@ -41,7 +41,7 @@ namespace Entidades
         }
 
         private int? yFabricacion;
-        [StringLength(5, ErrorMessage = "Ingrese un año correcto, 4 digitos", MinimumLength = 4)]
+        
         [RegularExpression("^[0-9]+$", ErrorMessage = "Solo números")]
         public int? YFabricacion
         {

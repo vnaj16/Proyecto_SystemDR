@@ -148,10 +148,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\ExceptionMessageConductor.cs" />
+    <Compile Include="Helpers\ExceptionMessageHistorial.cs" />
+    <Compile Include="Helpers\ExceptionMessageManager.cs" />
+    <Compile Include="Helpers\ExceptionMessageCliente.cs" />
+    <Compile Include="Helpers\ExceptionMessageProveedor.cs" />
+    <Compile Include="Helpers\ExceptionMessageVehiculo.cs" />
     <Compile Include="Helpers\ExceptionRegisterer.cs" />
     <Compile Include="Interfaces\IClienteRepository.cs" />
     <Compile Include="Interfaces\IConductorRepository.cs" />
     <Compile Include="Interfaces\IEmpresaRepository.cs" />
+    <Compile Include="Interfaces\IExceptionMessage.cs" />
     <Compile Include="Interfaces\IHistorialRepository.cs" />
     <Compile Include="Interfaces\IPersonaRepository.cs" />
     <Compile Include="Interfaces\IProveedorRepository.cs" />
